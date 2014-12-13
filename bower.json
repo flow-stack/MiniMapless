@@ -1,0 +1,35 @@
+{
+    "name": "minimapless",
+    "description": "Mapless in the frontend!",
+    "version": "0.9.1",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "/test_runner.js",
+        "test",
+        "tests"
+    ],
+    "authors": [
+        {
+            "name": "Sebastian Sastre",
+            "email": "sebastian@flowingconcept.com"
+        }
+    ],
+    "homepage": "https://github.com/sebastian/minimapless",
+    "keywords": [
+        "Amber",
+        "Smalltalk"
+    ],
+    "license": [
+        "MIT"
+    ],
+    "private": false,
+    "dependencies": {
+        "amber": "^0.13.2"
+    },
+    "devDependencies": {
+        "amber-ide-starter-dialog": "^0.1.0",
+        "helios": "^0.3.0"
+    }
+}

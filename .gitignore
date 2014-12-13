@@ -1,0 +1,8 @@
+/node_modules/*
+/bower_components/*
+
+/test_runner.js
+
+/src/*.js
+/config.js
+/the.js
