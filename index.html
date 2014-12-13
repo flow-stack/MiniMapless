@@ -9,20 +9,25 @@
   </head>
 
   <body>
-  <p>Hi, Sebastian Sastre! Welcome to Amber project: "MiniMapless".</p>
-  <p>This is the place for your application's HTML. After getting familiar with Amber,
-      just remove this welcome contents from index.html and replace it with your own.</p>
-  <button id="amber-with">Hello from TagBrush >> with:</button>
-  <button id="jquery-append">Hello from jQuery append</button>
-  <ol id="output-list"></ol>
+  <h1>MiniMapless</h1>
+  <p>It's like <a href="sebastianconcept.github.io/Mapless" target="_blank()">Mapless</a> just in the frontend</p>
+
+    <a id="legacy"
+        onclick="require('amber/helpers').globals.Browser._open()"
+        style="position: fixed; bottom: 0; right: 0; opacity: 0.35">Legacy IDE</a>
+
+    <a id="helios"
+      onclick="require('amber/helpers').popupHelios()"
+      style="position: fixed; bottom: 0; right: 120px">Helios</a>
+
   <script type='text/javascript'>
       require(['app'], function (amber) {
           amber.initialize({
             //used for all new packages in IDE
             'transport.defaultAmdNamespace': "amber-minimapless"
           });
-          require(["amber-ide-starter-dialog"], function (dlg) { dlg.start(); });
-          amber.globals.Minimapless._start();
+          // require(["amber-ide-starter-dialog"], function (dlg) { dlg.start(); });
+          // amber.globals.Minimapless._start();
       });
   </script>
   </body>
