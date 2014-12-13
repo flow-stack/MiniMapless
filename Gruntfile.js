@@ -33,8 +33,8 @@ module.exports = function (grunt) {
             },
             all: {
                 src: [
-                    'src/Minimapless.st', // list all sources in dependency order
-                    'src/Minimapless-Tests.st' // list all tests in dependency order
+                    'src/MiniMapless.st', // list all sources in dependency order
+                    'src/MiniMapless-Tests.st' // list all tests in dependency order
                 ],
                 amd_namespace: 'amber-minimapless',
                 libraries: ['SUnit', 'Web']
@@ -43,9 +43,9 @@ module.exports = function (grunt) {
                 src: ['node_modules/amber-dev/lib/Test.st'],
                 libraries: [
                     /* add dependencies packages here */
-                    'Minimapless', /* add other code-to-test packages here */
+                    'MiniMapless', /* add other code-to-test packages here */
                     'SUnit',
-                    'Minimapless-Tests' /* add other test packages here */
+                    'MiniMapless-Tests' /* add other test packages here */
                 ],
                 main_class: 'NodeTestRunner',
                 output_name: 'test_runner'
