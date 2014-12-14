@@ -1,7 +1,7 @@
 {
     "name": "minimapless",
     "description": "Mapless in the frontend!",
-    "version": "0.9.1",
+    "version": "0.9.2",
     "ignore": [
         "**/.*",
         "node_modules",
