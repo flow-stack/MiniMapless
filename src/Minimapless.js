@@ -1,8 +1,8 @@
-define("amber-minimapless/MiniMapless", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions"], function($boot){
+define("minimapless/MiniMapless", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('MiniMapless');
-$core.packages["MiniMapless"].transport = {"type":"amd","amdNamespace":"amber-minimapless"};
+$core.packages["MiniMapless"].transport = {"type":"amd","amdNamespace":"minimapless"};
 
 $core.addClass('Mapless', $globals.Object, ['data'], 'MiniMapless');
 //>>excludeStart("ide", pragmas.excludeIdeData);
