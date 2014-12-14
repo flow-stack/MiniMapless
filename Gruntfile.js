@@ -36,7 +36,7 @@ module.exports = function (grunt) {
                     'src/MiniMapless.st', // list all sources in dependency order
                     'src/MiniMapless-Tests.st' // list all tests in dependency order
                 ],
-                amd_namespace: 'amber-minimapless',
+                amd_namespace: 'minimapless',
                 libraries: ['SUnit', 'Web']
             },
             test_runner: {

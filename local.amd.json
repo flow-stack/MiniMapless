@@ -1,5 +1,5 @@
 {
     "paths": {
-        "amber-minimapless": "src"
+        "minimapless": "src"
     }
 }

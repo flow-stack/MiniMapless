@@ -1,17 +1,27 @@
 # MiniMapless
 
-Mapless in the frontend!
+[Mapless](http://sebastianconcept.github.io/Mapless/) in the frontend!
+
+MiniMapless allows you to use Mapless locally supported by the [localStorage](https://developer.mozilla.org/en-US/docs/DOM/Storage) and remotely by a [flow](github.com/flow-stack/flow) or [Pharo](http://pharo.org/) RESTful backend or any other REST backend compatible with Mapless. 
+
+With MiniMapless, your Smalltalk objects in the [Amber](http://amber-lang.net/) frontend have a simple yet powerful way to get stored locally and remotely and also use them for (non-persistent) communication thanks to its super friendly JSON representation.
 
 ## Getting Started
 
-Brought project alive (for example after `git clone`):
+To add MiniMapless to your Amber project do:
 
-```sh
-npm install
-bower install
-grunt devel
-```
+`$ bower install minimapless --save`
 
-Developing the project (after brought alive):
- 
-Start server with `amber serve` and go to `http://localhost:4000/` in your browser and follow the instructions
+Then configure your `devel.json` and `deploy.json`
+
+Finally do:
+
+`$ grunt devel` 
+
+## Applicability
+
+Mapless are great for storing and reading objects from the localStorage in a really convenient way.
+
+Take a look into `Mapless-Tests` to see some basic functions.
+
+Ideas on how to improve it? This is MIT software, send your PR and change the world!
