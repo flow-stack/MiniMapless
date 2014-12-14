@@ -18,5 +18,10 @@ Finally do:
 
 `$ grunt devel` 
 
-`$ grunt`
+## Applicability
 
+Mapless are great for storing and reading objects from the localStorage in a really convenient way.
+
+Take a look into `Mapless-Tests` to see some basic functions.
+
+Ideas on how to improve it? This is MIT software, send your PR and change the world!
