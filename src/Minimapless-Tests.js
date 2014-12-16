@@ -4,10 +4,10 @@ var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('MiniMapless-Tests');
 $core.packages["MiniMapless-Tests"].transport = {"type":"amd","amdNamespace":"minimapless"};
 
-$core.addClass('MaplessLocalTest', $globals.TestCase, [], 'MiniMapless-Tests');
+$core.addClass('MaplessTest', $globals.TestCase, [], 'MiniMapless-Tests');
 $core.addMethod(
 $core.method({
-selector: "testFresh",
+selector: "testLocalFresh",
 protocol: 'tests',
 fn: function (){
 var self=this;
@@ -61,180 +61,21 @@ return self._assert_($recv($recv(loadedOne)._remember()).__eq((42)));
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testFresh",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessLocalTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLocalFresh",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testFresh\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 42.\x0a\x09createdOne localSave.\x0a\x09\x0a\x09self shouldnt: [\x0a\x09\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09\x09loadedOne remember: 'something'.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x09loadedOne localFresh.\x0a\x09\x09\x09self deny: loadedOne remember = 'something'.\x0a\x09\x09\x09self assert: loadedOne remember = 42.\x0a\x09\x09] raise: Error",
+source: "testLocalFresh\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 42.\x0a\x09createdOne localSave.\x0a\x09\x0a\x09self shouldnt: [\x0a\x09\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09\x09loadedOne remember: 'something'.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x09loadedOne localFresh.\x0a\x09\x09\x09self deny: loadedOne remember = 'something'.\x0a\x09\x09\x09self assert: loadedOne remember = 42.\x0a\x09\x09] raise: Error",
 referencedClasses: ["Thing", "Mapless", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["new", "remember:", "localSave", "shouldnt:raise:", "localFindId:", "id", "assert:", "=", "remember", "localFresh", "deny:"]
 }),
-$globals.MaplessLocalTest);
+$globals.MaplessTest);
 
 $core.addMethod(
 $core.method({
-selector: "testLocalUpdate",
-protocol: 'tests',
-fn: function (){
-var self=this;
-var createdOne,loadedOne;
-function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
-function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
-function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-var $3,$4,$2,$1,$7,$8,$6,$5,$9,$10,$12,$13,$11,$15,$14,$17,$16,$19,$18,$21,$20;
-createdOne=$recv($Thing())._new();
-$recv(createdOne)._remember_("something");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["remember:"]=1;
-//>>excludeEnd("ctx");
-$3=$recv(window)._localStorage();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["localStorage"]=1;
-//>>excludeEnd("ctx");
-$4=$recv(createdOne)._id();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["id"]=1;
-//>>excludeEnd("ctx");
-$2=$recv($3)._getItem_($4);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["getItem:"]=1;
-//>>excludeEnd("ctx");
-$1=$recv($2)._notNil();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["notNil"]=1;
-//>>excludeEnd("ctx");
-self._deny_($1);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["deny:"]=1;
-//>>excludeEnd("ctx");
-$recv(createdOne)._localSave();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["localSave"]=1;
-//>>excludeEnd("ctx");
-$7=$recv(window)._localStorage();
-$8=$recv(createdOne)._id();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["id"]=2;
-//>>excludeEnd("ctx");
-$6=$recv($7)._getItem_($8);
-$5=$recv($6)._notNil();
-self._assert_($5);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["assert:"]=1;
-//>>excludeEnd("ctx");
-self._shouldnt_raise_((function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-$9=$recv(createdOne)._id();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=3;
-//>>excludeEnd("ctx");
-loadedOne=$recv($Mapless())._localFindId_($9);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindId:"]=1;
-//>>excludeEnd("ctx");
-loadedOne;
-$10=$recv($recv(loadedOne)._class()).__eq($Thing());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["="]=1;
-//>>excludeEnd("ctx");
-self._assert_($10);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["assert:"]=2;
-//>>excludeEnd("ctx");
-$12=$recv(loadedOne)._id();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=4;
-//>>excludeEnd("ctx");
-$13=$recv(createdOne)._id();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=5;
-//>>excludeEnd("ctx");
-$11=$recv($12).__eq($13);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["="]=2;
-//>>excludeEnd("ctx");
-self._assert_($11);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["assert:"]=3;
-//>>excludeEnd("ctx");
-$15=$recv(loadedOne)._remember();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["remember"]=1;
-//>>excludeEnd("ctx");
-$14=$recv($15).__eq("something");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["="]=3;
-//>>excludeEnd("ctx");
-self._assert_($14);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["assert:"]=4;
-//>>excludeEnd("ctx");
-$17=$recv(loadedOne)._remember();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["remember"]=2;
-//>>excludeEnd("ctx");
-$16=$recv($17).__eq("else");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["="]=4;
-//>>excludeEnd("ctx");
-self._deny_($16);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["deny:"]=2;
-//>>excludeEnd("ctx");
-$recv(loadedOne)._remember_("else");
-$19=$recv(loadedOne)._remember();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["remember"]=3;
-//>>excludeEnd("ctx");
-$18=$recv($19).__eq("else");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["="]=5;
-//>>excludeEnd("ctx");
-self._assert_($18);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["assert:"]=5;
-//>>excludeEnd("ctx");
-$recv(loadedOne)._localSave();
-loadedOne=$recv($Mapless())._localFindId_($recv(createdOne)._id());
-loadedOne;
-$21=$recv(loadedOne)._remember();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["remember"]=4;
-//>>excludeEnd("ctx");
-$20=$recv($21).__eq("something");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["="]=6;
-//>>excludeEnd("ctx");
-self._deny_($20);
-return self._assert_($recv($recv(loadedOne)._remember()).__eq("else"));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
-//>>excludeEnd("ctx");
-}),$Error());
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLocalUpdate",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessLocalTest)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "testLocalUpdate\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09createdOne localSave.\x0a\x0a\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09\x09\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne id = createdOne id.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x09self deny: loadedOne remember = 'else'.\x0a\x09\x09\x09loadedOne remember: 'else'.\x0a\x09\x09\x09self assert: loadedOne remember = 'else'.\x0a\x09\x09\x09loadedOne localSave.\x0a\x09\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09\x09self deny: loadedOne remember = 'something'.\x0a\x09\x09\x09self assert: loadedOne remember = 'else'.\x0a\x09\x09] raise: Error",
-referencedClasses: ["Thing", "Mapless", "Error"],
-//>>excludeEnd("ide");
-messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "id", "localSave", "assert:", "shouldnt:raise:", "localFindId:", "=", "class", "remember"]
-}),
-$globals.MaplessLocalTest);
-
-$core.addMethod(
-$core.method({
-selector: "testSaveAndDelete",
+selector: "testLocalSaveAndDelete",
 protocol: 'tests',
 fn: function (){
 var self=this;
@@ -322,21 +163,21 @@ return self._assert_($recv($recv($Mapless())._localFindId_($recv(createdOne)._id
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSaveAndDelete",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessLocalTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLocalSaveAndDelete",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testSaveAndDelete\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09createdOne localSave.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x0a\x09\x09loadedOne localDelete.\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: createdOne id) isNil.\x0a\x09\x09] raise: Error",
+source: "testLocalSaveAndDelete\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09createdOne localSave.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x0a\x09\x09loadedOne localDelete.\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: createdOne id) isNil.\x0a\x09\x09] raise: Error",
 referencedClasses: ["Thing", "Mapless", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "id", "localSave", "shouldnt:raise:", "assert:", "localFindId:", "=", "remember", "localDelete", "isNil"]
 }),
-$globals.MaplessLocalTest);
+$globals.MaplessTest);
 
 $core.addMethod(
 $core.method({
-selector: "testSaveAndFindOne",
+selector: "testLocalSaveAndFindOne",
 protocol: 'tests',
 fn: function (){
 var self=this;
@@ -416,21 +257,21 @@ return self._assert_($recv($recv(loadedOne)._remember()).__eq("something"));
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSaveAndFindOne",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessLocalTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLocalSaveAndFindOne",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testSaveAndFindOne\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09createdOne localSave.\x0a\x0a\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne id = createdOne id.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09] raise: Error",
+source: "testLocalSaveAndFindOne\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09createdOne localSave.\x0a\x0a\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne id = createdOne id.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09] raise: Error",
 referencedClasses: ["Thing", "Mapless", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "id", "localSave", "assert:", "shouldnt:raise:", "localFindId:", "=", "class", "remember"]
 }),
-$globals.MaplessLocalTest);
+$globals.MaplessTest);
 
 $core.addMethod(
 $core.method({
-selector: "testSaveComposedMany",
+selector: "testLocalSaveComposedMany",
 protocol: 'tests',
 fn: function (){
 var self=this;
@@ -778,21 +619,21 @@ return self._assert_($recv($recv($Mapless())._localFindId_($recv(composed2)._id(
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSaveComposedMany",{createdOne:createdOne,composed1:composed1,composed2:composed2,loadedOne:loadedOne,part1:part1,part2:part2},$globals.MaplessLocalTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLocalSaveComposedMany",{createdOne:createdOne,composed1:composed1,composed2:composed2,loadedOne:loadedOne,part1:part1,part2:part2},$globals.MaplessTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testSaveComposedMany\x0a\x0a\x09| createdOne composed1 composed2 loadedOne part1 part2 |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09composed1 := Stuff new.\x0a\x09composed2 := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09composed1 localSave.\x0a\x09composed2 localSave.\x0a\x09createdOne\x0a\x09\x09parts: (Array new\x0a\x09\x09\x09\x09\x09add: composed1;\x0a\x09\x09\x09\x09\x09add: composed2;\x0a\x09\x09\x09\x09\x09yourself);\x0a\x09\x09localSave.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09part1 := Mapless localFindId: composed1 id.\x0a\x09\x09part2 := Mapless localFindId: composed2 id.\x0a\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09self assert: loadedOne parts first class = composed1 class.\x0a\x09\x09self assert: loadedOne parts first class = part1 class.\x0a\x09\x09self assert: loadedOne parts first id = part1 id.\x0a\x0a\x09\x09self assert: loadedOne parts second class = composed2 class.\x0a\x09\x09self assert: loadedOne parts second class = part2 class.\x0a\x09\x09self assert: loadedOne parts second id = part2 id.\x0a\x0a\x09\x09loadedOne localDelete.\x0a\x09\x09composed1 localDelete.\x0a\x09\x09composed2 localDelete.\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) isNil.\x0a\x09\x09self assert: (window localStorage getItem: composed1 id) isNil.\x0a\x09\x09self assert: (window localStorage getItem: composed2 id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: createdOne id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: composed1 id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: composed2 id) isNil.\x0a\x09\x09] raise: Error",
+source: "testLocalSaveComposedMany\x0a\x0a\x09| createdOne composed1 composed2 loadedOne part1 part2 |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09composed1 := Stuff new.\x0a\x09composed2 := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09composed1 localSave.\x0a\x09composed2 localSave.\x0a\x09createdOne\x0a\x09\x09parts: (Array new\x0a\x09\x09\x09\x09\x09add: composed1;\x0a\x09\x09\x09\x09\x09add: composed2;\x0a\x09\x09\x09\x09\x09yourself);\x0a\x09\x09localSave.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09part1 := Mapless localFindId: composed1 id.\x0a\x09\x09part2 := Mapless localFindId: composed2 id.\x0a\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09self assert: loadedOne parts first class = composed1 class.\x0a\x09\x09self assert: loadedOne parts first class = part1 class.\x0a\x09\x09self assert: loadedOne parts first id = part1 id.\x0a\x0a\x09\x09self assert: loadedOne parts second class = composed2 class.\x0a\x09\x09self assert: loadedOne parts second class = part2 class.\x0a\x09\x09self assert: loadedOne parts second id = part2 id.\x0a\x0a\x09\x09loadedOne localDelete.\x0a\x09\x09composed1 localDelete.\x0a\x09\x09composed2 localDelete.\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) isNil.\x0a\x09\x09self assert: (window localStorage getItem: composed1 id) isNil.\x0a\x09\x09self assert: (window localStorage getItem: composed2 id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: createdOne id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: composed1 id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: composed2 id) isNil.\x0a\x09\x09] raise: Error",
 referencedClasses: ["Thing", "Stuff", "Array", "Mapless", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "id", "localSave", "parts:", "add:", "yourself", "shouldnt:raise:", "assert:", "localFindId:", "=", "remember", "class", "first", "parts", "second", "localDelete", "isNil"]
 }),
-$globals.MaplessLocalTest);
+$globals.MaplessTest);
 
 $core.addMethod(
 $core.method({
-selector: "testSaveComposedOne",
+selector: "testLocalSaveComposedOne",
 protocol: 'tests',
 fn: function (){
 var self=this;
@@ -993,24 +834,228 @@ return self._assert_($recv($recv($Mapless())._localFindId_($recv(composedOne)._i
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSaveComposedOne",{createdOne:createdOne,composedOne:composedOne,loadedOne:loadedOne,part:part},$globals.MaplessLocalTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLocalSaveComposedOne",{createdOne:createdOne,composedOne:composedOne,loadedOne:loadedOne,part:part},$globals.MaplessTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testSaveComposedOne\x0a\x0a\x09| createdOne composedOne loadedOne part |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09composedOne := Stuff new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09composedOne localSave.\x0a\x09createdOne \x0a\x09\x09hasOneOf: composedOne;\x0a\x09\x09localSave.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09part := Mapless localFindId: composedOne id.\x0a\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09self assert: loadedOne hasOneOf class = composedOne class.\x0a\x09\x09self assert: loadedOne hasOneOf class = part class.\x0a\x09\x09self assert: loadedOne hasOneOf id = part id.\x0a\x09\x09\x0a\x09\x09loadedOne localDelete.\x0a\x09\x09composedOne localDelete.\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) isNil.\x0a\x09\x09self assert: (window localStorage getItem: composedOne id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: createdOne id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: composedOne id) isNil.\x0a\x09\x09] raise: Error",
+source: "testLocalSaveComposedOne\x0a\x0a\x09| createdOne composedOne loadedOne part |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09composedOne := Stuff new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09composedOne localSave.\x0a\x09createdOne \x0a\x09\x09hasOneOf: composedOne;\x0a\x09\x09localSave.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09part := Mapless localFindId: composedOne id.\x0a\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09self assert: loadedOne hasOneOf class = composedOne class.\x0a\x09\x09self assert: loadedOne hasOneOf class = part class.\x0a\x09\x09self assert: loadedOne hasOneOf id = part id.\x0a\x09\x09\x0a\x09\x09loadedOne localDelete.\x0a\x09\x09composedOne localDelete.\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) isNil.\x0a\x09\x09self assert: (window localStorage getItem: composedOne id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: createdOne id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: composedOne id) isNil.\x0a\x09\x09] raise: Error",
 referencedClasses: ["Thing", "Stuff", "Mapless", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "id", "localSave", "hasOneOf:", "shouldnt:raise:", "assert:", "localFindId:", "=", "remember", "class", "hasOneOf", "localDelete", "isNil"]
 }),
-$globals.MaplessLocalTest);
+$globals.MaplessTest);
 
-
-
-$core.addClass('MaplessRemoteTest', $globals.TestCase, [], 'MiniMapless-Tests');
 $core.addMethod(
 $core.method({
-selector: "testCreate",
+selector: "testLocalUpdate",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var createdOne,loadedOne;
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $3,$4,$2,$1,$7,$8,$6,$5,$9,$10,$12,$13,$11,$15,$14,$17,$16,$19,$18,$21,$20;
+createdOne=$recv($Thing())._new();
+$recv(createdOne)._remember_("something");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["remember:"]=1;
+//>>excludeEnd("ctx");
+$3=$recv(window)._localStorage();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["localStorage"]=1;
+//>>excludeEnd("ctx");
+$4=$recv(createdOne)._id();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["id"]=1;
+//>>excludeEnd("ctx");
+$2=$recv($3)._getItem_($4);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["getItem:"]=1;
+//>>excludeEnd("ctx");
+$1=$recv($2)._notNil();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["notNil"]=1;
+//>>excludeEnd("ctx");
+self._deny_($1);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=1;
+//>>excludeEnd("ctx");
+$recv(createdOne)._localSave();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["localSave"]=1;
+//>>excludeEnd("ctx");
+$7=$recv(window)._localStorage();
+$8=$recv(createdOne)._id();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["id"]=2;
+//>>excludeEnd("ctx");
+$6=$recv($7)._getItem_($8);
+$5=$recv($6)._notNil();
+self._assert_($5);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+self._shouldnt_raise_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$9=$recv(createdOne)._id();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["id"]=3;
+//>>excludeEnd("ctx");
+loadedOne=$recv($Mapless())._localFindId_($9);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["localFindId:"]=1;
+//>>excludeEnd("ctx");
+loadedOne;
+$10=$recv($recv(loadedOne)._class()).__eq($Thing());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["="]=1;
+//>>excludeEnd("ctx");
+self._assert_($10);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+$12=$recv(loadedOne)._id();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["id"]=4;
+//>>excludeEnd("ctx");
+$13=$recv(createdOne)._id();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["id"]=5;
+//>>excludeEnd("ctx");
+$11=$recv($12).__eq($13);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["="]=2;
+//>>excludeEnd("ctx");
+self._assert_($11);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["assert:"]=3;
+//>>excludeEnd("ctx");
+$15=$recv(loadedOne)._remember();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["remember"]=1;
+//>>excludeEnd("ctx");
+$14=$recv($15).__eq("something");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["="]=3;
+//>>excludeEnd("ctx");
+self._assert_($14);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["assert:"]=4;
+//>>excludeEnd("ctx");
+$17=$recv(loadedOne)._remember();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["remember"]=2;
+//>>excludeEnd("ctx");
+$16=$recv($17).__eq("else");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["="]=4;
+//>>excludeEnd("ctx");
+self._deny_($16);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["deny:"]=2;
+//>>excludeEnd("ctx");
+$recv(loadedOne)._remember_("else");
+$19=$recv(loadedOne)._remember();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["remember"]=3;
+//>>excludeEnd("ctx");
+$18=$recv($19).__eq("else");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["="]=5;
+//>>excludeEnd("ctx");
+self._assert_($18);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["assert:"]=5;
+//>>excludeEnd("ctx");
+$recv(loadedOne)._localSave();
+loadedOne=$recv($Mapless())._localFindId_($recv(createdOne)._id());
+loadedOne;
+$21=$recv(loadedOne)._remember();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["remember"]=4;
+//>>excludeEnd("ctx");
+$20=$recv($21).__eq("something");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["="]=6;
+//>>excludeEnd("ctx");
+self._deny_($20);
+return self._assert_($recv($recv(loadedOne)._remember()).__eq("else"));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}),$Error());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testLocalUpdate",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testLocalUpdate\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09createdOne localSave.\x0a\x0a\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09\x09\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne id = createdOne id.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x09self deny: loadedOne remember = 'else'.\x0a\x09\x09\x09loadedOne remember: 'else'.\x0a\x09\x09\x09self assert: loadedOne remember = 'else'.\x0a\x09\x09\x09loadedOne localSave.\x0a\x09\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09\x09self deny: loadedOne remember = 'something'.\x0a\x09\x09\x09self assert: loadedOne remember = 'else'.\x0a\x09\x09] raise: Error",
+referencedClasses: ["Thing", "Mapless", "Error"],
+//>>excludeEnd("ide");
+messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "id", "localSave", "assert:", "shouldnt:raise:", "localFindId:", "=", "class", "remember"]
+}),
+$globals.MaplessTest);
+
+$core.addMethod(
+$core.method({
+selector: "testPath",
+protocol: 'tests',
+fn: function (){
+var self=this;
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $2,$1,$4,$3;
+$2=$recv($Thing())._path();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["path"]=1;
+//>>excludeEnd("ctx");
+$1=$recv($2).__eq("api/1.0/thing");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=1;
+//>>excludeEnd("ctx");
+self._deny_($1);
+$4=$recv($Thing())._path();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["path"]=2;
+//>>excludeEnd("ctx");
+$3=$recv($4).__eq("api/1.0/things");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=2;
+//>>excludeEnd("ctx");
+self._assert_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+self._assert_($recv($recv($Stuff())._path()).__eq("api/1.0/stuff"));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testPath",{},$globals.MaplessTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testPath\x0a\x0a\x09self deny: Thing path = 'api/1.0/thing'.\x0a\x09self assert: Thing path = 'api/1.0/things'.\x0a\x0a\x09\x22ok, but what about irregulars?\x22\x0a\x09self assert: Stuff path = 'api/1.0/stuff'.",
+referencedClasses: ["Thing", "Stuff"],
+//>>excludeEnd("ide");
+messageSends: ["deny:", "=", "path", "assert:"]
+}),
+$globals.MaplessTest);
+
+$core.addMethod(
+$core.method({
+selector: "testRemoteCreate",
 protocol: 'tests',
 fn: function (){
 var self=this;
@@ -1023,7 +1068,7 @@ return $core.withContext(function($ctx1) {
 var $2,$1;
 createdOne=$recv($Thing())._new();
 $recv(createdOne)._remember_("something");
-$recv(createdOne)._createDo_((function(res){
+$recv(createdOne)._createThen_((function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1051,7 +1096,7 @@ $ctx3.sendIdx["assert:"]=1;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
 }),$MaplessError());
-return $recv(createdOne)._createDo_((function(resp){
+return $recv(createdOne)._createThen_((function(resp){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
@@ -1081,25 +1126,25 @@ return self._assert_($recv($recv(resp)._status()).__eq((409)));
 //>>excludeEnd("ctx");
 }));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["createDo:"]=1;
+$ctx1.sendIdx["createThen:"]=1;
 //>>excludeEnd("ctx");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCreate",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessRemoteTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoteCreate",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testCreate\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x09\x0a\x09createdOne createDo:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterCreated: res.\x0a\x09\x09\x09\x09self assert: res status = 201 ]\x0a\x09\x09\x09raise: MaplessError. \x0a\x0a\x09\x09createdOne createDo:[ :resp |\x0a\x09\x09[ createdOne onAfterCreated: resp ]\x0a\x09\x09\x09on: MaplessError\x0a\x09\x09\x09do:[ :x | self assert: resp status = 409 ] ]\x0a\x09].",
+source: "testRemoteCreate\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x09\x0a\x09createdOne createThen:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterCreated: res.\x0a\x09\x09\x09\x09self assert: res status = 201 ]\x0a\x09\x09\x09raise: MaplessError. \x0a\x0a\x09\x09createdOne createThen:[ :resp |\x0a\x09\x09[ createdOne onAfterCreated: resp ]\x0a\x09\x09\x09on: MaplessError\x0a\x09\x09\x09do:[ :x | self assert: resp status = 409 ] ]\x0a\x09].",
 referencedClasses: ["Thing", "MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["new", "remember:", "createDo:", "shouldnt:raise:", "onAfterCreated:", "assert:", "=", "status", "on:do:"]
+messageSends: ["new", "remember:", "createThen:", "shouldnt:raise:", "onAfterCreated:", "assert:", "=", "status", "on:do:"]
 }),
-$globals.MaplessRemoteTest);
+$globals.MaplessTest);
 
 $core.addMethod(
 $core.method({
-selector: "testDelete",
+selector: "testRemoteDelete",
 protocol: 'tests',
 fn: function (){
 var self=this;
@@ -1112,7 +1157,7 @@ return $core.withContext(function($ctx1) {
 var $2,$1,$4,$3;
 createdOne=$recv($Thing())._new();
 $recv(createdOne)._remember_("something");
-$recv(createdOne)._createDo_((function(res){
+$recv(createdOne)._createThen_((function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1137,7 +1182,7 @@ $ctx3.sendIdx["assert:"]=1;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
 }),$MaplessError());
-$recv(createdOne)._deleteDo_((function(resp){
+$recv(createdOne)._deleteThen_((function(resp){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
@@ -1155,7 +1200,7 @@ return self._assert_($3);
 }, function($ctx3) {$ctx3.fillBlock({resp:resp},$ctx2,3)});
 //>>excludeEnd("ctx");
 }));
-return $recv($Thing())._findId_do_($recv(createdOne)._id(),(function(response){
+return $recv($Thing())._findId_then_($recv(createdOne)._id(),(function(response){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
@@ -1170,21 +1215,21 @@ return $recv($recv(response)._status()).__eq((404));
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDelete",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessRemoteTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoteDelete",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testDelete\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x09\x0a\x09createdOne createDo:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterCreated: res.\x0a\x09\x09\x09\x09self assert: res status = 201 ]\x0a\x09\x09\x09raise: MaplessError. \x0a\x0a\x09\x09createdOne deleteDo:[ :resp |\x0a\x09\x09\x09createdOne onAfterDeleted: resp.\x0a\x09\x09\x09self assert: resp status = 200 ].\x09\x0a\x09\x09\x09\x0a\x09\x09Thing findId: createdOne id do:[ :response |\x0a\x09\x09\x09response status = 404 ]\x0a\x09].",
+source: "testRemoteDelete\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x09\x0a\x09createdOne createThen:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterCreated: res.\x0a\x09\x09\x09\x09self assert: res status = 201 ]\x0a\x09\x09\x09raise: MaplessError. \x0a\x0a\x09\x09createdOne deleteThen:[ :resp |\x0a\x09\x09\x09createdOne onAfterDeleted: resp.\x0a\x09\x09\x09self assert: resp status = 200 ].\x09\x0a\x09\x09\x09\x0a\x09\x09Thing findId: createdOne id then:[ :response |\x0a\x09\x09\x09response status = 404 ]\x0a\x09].",
 referencedClasses: ["Thing", "MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["new", "remember:", "createDo:", "shouldnt:raise:", "onAfterCreated:", "assert:", "=", "status", "deleteDo:", "onAfterDeleted:", "findId:do:", "id"]
+messageSends: ["new", "remember:", "createThen:", "shouldnt:raise:", "onAfterCreated:", "assert:", "=", "status", "deleteThen:", "onAfterDeleted:", "findId:then:", "id"]
 }),
-$globals.MaplessRemoteTest);
+$globals.MaplessTest);
 
 $core.addMethod(
 $core.method({
-selector: "testRead",
+selector: "testRemoteRead",
 protocol: 'tests',
 fn: function (){
 var self=this;
@@ -1200,7 +1245,7 @@ $1=createdOne;
 $recv($1)._remember_("something");
 $recv($1)._remarkable_("today");
 $2=$recv($1)._youself();
-$recv(createdOne)._createDo_((function(res){
+$recv(createdOne)._createThen_((function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1221,11 +1266,11 @@ $ctx3.sendIdx["assert:"]=1;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
 }),$MaplessError());
-return $recv($Thing())._findId_do_($recv(createdOne)._id(),(function(response){
+return $recv($Thing())._findId_then_($recv(createdOne)._id(),(function(aThing){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-loadedOne=$recv($Thing())._onAfterRead_(response);
+loadedOne=aThing;
 loadedOne;
 $4=$recv($recv(loadedOne)._class()).__eq($Thing());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1245,7 +1290,7 @@ $ctx3.sendIdx["assert:"]=3;
 //>>excludeEnd("ctx");
 return self._assert_($recv($recv(loadedOne)._remarkable()).__eq("today"));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx3) {$ctx3.fillBlock({response:response},$ctx2,3)});
+}, function($ctx3) {$ctx3.fillBlock({aThing:aThing},$ctx2,3)});
 //>>excludeEnd("ctx");
 }));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1254,21 +1299,21 @@ return self._assert_($recv($recv(loadedOne)._remarkable()).__eq("today"));
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRead",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessRemoteTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoteRead",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testRead\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne \x0a\x09\x09remember: 'something';\x0a\x09\x09remarkable: 'today';\x0a\x09\x09youself.\x0a\x09\x09\x0a\x09createdOne createDo:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterCreated: res.\x0a\x09\x09\x09\x09self assert: res status = 201 ]\x0a\x09\x09\x09raise: MaplessError. \x0a\x09\x09\x09\x0a\x09\x09Thing findId: createdOne id do:[ :response | \x0a\x09\x09\x09loadedOne := Thing onAfterRead: response.\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x09self assert: loadedOne remarkable = 'today'\x0a\x09\x09]\x0a\x09].",
+source: "testRemoteRead\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne \x0a\x09\x09remember: 'something';\x0a\x09\x09remarkable: 'today';\x0a\x09\x09youself.\x0a\x09\x09\x0a\x09createdOne createThen:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterCreated: res.\x0a\x09\x09\x09\x09self assert: res status = 201 ]\x0a\x09\x09\x09raise: MaplessError. \x0a\x09\x09\x09\x0a\x09\x09Thing findId: createdOne id then:[ :aThing | \x0a\x09\x09\x09loadedOne := aThing.\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x09self assert: loadedOne remarkable = 'today'\x0a\x09\x09]\x0a\x09].",
 referencedClasses: ["Thing", "MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["new", "remember:", "remarkable:", "youself", "createDo:", "shouldnt:raise:", "onAfterCreated:", "assert:", "=", "status", "findId:do:", "id", "onAfterRead:", "class", "remember", "remarkable"]
+messageSends: ["new", "remember:", "remarkable:", "youself", "createThen:", "shouldnt:raise:", "onAfterCreated:", "assert:", "=", "status", "findId:then:", "id", "class", "remember", "remarkable"]
 }),
-$globals.MaplessRemoteTest);
+$globals.MaplessTest);
 
 $core.addMethod(
 $core.method({
-selector: "testReadAll",
+selector: "testRemoteReadAll",
 protocol: 'tests',
 fn: function (){
 var self=this;
@@ -1284,7 +1329,7 @@ $1=createdOne;
 $recv($1)._remember_("something");
 $recv($1)._remarkable_("today");
 $2=$recv($1)._youself();
-$recv(createdOne)._createDo_((function(res){
+$recv(createdOne)._createThen_((function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1305,11 +1350,11 @@ $ctx3.sendIdx["assert:"]=1;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
 }),$MaplessError());
-return $recv($Thing())._findAllDo_((function(response){
+return $recv($Thing())._findAllThen_((function(someThings){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-loadedOnes=$recv($Thing())._onAfterReadAll_(response);
+loadedOnes=someThings;
 loadedOnes;
 $4=$recv(loadedOnes)._allSatisfy_((function(e){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1379,7 +1424,7 @@ return $recv(e).__eq(createdOne);
 //>>excludeEnd("ctx");
 })));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx3) {$ctx3.fillBlock({response:response},$ctx2,3)});
+}, function($ctx3) {$ctx3.fillBlock({someThings:someThings},$ctx2,3)});
 //>>excludeEnd("ctx");
 }));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1388,21 +1433,21 @@ return $recv(e).__eq(createdOne);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testReadAll",{createdOne:createdOne,loadedOnes:loadedOnes},$globals.MaplessRemoteTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoteReadAll",{createdOne:createdOne,loadedOnes:loadedOnes},$globals.MaplessTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testReadAll\x0a\x0a\x09| createdOne loadedOnes |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne \x0a\x09\x09remember: 'something';\x0a\x09\x09remarkable: 'today';\x0a\x09\x09youself.\x0a\x09\x09\x0a\x09createdOne createDo:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterCreated: res.\x0a\x09\x09\x09\x09self assert: res status = 201 ]\x0a\x09\x09\x09raise: MaplessError. \x0a\x09\x0a\x09\x09Thing findAllDo:[ :response |\x0a\x09\x09\x09loadedOnes := Thing onAfterReadAll: response.\x0a\x09\x09\x09self assert: (loadedOnes allSatisfy:[ :e | e class = Thing ]).\x0a\x09\x09\x09self assert: (loadedOnes allSatisfy:[ :e | e id notNil ]).\x0a\x09\x09\x09self assert: (loadedOnes anySatisfy:[ :e | e id = createdOne id ]).\x0a\x09\x09\x09self assert: (loadedOnes anySatisfy:[ :e | e = createdOne ]).\x0a\x09\x09\x09].\x0a\x09]",
+source: "testRemoteReadAll\x0a\x0a\x09| createdOne loadedOnes |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne \x0a\x09\x09remember: 'something';\x0a\x09\x09remarkable: 'today';\x0a\x09\x09youself.\x0a\x09\x09\x0a\x09createdOne createThen:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterCreated: res.\x0a\x09\x09\x09\x09self assert: res status = 201 ]\x0a\x09\x09\x09raise: MaplessError. \x0a\x09\x0a\x09\x09Thing findAllThen:[ :someThings |\x0a\x09\x09\x09loadedOnes := someThings.\x0a\x09\x09\x09self assert: (loadedOnes allSatisfy:[ :e | e class = Thing ]).\x0a\x09\x09\x09self assert: (loadedOnes allSatisfy:[ :e | e id notNil ]).\x0a\x09\x09\x09self assert: (loadedOnes anySatisfy:[ :e | e id = createdOne id ]).\x0a\x09\x09\x09self assert: (loadedOnes anySatisfy:[ :e | e = createdOne ]).\x0a\x09\x09\x09].\x0a\x09]",
 referencedClasses: ["Thing", "MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["new", "remember:", "remarkable:", "youself", "createDo:", "shouldnt:raise:", "onAfterCreated:", "assert:", "=", "status", "findAllDo:", "onAfterReadAll:", "allSatisfy:", "class", "notNil", "id", "anySatisfy:"]
+messageSends: ["new", "remember:", "remarkable:", "youself", "createThen:", "shouldnt:raise:", "onAfterCreated:", "assert:", "=", "status", "findAllThen:", "allSatisfy:", "class", "notNil", "id", "anySatisfy:"]
 }),
-$globals.MaplessRemoteTest);
+$globals.MaplessTest);
 
 $core.addMethod(
 $core.method({
-selector: "testReadSome",
+selector: "testRemoteReadSome",
 protocol: 'tests',
 fn: function (){
 var self=this;
@@ -1417,7 +1462,7 @@ createdOne=$recv($Thing())._new();
 $1=createdOne;
 $recv($1)._remember_("some");
 $2=$recv($1)._youself();
-$recv(createdOne)._createDo_((function(res){
+$recv(createdOne)._createThen_((function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1440,11 +1485,11 @@ $ctx3.sendIdx["assert:"]=1;
 }),$MaplessError());
 query="{\x22remember\x22:\x22some\x22}";
 query;
-return $recv($Thing())._find_do_(query,(function(response){
+return $recv($Thing())._find_then_(query,(function(response){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-loadedOnes=$recv($Thing())._onAfterReadSome_(response);
+loadedOnes=$recv($Thing())._fromResponse_(response);
 loadedOnes;
 $4=$recv(loadedOnes)._allSatisfy_((function(e){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1523,21 +1568,21 @@ return $recv(e).__eq(createdOne);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testReadSome",{createdOne:createdOne,query:query,loadedOnes:loadedOnes},$globals.MaplessRemoteTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoteReadSome",{createdOne:createdOne,query:query,loadedOnes:loadedOnes},$globals.MaplessTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testReadSome\x0a\x0a\x09| createdOne query loadedOnes |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne \x0a\x09\x09remember: 'some';\x0a\x09\x09youself.\x0a\x09\x09\x0a\x09createdOne createDo:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterCreated: res.\x0a\x09\x09\x09\x09self assert: res status = 201 ]\x0a\x09\x09\x09raise: MaplessError. \x0a\x0a\x09\x09query := '{\x22remember\x22:\x22some\x22}'.\x0a\x09\x09\x0a\x09\x09Thing find: query do:[ :response |\x0a\x09\x09\x09loadedOnes := Thing onAfterReadSome: response.\x0a\x09\x09\x09self assert: (loadedOnes allSatisfy:[ :e | e class = Thing ]).\x0a\x09\x09\x09self assert: (loadedOnes allSatisfy:[ :e | e id notNil ]).\x0a\x09\x09\x09self assert: (loadedOnes anySatisfy:[ :e | e id = createdOne id ]).\x0a\x09\x09\x09self assert: (loadedOnes anySatisfy:[ :e | e = createdOne ]).\x0a\x09\x09\x09].\x0a\x09]",
+source: "testRemoteReadSome\x0a\x0a\x09| createdOne query loadedOnes |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne \x0a\x09\x09remember: 'some';\x0a\x09\x09youself.\x0a\x09\x09\x0a\x09createdOne createThen:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterCreated: res.\x0a\x09\x09\x09\x09self assert: res status = 201 ]\x0a\x09\x09\x09raise: MaplessError. \x0a\x0a\x09\x09query := '{\x22remember\x22:\x22some\x22}'.\x0a\x09\x09\x0a\x09\x09Thing find: query then:[ :response |\x0a\x09\x09\x09loadedOnes := Thing fromResponse: response.\x0a\x09\x09\x09self assert: (loadedOnes allSatisfy:[ :e | e class = Thing ]).\x0a\x09\x09\x09self assert: (loadedOnes allSatisfy:[ :e | e id notNil ]).\x0a\x09\x09\x09self assert: (loadedOnes anySatisfy:[ :e | e id = createdOne id ]).\x0a\x09\x09\x09self assert: (loadedOnes anySatisfy:[ :e | e = createdOne ]).\x0a\x09\x09\x09].\x0a\x09]",
 referencedClasses: ["Thing", "MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["new", "remember:", "youself", "createDo:", "shouldnt:raise:", "onAfterCreated:", "assert:", "=", "status", "find:do:", "onAfterReadSome:", "allSatisfy:", "class", "notNil", "id", "anySatisfy:"]
+messageSends: ["new", "remember:", "youself", "createThen:", "shouldnt:raise:", "onAfterCreated:", "assert:", "=", "status", "find:then:", "fromResponse:", "allSatisfy:", "class", "notNil", "id", "anySatisfy:"]
 }),
-$globals.MaplessRemoteTest);
+$globals.MaplessTest);
 
 $core.addMethod(
 $core.method({
-selector: "testSave",
+selector: "testRemoteSave",
 protocol: 'tests',
 fn: function (){
 var self=this;
@@ -1553,7 +1598,7 @@ $1=createdOne;
 $recv($1)._thereIs_("noMap");
 $recv($1)._in_("mapless");
 $2=$recv($1)._yourself();
-$recv(createdOne)._saveDo_((function(res){
+$recv(createdOne)._saveThen_((function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1578,7 +1623,7 @@ $ctx3.sendIdx["assert:"]=1;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
 }),$MaplessError());
-$recv(createdOne)._createDo_((function(resp){
+$recv(createdOne)._createThen_((function(resp){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
@@ -1610,11 +1655,11 @@ $ctx4.sendIdx["assert:"]=2;
 }, function($ctx3) {$ctx3.fillBlock({resp:resp},$ctx2,3)});
 //>>excludeEnd("ctx");
 }));
-return $recv($Thing())._findId_do_($recv(createdOne)._id(),(function(response){
+return $recv($Thing())._findId_then_($recv(createdOne)._id(),(function(response){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-loadedOne=$recv($Thing())._onAfterRead_(response);
+loadedOne=$recv($Thing())._fromResponse_(response);
 loadedOne;
 $6=$recv($recv(loadedOne)._class()).__eq($Thing());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1643,21 +1688,21 @@ return self._assert_($recv($recv(loadedOne)._in()).__eq("mapless"));
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSave",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessRemoteTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoteSave",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testSave\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne \x0a\x09\x09thereIs: 'noMap';\x0a\x09\x09in: 'mapless';\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09createdOne saveDo:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterSaved: res.\x0a\x09\x09\x09\x09self assert: res status = 200 ]\x0a\x09\x09\x09raise: MaplessError.\x0a\x0a\x09\x09createdOne createDo:[ :resp |\x0a\x09\x09[ createdOne onAfterCreated: resp ]\x0a\x09\x09\x09on: MaplessError\x0a\x09\x09\x09do:[ :x | self assert: resp status = 409 ] ].\x0a\x09\x09\x0a\x09\x09Thing findId: createdOne id do:[ :response | \x0a\x09\x09\x09loadedOne := Thing onAfterRead: response.\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne thereIs = 'noMap'.\x0a\x09\x09\x09self assert: loadedOne in = 'mapless'\x0a\x09\x09]\x0a\x09].",
+source: "testRemoteSave\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne \x0a\x09\x09thereIs: 'noMap';\x0a\x09\x09in: 'mapless';\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09createdOne saveThen:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterSaved: res.\x0a\x09\x09\x09\x09self assert: res status = 200 ]\x0a\x09\x09\x09raise: MaplessError.\x0a\x0a\x09\x09createdOne createThen:[ :resp |\x0a\x09\x09[ createdOne onAfterCreated: resp ]\x0a\x09\x09\x09on: MaplessError\x0a\x09\x09\x09do:[ :x | self assert: resp status = 409 ] ].\x0a\x09\x09\x0a\x09\x09Thing findId: createdOne id then:[ :response | \x0a\x09\x09\x09loadedOne := Thing fromResponse: response.\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne thereIs = 'noMap'.\x0a\x09\x09\x09self assert: loadedOne in = 'mapless'\x0a\x09\x09]\x0a\x09].",
 referencedClasses: ["Thing", "MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["new", "thereIs:", "in:", "yourself", "saveDo:", "shouldnt:raise:", "onAfterSaved:", "assert:", "=", "status", "createDo:", "on:do:", "onAfterCreated:", "findId:do:", "id", "onAfterRead:", "class", "thereIs", "in"]
+messageSends: ["new", "thereIs:", "in:", "yourself", "saveThen:", "shouldnt:raise:", "onAfterSaved:", "assert:", "=", "status", "createThen:", "on:do:", "onAfterCreated:", "findId:then:", "id", "fromResponse:", "class", "thereIs", "in"]
 }),
-$globals.MaplessRemoteTest);
+$globals.MaplessTest);
 
 $core.addMethod(
 $core.method({
-selector: "testUpdate",
+selector: "testRemoteUpdate",
 protocol: 'tests',
 fn: function (){
 var self=this;
@@ -1673,7 +1718,7 @@ $recv(createdOne)._thereIs_("noMap");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["thereIs:"]=1;
 //>>excludeEnd("ctx");
-$recv(createdOne)._saveDo_((function(res){
+$recv(createdOne)._saveThen_((function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1698,7 +1743,7 @@ $ctx3.sendIdx["assert:"]=1;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
 }),$MaplessError());
-$recv(createdOne)._createDo_((function(resp){
+$recv(createdOne)._createThen_((function(resp){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
@@ -1734,13 +1779,13 @@ $4=$recv(createdOne)._id();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["id"]=1;
 //>>excludeEnd("ctx");
-return $recv($Thing())._findId_do_($4,(function(response){
+return $recv($Thing())._findId_then_($4,(function(response){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-loadedOne=$recv($Thing())._onAfterRead_(response);
+loadedOne=$recv($Thing())._fromResponse_(response);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx3.sendIdx["onAfterRead:"]=1;
+$ctx3.sendIdx["fromResponse:"]=1;
 //>>excludeEnd("ctx");
 loadedOne;
 $5=$recv($recv(loadedOne)._class()).__eq($Thing());
@@ -1797,11 +1842,11 @@ $12=$recv(loadedOne)._id();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx4.sendIdx["id"]=2;
 //>>excludeEnd("ctx");
-return $recv($Thing())._findId_do_($12,(function(aResp){
+return $recv($Thing())._findId_then_($12,(function(aResp){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx5) {
 //>>excludeEnd("ctx");
-updatedOne=$recv($Thing())._onAfterRead_(aResp);
+updatedOne=$recv($Thing())._fromResponse_(aResp);
 updatedOne;
 $14=$recv(updatedOne)._id();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1891,79 +1936,25 @@ return self._assert_($25);
 //>>excludeEnd("ctx");
 }));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["findId:do:"]=1;
+$ctx2.sendIdx["findId:then:"]=1;
 //>>excludeEnd("ctx");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({res:res},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["saveDo:"]=1;
-//>>excludeEnd("ctx");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testUpdate",{createdOne:createdOne,loadedOne:loadedOne,updatedOne:updatedOne},$globals.MaplessRemoteTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoteUpdate",{createdOne:createdOne,loadedOne:loadedOne,updatedOne:updatedOne},$globals.MaplessTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testUpdate\x0a\x0a\x09| createdOne loadedOne updatedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne thereIs: 'noMap'.\x0a\x09\x09\x0a\x09createdOne saveDo:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterSaved: res.\x0a\x09\x09\x09\x09self assert: res status = 200 ]\x0a\x09\x09\x09raise: MaplessError.\x0a\x0a\x09\x09createdOne createDo:[ :resp |\x0a\x09\x09[ createdOne onAfterCreated: resp ]\x0a\x09\x09\x09on: MaplessError\x0a\x09\x09\x09do:[ :x | self assert: resp status = 409 ] ].\x0a\x09\x09\x0a\x09\x09Thing findId: createdOne id do:[ :response | \x0a\x09\x09\x09loadedOne := Thing onAfterRead: response.\x09\x09\x09\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne thereIs = 'noMap'.\x0a\x0a\x09\x09\x09loadedOne thereIs: 'LOLWAT?'.\x0a\x09\x09\x09self assert: createdOne thereIs = 'noMap'.\x0a\x09\x09\x09self assert: loadedOne thereIs = 'LOLWAT?'.\x0a\x09\x09\x0a\x09\x09\x09loadedOne saveDo:[ :aResponse | loadedOne onAfterSave: aResponse.\x0a\x09\x09\x09\x09Thing findId: loadedOne id do:[ :aResp |\x0a\x09\x09\x09\x09\x09updatedOne := Thing onAfterRead: aResp.\x0a\x09\x09\x09\x09\x09self assert: updatedOne id = loadedOne id.\x0a\x09\x09\x09\x09\x09self assert: updatedOne id = createdOne id.\x0a\x09\x09\x09\x09\x09self assert: updatedOne thereIs = 'LOLWAT?'.\x0a\x09\x09\x09\x09\x09self assert: updatedOne = loadedOne.\x0a\x09\x09\x09\x09\x09self assert: createdOne = updatedOne.\x0a\x09\x09\x09\x09\x09self deny: createdOne thereIs = updatedOne thereIs.\x0a\x09\x09\x09\x09\x09self assert: loadedOne thereIs = updatedOne thereIs.\x0a\x09\x09\x09\x09] \x0a\x09\x09\x09]\x0a\x09\x09].\x0a\x09]",
+source: "testRemoteUpdate\x0a\x0a\x09| createdOne loadedOne updatedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne thereIs: 'noMap'.\x0a\x09\x09\x0a\x09createdOne saveThen:[ :res |\x0a\x09\x09self shouldnt: [\x0a\x09\x09\x09\x09createdOne onAfterSaved: res.\x0a\x09\x09\x09\x09self assert: res status = 200 ]\x0a\x09\x09\x09raise: MaplessError.\x0a\x0a\x09\x09createdOne createThen:[ :resp |\x0a\x09\x09[ createdOne onAfterCreated: resp ]\x0a\x09\x09\x09on: MaplessError\x0a\x09\x09\x09do:[ :x | self assert: resp status = 409 ] ].\x0a\x09\x09\x0a\x09\x09Thing findId: createdOne id then:[ :response | \x0a\x09\x09\x09loadedOne := Thing fromResponse: response.\x09\x09\x09\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne thereIs = 'noMap'.\x0a\x0a\x09\x09\x09loadedOne thereIs: 'LOLWAT?'.\x0a\x09\x09\x09self assert: createdOne thereIs = 'noMap'.\x0a\x09\x09\x09self assert: loadedOne thereIs = 'LOLWAT?'.\x0a\x09\x09\x0a\x09\x09\x09loadedOne saveDo:[ :aResponse | loadedOne onAfterSave: aResponse.\x0a\x09\x09\x09\x09Thing findId: loadedOne id then:[ :aResp |\x0a\x09\x09\x09\x09\x09updatedOne := Thing fromResponse: aResp.\x0a\x09\x09\x09\x09\x09self assert: updatedOne id = loadedOne id.\x0a\x09\x09\x09\x09\x09self assert: updatedOne id = createdOne id.\x0a\x09\x09\x09\x09\x09self assert: updatedOne thereIs = 'LOLWAT?'.\x0a\x09\x09\x09\x09\x09self assert: updatedOne = loadedOne.\x0a\x09\x09\x09\x09\x09self assert: createdOne = updatedOne.\x0a\x09\x09\x09\x09\x09self deny: createdOne thereIs = updatedOne thereIs.\x0a\x09\x09\x09\x09\x09self assert: loadedOne thereIs = updatedOne thereIs.\x0a\x09\x09\x09\x09] \x0a\x09\x09\x09]\x0a\x09\x09].\x0a\x09]",
 referencedClasses: ["Thing", "MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["new", "thereIs:", "saveDo:", "shouldnt:raise:", "onAfterSaved:", "assert:", "=", "status", "createDo:", "on:do:", "onAfterCreated:", "findId:do:", "id", "onAfterRead:", "class", "thereIs", "onAfterSave:", "deny:"]
+messageSends: ["new", "thereIs:", "saveThen:", "shouldnt:raise:", "onAfterSaved:", "assert:", "=", "status", "createThen:", "on:do:", "onAfterCreated:", "findId:then:", "id", "fromResponse:", "class", "thereIs", "saveDo:", "onAfterSave:", "deny:"]
 }),
-$globals.MaplessRemoteTest);
-
-
-
-$core.addClass('MaplessSharedTest', $globals.TestCase, [], 'MiniMapless-Tests');
-$core.addMethod(
-$core.method({
-selector: "testPath",
-protocol: 'tests',
-fn: function (){
-var self=this;
-function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
-function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-var $2,$1,$4,$3;
-$2=$recv($Thing())._path();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["path"]=1;
-//>>excludeEnd("ctx");
-$1=$recv($2).__eq("api/1.0/thing");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["="]=1;
-//>>excludeEnd("ctx");
-self._deny_($1);
-$4=$recv($Thing())._path();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["path"]=2;
-//>>excludeEnd("ctx");
-$3=$recv($4).__eq("api/1.0/things");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["="]=2;
-//>>excludeEnd("ctx");
-self._assert_($3);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["assert:"]=1;
-//>>excludeEnd("ctx");
-self._assert_($recv($recv($Stuff())._path()).__eq("api/1.0/stuff"));
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPath",{},$globals.MaplessSharedTest)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "testPath\x0a\x0a\x09self deny: Thing path = 'api/1.0/thing'.\x0a\x09self assert: Thing path = 'api/1.0/things'.\x0a\x0a\x09\x22ok, but what about irregulars?\x22\x0a\x09self assert: Stuff path = 'api/1.0/stuff'.",
-referencedClasses: ["Thing", "Stuff"],
-//>>excludeEnd("ide");
-messageSends: ["deny:", "=", "path", "assert:"]
-}),
-$globals.MaplessSharedTest);
+$globals.MaplessTest);
 
 $core.addMethod(
 $core.method({
@@ -1990,7 +1981,7 @@ $ctx1.sendIdx["assert:"]=1;
 self._assert_($recv($recv(thing)._uri()).__eq("api/1.0/things/".__comma($recv(thing)._id())));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testURI",{thing:thing},$globals.MaplessSharedTest)});
+}, function($ctx1) {$ctx1.fill(self,"testURI",{thing:thing},$globals.MaplessTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2000,7 +1991,7 @@ referencedClasses: ["Thing"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:", "notNil", "id", "=", "uri", ","]
 }),
-$globals.MaplessSharedTest);
+$globals.MaplessTest);
 
 
 

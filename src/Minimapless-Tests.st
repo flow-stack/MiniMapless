@@ -1,11 +1,11 @@
 Smalltalk createPackage: 'MiniMapless-Tests'!
-TestCase subclass: #MaplessLocalTest
+TestCase subclass: #MaplessTest
 	instanceVariableNames: ''
 	package: 'MiniMapless-Tests'!
 
-!MaplessLocalTest methodsFor: 'tests'!
+!MaplessTest methodsFor: 'tests'!
 
-testFresh
+testLocalFresh
 
 	| createdOne loadedOne |
 	
@@ -24,37 +24,7 @@ testFresh
 		] raise: Error
 !
 
-testLocalUpdate
-
-	| createdOne loadedOne |
-	
-	createdOne := Thing new.
-	
-	createdOne remember: 'something'.
-	
-	self deny: (window localStorage getItem: createdOne id) notNil.
-	
-	createdOne localSave.
-
-	self assert: (window localStorage getItem: createdOne id) notNil.
-
-	self shouldnt: [
-			loadedOne := Mapless localFindId: createdOne id.
-			
-			self assert: loadedOne class = Thing.
-			self assert: loadedOne id = createdOne id.
-			self assert: loadedOne remember = 'something'.
-			self deny: loadedOne remember = 'else'.
-			loadedOne remember: 'else'.
-			self assert: loadedOne remember = 'else'.
-			loadedOne localSave.
-			loadedOne := Mapless localFindId: createdOne id.
-			self deny: loadedOne remember = 'something'.
-			self assert: loadedOne remember = 'else'.
-		] raise: Error
-!
-
-testSaveAndDelete
+testLocalSaveAndDelete
 
 	| createdOne loadedOne |
 	
@@ -77,7 +47,7 @@ testSaveAndDelete
 		] raise: Error
 !
 
-testSaveAndFindOne
+testLocalSaveAndFindOne
 
 	| createdOne loadedOne |
 	
@@ -99,7 +69,7 @@ testSaveAndFindOne
 		] raise: Error
 !
 
-testSaveComposedMany
+testLocalSaveComposedMany
 
 	| createdOne composed1 composed2 loadedOne part1 part2 |
 	
@@ -146,7 +116,7 @@ testSaveComposedMany
 		] raise: Error
 !
 
-testSaveComposedOne
+testLocalSaveComposedOne
 
 	| createdOne composedOne loadedOne part |
 	
@@ -178,15 +148,48 @@ testSaveComposedOne
 		self assert: (Mapless localFindId: createdOne id) isNil.
 		self assert: (Mapless localFindId: composedOne id) isNil.
 		] raise: Error
-! !
+!
 
-TestCase subclass: #MaplessRemoteTest
-	instanceVariableNames: ''
-	package: 'MiniMapless-Tests'!
+testLocalUpdate
 
-!MaplessRemoteTest methodsFor: 'tests'!
+	| createdOne loadedOne |
+	
+	createdOne := Thing new.
+	
+	createdOne remember: 'something'.
+	
+	self deny: (window localStorage getItem: createdOne id) notNil.
+	
+	createdOne localSave.
 
-testCreate
+	self assert: (window localStorage getItem: createdOne id) notNil.
+
+	self shouldnt: [
+			loadedOne := Mapless localFindId: createdOne id.
+			
+			self assert: loadedOne class = Thing.
+			self assert: loadedOne id = createdOne id.
+			self assert: loadedOne remember = 'something'.
+			self deny: loadedOne remember = 'else'.
+			loadedOne remember: 'else'.
+			self assert: loadedOne remember = 'else'.
+			loadedOne localSave.
+			loadedOne := Mapless localFindId: createdOne id.
+			self deny: loadedOne remember = 'something'.
+			self assert: loadedOne remember = 'else'.
+		] raise: Error
+!
+
+testPath
+
+	self deny: Thing path = 'api/1.0/thing'.
+	self assert: Thing path = 'api/1.0/things'.
+
+	"ok, but what about irregulars?"
+	self assert: Stuff path = 'api/1.0/stuff'.
+!
+
+testRemoteCreate
 
 	| createdOne loadedOne |
 	
@@ -194,20 +197,20 @@ testCreate
 	
 	createdOne remember: 'something'.
 		
-	createdOne createDo:[ :res |
+	createdOne createThen:[ :res |
 		self shouldnt: [
 				createdOne onAfterCreated: res.
 				self assert: res status = 201 ]
 			raise: MaplessError. 
 
-		createdOne createDo:[ :resp |
+		createdOne createThen:[ :resp |
 		[ createdOne onAfterCreated: resp ]
 			on: MaplessError
 			do:[ :x | self assert: resp status = 409 ] ]
 	].
 !
 
-testDelete
+testRemoteDelete
 
 	| createdOne loadedOne |
 	
@@ -215,22 +218,22 @@ testDelete
 	
 	createdOne remember: 'something'.
 		
-	createdOne createDo:[ :res |
+	createdOne createThen:[ :res |
 		self shouldnt: [
 				createdOne onAfterCreated: res.
 				self assert: res status = 201 ]
 			raise: MaplessError. 
 
-		createdOne deleteDo:[ :resp |
+		createdOne deleteThen:[ :resp |
 			createdOne onAfterDeleted: resp.
 			self assert: resp status = 200 ].	
 			
-		Thing findId: createdOne id do:[ :response |
+		Thing findId: createdOne id then:[ :response |
 			response status = 404 ]
 	].
 !
 
-testRead
+testRemoteRead
 
 	| createdOne loadedOne |
 	
@@ -241,14 +244,14 @@ testRead
 		remarkable: 'today';
 		youself.
 		
-	createdOne createDo:[ :res |
+	createdOne createThen:[ :res |
 		self shouldnt: [
 				createdOne onAfterCreated: res.
 				self assert: res status = 201 ]
 			raise: MaplessError. 
 			
-		Thing findId: createdOne id do:[ :response | 
-			loadedOne := Thing onAfterRead: response.
+		Thing findId: createdOne id then:[ :aThing | 
+			loadedOne := aThing.
 			self assert: loadedOne class = Thing.
 			self assert: loadedOne remember = 'something'.
 			self assert: loadedOne remarkable = 'today'
@@ -256,7 +259,7 @@ testRead
 	].
 !
 
-testReadAll
+testRemoteReadAll
 
 	| createdOne loadedOnes |
 	
@@ -267,14 +270,14 @@ testReadAll
 		remarkable: 'today';
 		youself.
 		
-	createdOne createDo:[ :res |
+	createdOne createThen:[ :res |
 		self shouldnt: [
 				createdOne onAfterCreated: res.
 				self assert: res status = 201 ]
 			raise: MaplessError. 
 	
-		Thing findAllDo:[ :response |
-			loadedOnes := Thing onAfterReadAll: response.
+		Thing findAllThen:[ :someThings |
+			loadedOnes := someThings.
 			self assert: (loadedOnes allSatisfy:[ :e | e class = Thing ]).
 			self assert: (loadedOnes allSatisfy:[ :e | e id notNil ]).
 			self assert: (loadedOnes anySatisfy:[ :e | e id = createdOne id ]).
@@ -283,7 +286,7 @@ testReadAll
 	]
 !
 
-testReadSome
+testRemoteReadSome
 
 	| createdOne query loadedOnes |
 	
@@ -293,7 +296,7 @@ testReadSome
 		remember: 'some';
 		youself.
 		
-	createdOne createDo:[ :res |
+	createdOne createThen:[ :res |
 		self shouldnt: [
 				createdOne onAfterCreated: res.
 				self assert: res status = 201 ]
@@ -301,8 +304,8 @@ testReadSome
 
 		query := '{"remember":"some"}'.
 		
-		Thing find: query do:[ :response |
-			loadedOnes := Thing onAfterReadSome: response.
+		Thing find: query then:[ :response |
+			loadedOnes := Thing fromResponse: response.
 			self assert: (loadedOnes allSatisfy:[ :e | e class = Thing ]).
 			self assert: (loadedOnes allSatisfy:[ :e | e id notNil ]).
 			self assert: (loadedOnes anySatisfy:[ :e | e id = createdOne id ]).
@@ -311,7 +314,7 @@ testReadSome
 	]
 !
 
-testSave
+testRemoteSave
 
 	| createdOne loadedOne |
 	
@@ -322,19 +325,19 @@ testSave
 		in: 'mapless';
 		yourself.
 		
-	createdOne saveDo:[ :res |
+	createdOne saveThen:[ :res |
 		self shouldnt: [
 				createdOne onAfterSaved: res.
 				self assert: res status = 200 ]
 			raise: MaplessError.
 
-		createdOne createDo:[ :resp |
+		createdOne createThen:[ :resp |
 		[ createdOne onAfterCreated: resp ]
 			on: MaplessError
 			do:[ :x | self assert: resp status = 409 ] ].
 		
-		Thing findId: createdOne id do:[ :response | 
-			loadedOne := Thing onAfterRead: response.
+		Thing findId: createdOne id then:[ :response | 
+			loadedOne := Thing fromResponse: response.
 			self assert: loadedOne class = Thing.
 			self assert: loadedOne thereIs = 'noMap'.
 			self assert: loadedOne in = 'mapless'
@@ -342,7 +345,7 @@ testSave
 	].
 !
 
-testUpdate
+testRemoteUpdate
 
 	| createdOne loadedOne updatedOne |
 	
@@ -350,19 +353,19 @@ testUpdate
 	
 	createdOne thereIs: 'noMap'.
 		
-	createdOne saveDo:[ :res |
+	createdOne saveThen:[ :res |
 		self shouldnt: [
 				createdOne onAfterSaved: res.
 				self assert: res status = 200 ]
 			raise: MaplessError.
 
-		createdOne createDo:[ :resp |
+		createdOne createThen:[ :resp |
 		[ createdOne onAfterCreated: resp ]
 			on: MaplessError
 			do:[ :x | self assert: resp status = 409 ] ].
 		
-		Thing findId: createdOne id do:[ :response | 
-			loadedOne := Thing onAfterRead: response.			
+		Thing findId: createdOne id then:[ :response | 
+			loadedOne := Thing fromResponse: response.			
 			self assert: loadedOne class = Thing.
 			self assert: loadedOne thereIs = 'noMap'.
 
@@ -371,8 +374,8 @@ testUpdate
 			self assert: loadedOne thereIs = 'LOLWAT?'.
 		
 			loadedOne saveDo:[ :aResponse | loadedOne onAfterSave: aResponse.
-				Thing findId: loadedOne id do:[ :aResp |
-					updatedOne := Thing onAfterRead: aResp.
+				Thing findId: loadedOne id then:[ :aResp |
+					updatedOne := Thing fromResponse: aResp.
 					self assert: updatedOne id = loadedOne id.
 					self assert: updatedOne id = createdOne id.
 					self assert: updatedOne thereIs = 'LOLWAT?'.
@@ -384,21 +387,6 @@ testUpdate
 			]
 		].
 	]
-! !
-
-TestCase subclass: #MaplessSharedTest
-	instanceVariableNames: ''
-	package: 'MiniMapless-Tests'!
-
-!MaplessSharedTest methodsFor: 'tests'!
-
-testPath
-
-	self deny: Thing path = 'api/1.0/thing'.
-	self assert: Thing path = 'api/1.0/things'.
-
-	"ok, but what about irregulars?"
-	self assert: Stuff path = 'api/1.0/stuff'.
 !
 
 testURI
