@@ -263,11 +263,6 @@ newJSObject
 	<return Object>
 !
 
-onAboutToFresh
-
-	self trigger: 'aboutToFresh:' with: self
-!
-
 save
 	"Saves this mapless (upserts it)"
 	^ self saveThen:[ :res | self onAfterSave: res ]
@@ -368,13 +363,12 @@ initializeInstanceVersion
 !Mapless methodsFor: 'reactions'!
 
 onAboutToCreate
-
-	self trigger: 'aboutToCreate:' with: self
 !
 
 onAboutToDelete
+!
 
-	self trigger: 'aboutToDelete:' with: self
+onAboutToFresh
 !
 
 onAboutToJSON
@@ -414,13 +408,9 @@ onAboutToJSON
 !
 
 onAboutToSave
-
-	self trigger: 'aboutToSave:' with: self
 !
 
 onAboutToUpdate
-
-	self trigger: 'aboutToUpdate:' with: self
 !
 
 onAfterCreate: aResponse 
@@ -433,9 +423,7 @@ onAfterCreate: aResponse
 		self localDelete.
 		^ MaplessError signal: 'Could not create ', self asString,':  ', aResponse responseText ].
 	
-	self localSave.
-	
-	self trigger: 'afterCreated'
+	self localSave
 !
 
 onAfterDelete: aResponse 
@@ -447,9 +435,7 @@ onAfterDelete: aResponse
 	aResponse status ~= 200 ifTrue:[
 		^ MaplessError signal: 'Could not delete ', self asString,':  ', aResponse responseText ].
 	
-	self localDelete.
-	
-	self trigger: 'afterDeleted'.
+	self localDelete
 !
 
 onAfterFresh: aResponse 
@@ -462,9 +448,7 @@ onAfterFresh: aResponse
 		self localFresh.
 		^ MaplessError signal: 'Could not read ', self asString,':  ', aResponse responseText ].
 
-	self syncFromJSON: aResponse responseText.
-
-	self trigger: 'afterFresh'.
+	self syncFromJSON: aResponse responseText
 !
 
 onAfterSave: aResponse
@@ -477,9 +461,7 @@ onAfterSave: aResponse
 		self localFresh.
 		^ MaplessError signal: 'Could not save ', self asString,':  ', aResponse responseText ].
 		
-	self localSave.
-
-	self trigger: 'afterSaved'.
+	self localSave
 !
 
 onAfterUpdate: aResponse 
@@ -492,9 +474,7 @@ onAfterUpdate: aResponse
 		self localFresh.
 		^ MaplessError signal: 'Could not update ', self asString,':  ', aResponse responseText ].
 
-	self localSave.
-
-	self trigger: 'afterUpdated'.
+	self localSave
 ! !
 
 !Mapless methodsFor: 'testing'!

@@ -1106,21 +1106,15 @@ selector: "onAboutToCreate",
 protocol: 'reactions',
 fn: function (){
 var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-self._trigger_with_("aboutToCreate:",self);
 return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onAboutToCreate",{},$globals.Mapless)});
-//>>excludeEnd("ctx");
+
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "onAboutToCreate\x0a\x0a\x09self trigger: 'aboutToCreate:' with: self",
+source: "onAboutToCreate",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["trigger:with:"]
+messageSends: []
 }),
 $globals.Mapless);
 
@@ -1130,45 +1124,33 @@ selector: "onAboutToDelete",
 protocol: 'reactions',
 fn: function (){
 var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-self._trigger_with_("aboutToDelete:",self);
 return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onAboutToDelete",{},$globals.Mapless)});
-//>>excludeEnd("ctx");
+
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "onAboutToDelete\x0a\x0a\x09self trigger: 'aboutToDelete:' with: self",
+source: "onAboutToDelete",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["trigger:with:"]
+messageSends: []
 }),
 $globals.Mapless);
 
 $core.addMethod(
 $core.method({
 selector: "onAboutToFresh",
-protocol: 'actions',
+protocol: 'reactions',
 fn: function (){
 var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-self._trigger_with_("aboutToFresh:",self);
 return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onAboutToFresh",{},$globals.Mapless)});
-//>>excludeEnd("ctx");
+
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "onAboutToFresh\x0a\x0a\x09self trigger: 'aboutToFresh:' with: self",
+source: "onAboutToFresh",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["trigger:with:"]
+messageSends: []
 }),
 $globals.Mapless);
 
@@ -1342,21 +1324,15 @@ selector: "onAboutToSave",
 protocol: 'reactions',
 fn: function (){
 var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-self._trigger_with_("aboutToSave:",self);
 return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onAboutToSave",{},$globals.Mapless)});
-//>>excludeEnd("ctx");
+
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "onAboutToSave\x0a\x0a\x09self trigger: 'aboutToSave:' with: self",
+source: "onAboutToSave",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["trigger:with:"]
+messageSends: []
 }),
 $globals.Mapless);
 
@@ -1366,21 +1342,15 @@ selector: "onAboutToUpdate",
 protocol: 'reactions',
 fn: function (){
 var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-self._trigger_with_("aboutToUpdate:",self);
 return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onAboutToUpdate",{},$globals.Mapless)});
-//>>excludeEnd("ctx");
+
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "onAboutToUpdate\x0a\x0a\x09self trigger: 'aboutToUpdate:' with: self",
+source: "onAboutToUpdate",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["trigger:with:"]
+messageSends: []
 }),
 $globals.Mapless);
 
@@ -1410,7 +1380,6 @@ $2=$recv($MaplessError())._signal_($3);
 return $2;
 };
 self._localSave();
-self._trigger_("afterCreated");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"onAfterCreate:",{aResponse:aResponse},$globals.Mapless)});
@@ -1418,10 +1387,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aResponse"],
-source: "onAfterCreate: aResponse \x0a\x09\x22This mapless got created.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved, then we make sure this mapless is not in local either\x0a\x09and raise the exception.\x22\x0a\x09\x09\x0a\x09aResponse status ~= 201 ifTrue:[\x0a\x09\x09self localDelete.\x0a\x09\x09^ MaplessError signal: 'Could not create ', self asString,':  ', aResponse responseText ].\x0a\x09\x0a\x09self localSave.\x0a\x09\x0a\x09self trigger: 'afterCreated'",
+source: "onAfterCreate: aResponse \x0a\x09\x22This mapless got created.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved, then we make sure this mapless is not in local either\x0a\x09and raise the exception.\x22\x0a\x09\x09\x0a\x09aResponse status ~= 201 ifTrue:[\x0a\x09\x09self localDelete.\x0a\x09\x09^ MaplessError signal: 'Could not create ', self asString,':  ', aResponse responseText ].\x0a\x09\x0a\x09self localSave",
 referencedClasses: ["MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:", "~=", "status", "localDelete", "signal:", ",", "asString", "responseText", "localSave", "trigger:"]
+messageSends: ["ifTrue:", "~=", "status", "localDelete", "signal:", ",", "asString", "responseText", "localSave"]
 }),
 $globals.Mapless);
 
@@ -1450,7 +1419,6 @@ $2=$recv($MaplessError())._signal_($3);
 return $2;
 };
 self._localDelete();
-self._trigger_("afterDeleted");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"onAfterDelete:",{aResponse:aResponse},$globals.Mapless)});
@@ -1458,10 +1426,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aResponse"],
-source: "onAfterDelete: aResponse \x0a\x09\x22This mapless got deleted.\x0a\x09To keep things consistent, if the server was okay, then we locally remove it too but if\x0a\x09the API said it wasn't saved, then we make sure this mapless is not removed from local\x0a\x09and raise the exception.\x22\x0a\x0a\x09aResponse status ~= 200 ifTrue:[\x0a\x09\x09^ MaplessError signal: 'Could not delete ', self asString,':  ', aResponse responseText ].\x0a\x09\x0a\x09self localDelete.\x0a\x09\x0a\x09self trigger: 'afterDeleted'.",
+source: "onAfterDelete: aResponse \x0a\x09\x22This mapless got deleted.\x0a\x09To keep things consistent, if the server was okay, then we locally remove it too but if\x0a\x09the API said it wasn't saved, then we make sure this mapless is not removed from local\x0a\x09and raise the exception.\x22\x0a\x0a\x09aResponse status ~= 200 ifTrue:[\x0a\x09\x09^ MaplessError signal: 'Could not delete ', self asString,':  ', aResponse responseText ].\x0a\x09\x0a\x09self localDelete",
 referencedClasses: ["MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:", "~=", "status", "signal:", ",", "asString", "responseText", "localDelete", "trigger:"]
+messageSends: ["ifTrue:", "~=", "status", "signal:", ",", "asString", "responseText", "localDelete"]
 }),
 $globals.Mapless);
 
@@ -1495,7 +1463,6 @@ $2=$recv($MaplessError())._signal_($3);
 return $2;
 };
 self._syncFromJSON_($recv(aResponse)._responseText());
-self._trigger_("afterFresh");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"onAfterFresh:",{aResponse:aResponse},$globals.Mapless)});
@@ -1503,10 +1470,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aResponse"],
-source: "onAfterFresh: aResponse \x0a\x09\x22This mapless got re-freshed.\x0a\x09To keep things consistent, if the server was okay, then we sync this mapless state with the response, but\x0a\x09if the API said it coudn't read (any different than 200), then we restore this mapless state from local\x0a\x09and raise the exception\x22\x0a\x0a\x09aResponse status ~= 200 ifTrue:[\x0a\x09\x09self localFresh.\x0a\x09\x09^ MaplessError signal: 'Could not read ', self asString,':  ', aResponse responseText ].\x0a\x0a\x09self syncFromJSON: aResponse responseText.\x0a\x0a\x09self trigger: 'afterFresh'.",
+source: "onAfterFresh: aResponse \x0a\x09\x22This mapless got re-freshed.\x0a\x09To keep things consistent, if the server was okay, then we sync this mapless state with the response, but\x0a\x09if the API said it coudn't read (any different than 200), then we restore this mapless state from local\x0a\x09and raise the exception\x22\x0a\x0a\x09aResponse status ~= 200 ifTrue:[\x0a\x09\x09self localFresh.\x0a\x09\x09^ MaplessError signal: 'Could not read ', self asString,':  ', aResponse responseText ].\x0a\x0a\x09self syncFromJSON: aResponse responseText",
 referencedClasses: ["MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:", "~=", "status", "localFresh", "signal:", ",", "asString", "responseText", "syncFromJSON:", "trigger:"]
+messageSends: ["ifTrue:", "~=", "status", "localFresh", "signal:", ",", "asString", "responseText", "syncFromJSON:"]
 }),
 $globals.Mapless);
 
@@ -1536,7 +1503,6 @@ $2=$recv($MaplessError())._signal_($3);
 return $2;
 };
 self._localSave();
-self._trigger_("afterSaved");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"onAfterSave:",{aResponse:aResponse},$globals.Mapless)});
@@ -1544,10 +1510,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aResponse"],
-source: "onAfterSave: aResponse\x0a\x09\x22This mapless got saved.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved, then we restore this mapless state from local\x0a\x09and raise the exception.\x22\x0a\x09\x0a\x09aResponse status ~= 200 ifTrue:[\x0a\x09\x09self localFresh.\x0a\x09\x09^ MaplessError signal: 'Could not save ', self asString,':  ', aResponse responseText ].\x0a\x09\x09\x0a\x09self localSave.\x0a\x0a\x09self trigger: 'afterSaved'.",
+source: "onAfterSave: aResponse\x0a\x09\x22This mapless got saved.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved, then we restore this mapless state from local\x0a\x09and raise the exception.\x22\x0a\x09\x0a\x09aResponse status ~= 200 ifTrue:[\x0a\x09\x09self localFresh.\x0a\x09\x09^ MaplessError signal: 'Could not save ', self asString,':  ', aResponse responseText ].\x0a\x09\x09\x0a\x09self localSave",
 referencedClasses: ["MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:", "~=", "status", "localFresh", "signal:", ",", "asString", "responseText", "localSave", "trigger:"]
+messageSends: ["ifTrue:", "~=", "status", "localFresh", "signal:", ",", "asString", "responseText", "localSave"]
 }),
 $globals.Mapless);
 
@@ -1577,7 +1543,6 @@ $2=$recv($MaplessError())._signal_($3);
 return $2;
 };
 self._localSave();
-self._trigger_("afterUpdated");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"onAfterUpdate:",{aResponse:aResponse},$globals.Mapless)});
@@ -1585,10 +1550,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aResponse"],
-source: "onAfterUpdate: aResponse \x0a\x09\x22This mapless got updated.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved (any different than 200), then we restore this mapless state from local\x0a\x09and raise the exception\x22\x0a\x09\x0a\x09aResponse status ~= 200 ifTrue:[\x0a\x09\x09self localFresh.\x0a\x09\x09^ MaplessError signal: 'Could not update ', self asString,':  ', aResponse responseText ].\x0a\x0a\x09self localSave.\x0a\x0a\x09self trigger: 'afterUpdated'.",
+source: "onAfterUpdate: aResponse \x0a\x09\x22This mapless got updated.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved (any different than 200), then we restore this mapless state from local\x0a\x09and raise the exception\x22\x0a\x09\x0a\x09aResponse status ~= 200 ifTrue:[\x0a\x09\x09self localFresh.\x0a\x09\x09^ MaplessError signal: 'Could not update ', self asString,':  ', aResponse responseText ].\x0a\x0a\x09self localSave",
 referencedClasses: ["MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:", "~=", "status", "localFresh", "signal:", ",", "asString", "responseText", "localSave", "trigger:"]
+messageSends: ["ifTrue:", "~=", "status", "localFresh", "signal:", ",", "asString", "responseText", "localSave"]
 }),
 $globals.Mapless);
 
