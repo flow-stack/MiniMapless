@@ -450,9 +450,10 @@ testURI
 	
 	thing := Thing new.
 	
-	self assert: thing id notNil.
+	self assert: thing id isNil.
+	self assert: thing cid notNil.
 	
-	self assert: thing uri = ('api/1.0/things/', thing id)
+	self assert: thing uri = ('api/1.0/things/', thing cid)
 ! !
 
 MaplessModel subclass: #Stuff

@@ -662,7 +662,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv(self["@data"])._includesKey_("id");
+$1=$recv($recv(self["@data"])._at_("id"))._notNil();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"hasId",{},$globals.Mapless)});
@@ -670,10 +670,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "hasId\x0a\x09\x22Answers true if this Mapless already have an ID.\x22\x0a\x09\x0a\x09^ data includesKey: #id\x0a\x09",
+source: "hasId\x0a\x09\x22Answers true if this Mapless already have an ID.\x22\x0a\x09\x0a\x09^ (data at: #id) notNil",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["includesKey:"]
+messageSends: ["notNil", "at:"]
 }),
 $globals.Mapless);
 
@@ -1845,6 +1845,7 @@ messageSends: ["ifTrue:ifFalse:", "hasId", ",", "path", "id", "cid"]
 $globals.Mapless);
 
 
+$globals.Mapless.klass.iVarNames = ['idAttribute'];
 $core.addMethod(
 $core.method({
 selector: "basePath",
@@ -2097,7 +2098,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._findOne_then_($globals.HashedCollection._newFromPairs_(["_id",anId]),aBlock);
+self._findOne_then_($globals.HashedCollection._newFromPairs_([self._idAttribute(),anId]),aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"findId:then:",{anId:anId,aBlock:aBlock},$globals.Mapless.klass)});
@@ -2105,10 +2106,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anId", "aBlock"],
-source: "findId: anId then: aBlock\x0a\x0a\x09self \x0a\x09\x09findOne: #{ '_id' -> anId }\x0a\x09\x09then: aBlock",
+source: "findId: anId then: aBlock\x0a\x0a\x09self \x0a\x09\x09findOne: #{ self idAttribute -> anId }\x0a\x09\x09then: aBlock",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["findOne:then:"]
+messageSends: ["findOne:then:", "idAttribute"]
 }),
 $globals.Mapless.klass);
 
@@ -2423,6 +2424,56 @@ $globals.Mapless.klass);
 
 $core.addMethod(
 $core.method({
+selector: "idAttribute",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $2,$1,$receiver;
+$2=self["@idAttribute"];
+if(($receiver = $2) == null || $receiver.isNil){
+self["@idAttribute"]="_id";
+$1=self["@idAttribute"];
+} else {
+$1=$2;
+};
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"idAttribute",{},$globals.Mapless.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "idAttribute\x0a\x09\x22Answers the attribute name for the id used by the server side.\x0a\x09Uses '_id' as default because we're assuming that MongoDB is \x0a\x09a reasonable default and that's what it uses as id.\x22\x0a\x09\x0a\x09^ idAttribute ifNil: [ idAttribute := '_id' ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNil:"]
+}),
+$globals.Mapless.klass);
+
+$core.addMethod(
+$core.method({
+selector: "idAttribute:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@idAttribute"]=aString;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "idAttribute: aString\x0a\x09\x0a\x09idAttribute := aString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Mapless.klass);
+
+$core.addMethod(
+$core.method({
 selector: "localDelete:",
 protocol: 'actions',
 fn: function (aMapless){
@@ -2430,7 +2481,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-$recv($recv(window)._localStorage())._removeItem_($recv(aMapless)._id());
+$recv($recv(window)._localStorage())._removeItem_($recv(aMapless)._cid());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"localDelete:",{aMapless:aMapless},$globals.Mapless.klass)});
@@ -2438,32 +2489,32 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMapless"],
-source: "localDelete: aMapless\x0a\x0a\x09window localStorage removeItem: aMapless id",
+source: "localDelete: aMapless\x0a\x0a\x09window localStorage removeItem: aMapless cid",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["removeItem:", "localStorage", "id"]
+messageSends: ["removeItem:", "localStorage", "cid"]
 }),
 $globals.Mapless.klass);
 
 $core.addMethod(
 $core.method({
-selector: "localFindId:",
+selector: "localFindCid:",
 protocol: 'actions',
-fn: function (anId){
+fn: function (aCid){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=self._fromJSONString_($recv($recv(window)._localStorage())._getItem_(anId));
+$1=self._fromJSONString_($recv($recv(window)._localStorage())._getItem_(aCid));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"localFindId:",{anId:anId},$globals.Mapless.klass)});
+}, function($ctx1) {$ctx1.fill(self,"localFindCid:",{aCid:aCid},$globals.Mapless.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anId"],
-source: "localFindId: anId\x0a\x0a\x09^ self fromJSONString: (window localStorage getItem: anId)",
+args: ["aCid"],
+source: "localFindCid: aCid\x0a\x0a\x09^ self fromJSONString: (window localStorage getItem: aCid)",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["fromJSONString:", "getItem:", "localStorage"]
@@ -2479,7 +2530,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-$recv($recv(window)._localStorage())._setItem_value_($recv(aMapless)._id(),$recv(aMapless)._asJSONString());
+$recv($recv(window)._localStorage())._setItem_value_($recv(aMapless)._cid(),$recv(aMapless)._asJSONString());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"localSave:",{aMapless:aMapless},$globals.Mapless.klass)});
@@ -2487,10 +2538,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMapless"],
-source: "localSave: aMapless\x0a\x0a\x09window localStorage\x0a\x09\x09setItem: aMapless id\x0a\x09\x09value: aMapless asJSONString",
+source: "localSave: aMapless\x0a\x0a\x09window localStorage\x0a\x09\x09setItem: aMapless cid\x0a\x09\x09value: aMapless asJSONString",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["setItem:value:", "localStorage", "id", "asJSONString"]
+messageSends: ["setItem:value:", "localStorage", "cid", "asJSONString"]
 }),
 $globals.Mapless.klass);
 

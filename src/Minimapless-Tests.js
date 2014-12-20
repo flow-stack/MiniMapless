@@ -2114,16 +2114,20 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1;
 thing=$recv($Thing())._new();
-$2=$recv(thing)._id();
+self._assert_($recv($recv(thing)._id())._isNil());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["id"]=1;
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+$2=$recv(thing)._cid();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["cid"]=1;
 //>>excludeEnd("ctx");
 $1=$recv($2)._notNil();
 self._assert_($1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["assert:"]=1;
+$ctx1.sendIdx["assert:"]=2;
 //>>excludeEnd("ctx");
-self._assert_($recv($recv(thing)._uri()).__eq("api/1.0/things/".__comma($recv(thing)._id())));
+self._assert_($recv($recv(thing)._uri()).__eq("api/1.0/things/".__comma($recv(thing)._cid())));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testURI",{thing:thing},$globals.MaplessSharedTest)});
@@ -2131,10 +2135,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testURI\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new.\x0a\x09\x0a\x09self assert: thing id notNil.\x0a\x09\x0a\x09self assert: thing uri = ('api/1.0/things/', thing id)",
+source: "testURI\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new.\x0a\x09\x0a\x09self assert: thing id isNil.\x0a\x09self assert: thing cid notNil.\x0a\x09\x0a\x09self assert: thing uri = ('api/1.0/things/', thing cid)",
 referencedClasses: ["Thing"],
 //>>excludeEnd("ide");
-messageSends: ["new", "assert:", "notNil", "id", "=", "uri", ","]
+messageSends: ["new", "assert:", "isNil", "id", "notNil", "cid", "=", "uri", ","]
 }),
 $globals.MaplessSharedTest);
 

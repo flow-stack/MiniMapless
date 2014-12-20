@@ -449,7 +449,7 @@ onAfterUpdate: aResponse
 hasId
 	"Answers true if this Mapless already have an ID."
 	
-	^ data includesKey: #id
+	^ (data at: #id) notNil
 !
 
 isJavaScriptObject: anObject
@@ -482,12 +482,27 @@ isUnary: aSelector
 	^ (aSelector asString includes: ':') not
 ! !
 
+Mapless class instanceVariableNames: 'idAttribute'!
+
 !Mapless class methodsFor: 'accessing'!
 
 basePath
 	"Answers the base URI for remote mapless"
 	
 	^ 'api/1.0'
+!
+
+idAttribute
+	"Answers the attribute name for the id used by the server side.
+	Uses '_id' as default because we're assuming that MongoDB is 
+	a reasonable default and that's what it uses as id."
+	
+	^ idAttribute ifNil: [ idAttribute := '_id' ]
+!
+
+idAttribute: aString
+	
+	idAttribute := aString
 !
 
 path
@@ -580,7 +595,7 @@ findAllThen: aBlock ifEmpty: emptyBlock onError: aFallbackBlock
 findId: anId then: aBlock
 
 	self 
-		findOne: #{ '_id' -> anId }
+		findOne: #{ self idAttribute -> anId }
 		then: aBlock
 !
 
@@ -679,18 +694,18 @@ fromResponse: aResponse
 
 localDelete: aMapless
 
-	window localStorage removeItem: aMapless id
+	window localStorage removeItem: aMapless cid
 !
 
-localFindId: anId
+localFindCid: aCid
 
-	^ self fromJSONString: (window localStorage getItem: anId)
+	^ self fromJSONString: (window localStorage getItem: aCid)
 !
 
 localSave: aMapless
 
 	window localStorage
-		setItem: aMapless id
+		setItem: aMapless cid
 		value: aMapless asJSONString
 !
 
