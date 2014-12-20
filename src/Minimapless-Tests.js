@@ -7,6 +7,111 @@ $core.packages["MiniMapless-Tests"].transport = {"type":"amd","amdNamespace":"mi
 $core.addClass('MaplessLocalTest', $globals.TestCase, [], 'MiniMapless-Tests');
 $core.addMethod(
 $core.method({
+selector: "testCid",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var createdOne,loadedOne;
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1;
+createdOne=$recv($Thing())._new();
+$recv(createdOne)._localSave();
+self._shouldnt_raise_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$1=$recv(createdOne)._cid();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["cid"]=1;
+//>>excludeEnd("ctx");
+loadedOne=$recv($Mapless())._localFindCid_($1);
+loadedOne;
+$recv(loadedOne)._localFresh();
+self._assert_($recv($recv(loadedOne)._id())._isNil());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+return self._assert_($recv($recv(loadedOne)._cid())._notNil());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}),$Error());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testCid",{createdOne:createdOne,loadedOne:loadedOne},$globals.MaplessLocalTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testCid\x0a\x09\x22Test the client id\x22\x0a\x09\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne localSave.\x0a\x09\x0a\x09self shouldnt: [\x0a\x09\x09\x09loadedOne := Mapless localFindCid: createdOne cid.\x0a\x09\x09\x09loadedOne localFresh.\x0a\x09\x09\x09self assert: loadedOne id isNil.\x0a\x09\x09\x09self assert: loadedOne cid notNil.\x0a\x09\x09] raise: Error",
+referencedClasses: ["Thing", "Mapless", "Error"],
+//>>excludeEnd("ide");
+messageSends: ["new", "localSave", "shouldnt:raise:", "localFindCid:", "cid", "localFresh", "assert:", "isNil", "id", "notNil"]
+}),
+$globals.MaplessLocalTest);
+
+$core.addMethod(
+$core.method({
+selector: "testEquality",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var one,two,pretender;
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1,$3,$4,$2;
+one=$recv($Thing())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=1;
+//>>excludeEnd("ctx");
+two=$recv($Thing())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=2;
+//>>excludeEnd("ctx");
+$1=$recv(one).__eq(two);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=1;
+//>>excludeEnd("ctx");
+self._deny_($1);
+pretender=$recv($Thing())._new();
+$3=$recv(pretender)._cid();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["cid"]=1;
+//>>excludeEnd("ctx");
+$4=$recv(one)._cid();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["cid"]=2;
+//>>excludeEnd("ctx");
+$2=$recv($3).__tild_eq($4);
+self._assert_($2);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+$recv(pretender)._cid_($recv(one)._cid());
+self._assert_($recv(one).__eq(pretender));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testEquality",{one:one,two:two,pretender:pretender},$globals.MaplessLocalTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testEquality\x0a\x09\x0a\x09| one two pretender |\x0a\x09\x0a\x09one := Thing new.\x0a\x09two := Thing new.\x0a\x0a\x0a\x09self deny: one = two.\x0a\x09\x0a\x09pretender := Thing new.\x0a\x09self assert: pretender cid ~= one cid.\x0a\x09pretender cid: one cid.\x0a\x09self assert: one = pretender.",
+referencedClasses: ["Thing"],
+//>>excludeEnd("ide");
+messageSends: ["new", "deny:", "=", "assert:", "~=", "cid", "cid:"]
+}),
+$globals.MaplessLocalTest);
+
+$core.addMethod(
+$core.method({
 selector: "testFresh",
 protocol: 'tests',
 fn: function (){
@@ -70,6 +175,37 @@ source: "testFresh\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne
 referencedClasses: ["Thing", "Mapless", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["new", "remember:", "localSave", "shouldnt:raise:", "localFindId:", "id", "assert:", "=", "remember", "localFresh", "deny:"]
+}),
+$globals.MaplessLocalTest);
+
+$core.addMethod(
+$core.method({
+selector: "testIdDetection",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var one;
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+one=$recv($Thing())._new();
+self._deny_($recv($recv(one)._id())._notNil());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=1;
+//>>excludeEnd("ctx");
+self._deny_($recv(one)._hasId());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testIdDetection",{one:one},$globals.MaplessLocalTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testIdDetection\x0a\x09\x0a\x09| one |\x0a\x09\x0a\x09one := Thing new.\x0a\x0a\x09self deny: one id notNil.\x0a\x09\x0a\x09self deny: one hasId",
+referencedClasses: ["Thing"],
+//>>excludeEnd("ide");
+messageSends: ["new", "deny:", "notNil", "id", "hasId"]
 }),
 $globals.MaplessLocalTest);
 

@@ -23,26 +23,6 @@ at: aKey put: anObject
 	^ anObject
 !
 
-createdOn 
-
-	| selector expectsInstanceOf object |
-
-	selector := #createdOn.
-	expectsInstanceOf := Date.
-
-	object := self at: selector asString.
-	object ifNil:[^nil].
-
-	(object isKindOf: expectsInstanceOf) ifTrue:[^object].
-
-	^ self at: selector asString put: (self dateAndTimeAt: selector).
-!
-
-createdOn: aDate
-
-	self at: #createdOn put: aDate
-!
-
 data
 	"Answers the raw content of this mapless.
 	Warning: NOT meant to be overriden by subclasses."
@@ -52,16 +32,6 @@ data
 dateAndTimeAt: aSelector
 
 	^ Date fromString: (self at: aSelector)
-!
-
-id
-
-	^ data at: #id
-!
-
-id: aString
-
-	data at: #id put: aString
 !
 
 path 
@@ -88,13 +58,13 @@ subModelAt: aSelector
 !
 
 uri 
-	"Answers the URI corresponding to this particular mapless"
-	^ self path,'/',self id
-!
+	"Answers the URI corresponding to this particular mapless.
+	It will return the id regarding to the server unless is not existin yet
+	in which case it will return the cid as fallback."
 
-url
-
-	^ self path,'/',self id asString
+	^ self hasId
+		ifTrue: [ self path,'/',self id ]
+		ifFalse: [ self path,'/',self cid ]
 ! !
 
 !Mapless methodsFor: 'actions'!
@@ -247,7 +217,7 @@ localDelete
 localFresh
 	"Answers the receiver loaded with a fresh version the contents regarding to the localStorage."
 
-	^ self syncFromJSON: (window localStorage getItem: self id)
+	^ self syncFromJSON: (window localStorage getItem: self cid)
 !
 
 localSave
@@ -265,11 +235,11 @@ newJSObject
 
 save
 	"Saves this mapless (upserts it)"
-	^ self saveThen:[ :res | self onAfterSave: res ]
+	^ self saveThen: [ :res | self onAfterSave: res ]
 !
 
 saveThen: aBlock
-	"Saves this mapless using the remote API"
+	"Saves this mapless using the remote API (upsert)"
 
 	self 
 		saveThen: aBlock 
@@ -326,8 +296,6 @@ updateThen: aBlock
 	"Updates this mapless using the remote API"
 
 	self onAboutToUpdate.
-	
-	self localSave.
 
 	jQuery ajax: #{ 
 		'url' -> self uri.
@@ -348,16 +316,6 @@ initialize
 
 	data := self newData.
 	self modelClass: self class name.
-!
-
-initializeCreatedOn
-
-	self createdOn: Date now
-!
-
-initializeInstanceVersion	
-
-	self v: 1
 ! !
 
 !Mapless methodsFor: 'reactions'!
@@ -479,10 +437,19 @@ onAfterUpdate: aResponse
 
 !Mapless methodsFor: 'testing'!
 
-= anObject
+= aMapless
 
-	^ (anObject respondsTo: #id) and:[
-	self id = anObject id]
+	^ (self cid notNil and: [ 
+	self cid = aMapless cid ]) or: [
+	
+	(self id notNil and: [
+	self id = aMapless id ]) ]
+!
+
+hasId
+	"Answers true if this Mapless already have an ID."
+	
+	^ data includesKey: #id
 !
 
 isJavaScriptObject: anObject
@@ -760,14 +727,47 @@ Mapless subclass: #MaplessModel
 	instanceVariableNames: ''
 	package: 'MiniMapless'!
 
+!MaplessModel methodsFor: 'accessing'!
+
+createdOn 	
+
+	| selector expectsInstanceOf object |
+
+	selector := #createdOn.
+	expectsInstanceOf := Date.
+
+	object := self at: selector asString.
+	object ifNil:[^nil].
+
+	(object isKindOf: expectsInstanceOf) ifTrue:[^object].
+
+	^ self at: selector asString put: (self dateAndTimeAt: selector).
+!
+
+createdOn: aDate
+
+	self at: #createdOn put: aDate
+! !
+
 !MaplessModel methodsFor: 'initialization'!
 
 initialize
 
 	super initialize.
 
+	self cid: self class newUUID.
 	self initializeInstanceVersion.
-	self id: self class newUUID.
+	self createdOn: Date now.
+!
+
+initializeCreatedOn
+
+	self createdOn: Date now
+!
+
+initializeInstanceVersion	
+
+	self v: 1
 ! !
 
 !MaplessModel methodsFor: 'reactions'!

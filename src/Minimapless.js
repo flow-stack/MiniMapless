@@ -12,36 +12,76 @@ $core.addMethod(
 $core.method({
 selector: "=",
 protocol: 'testing',
-fn: function (anObject){
+fn: function (aMapless){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-var $2,$1;
-$1=$recv($recv(anObject)._respondsTo_("id"))._and_((function(){
+var $4,$3,$5,$2,$7,$6,$8,$1;
+$4=self._cid();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["cid"]=1;
+//>>excludeEnd("ctx");
+$3=$recv($4)._notNil();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["notNil"]=1;
+//>>excludeEnd("ctx");
+$2=$recv($3)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$2=self._id();
+$5=self._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=1;
+$ctx2.sendIdx["cid"]=2;
 //>>excludeEnd("ctx");
-return $recv($2).__eq($recv(anObject)._id());
+return $recv($5).__eq($recv(aMapless)._cid());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["="]=1;
+//>>excludeEnd("ctx");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["and:"]=1;
+//>>excludeEnd("ctx");
+$1=$recv($2)._or_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$7=self._id();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["id"]=1;
+//>>excludeEnd("ctx");
+$6=$recv($7)._notNil();
+return $recv($6)._and_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
+$8=self._id();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx3.sendIdx["id"]=2;
+//>>excludeEnd("ctx");
+return $recv($8).__eq($recv(aMapless)._id());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
+//>>excludeEnd("ctx");
+}));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"=",{anObject:anObject},$globals.Mapless)});
+}, function($ctx1) {$ctx1.fill(self,"=",{aMapless:aMapless},$globals.Mapless)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "= anObject\x0a\x0a\x09^ (anObject respondsTo: #id) and:[\x0a\x09self id = anObject id]",
+args: ["aMapless"],
+source: "= aMapless\x0a\x0a\x09^ (self cid notNil and: [ \x0a\x09self cid = aMapless cid ]) or: [\x0a\x09\x0a\x09(self id notNil and: [\x0a\x09self id = aMapless id ]) ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["and:", "respondsTo:", "=", "id"]
+messageSends: ["or:", "and:", "notNil", "cid", "=", "id"]
 }),
 $globals.Mapless);
 
@@ -176,75 +216,6 @@ source: "createThen: aBlock\x0a\x09\x22Creates this mapless using the remote API
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["onAboutToCreate", "ajax:", "path", "asJSONString", "value:"]
-}),
-$globals.Mapless);
-
-$core.addMethod(
-$core.method({
-selector: "createdOn",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var selector,expectsInstanceOf,object;
-function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5,$receiver;
-selector="createdOn";
-expectsInstanceOf=$Date();
-$1=$recv(selector)._asString();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["asString"]=1;
-//>>excludeEnd("ctx");
-object=self._at_($1);
-$2=object;
-if(($receiver = $2) == null || $receiver.isNil){
-return nil;
-} else {
-$2;
-};
-$3=$recv(object)._isKindOf_(expectsInstanceOf);
-if($core.assert($3)){
-$4=object;
-return $4;
-};
-$5=self._at_put_($recv(selector)._asString(),self._dateAndTimeAt_(selector));
-return $5;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"createdOn",{selector:selector,expectsInstanceOf:expectsInstanceOf,object:object},$globals.Mapless)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "createdOn \x0a\x0a\x09| selector expectsInstanceOf object |\x0a\x0a\x09selector := #createdOn.\x0a\x09expectsInstanceOf := Date.\x0a\x0a\x09object := self at: selector asString.\x0a\x09object ifNil:[^nil].\x0a\x0a\x09(object isKindOf: expectsInstanceOf) ifTrue:[^object].\x0a\x0a\x09^ self at: selector asString put: (self dateAndTimeAt: selector).",
-referencedClasses: ["Date"],
-//>>excludeEnd("ide");
-messageSends: ["at:", "asString", "ifNil:", "ifTrue:", "isKindOf:", "at:put:", "dateAndTimeAt:"]
-}),
-$globals.Mapless);
-
-$core.addMethod(
-$core.method({
-selector: "createdOn:",
-protocol: 'accessing',
-fn: function (aDate){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-self._at_put_("createdOn",aDate);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"createdOn:",{aDate:aDate},$globals.Mapless)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aDate"],
-source: "createdOn: aDate\x0a\x0a\x09self at: #createdOn put: aDate",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["at:put:"]
 }),
 $globals.Mapless);
 
@@ -683,50 +654,26 @@ $globals.Mapless);
 
 $core.addMethod(
 $core.method({
-selector: "id",
-protocol: 'accessing',
+selector: "hasId",
+protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv(self["@data"])._at_("id");
+$1=$recv(self["@data"])._includesKey_("id");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"id",{},$globals.Mapless)});
+}, function($ctx1) {$ctx1.fill(self,"hasId",{},$globals.Mapless)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "id\x0a\x0a\x09^ data at: #id",
+source: "hasId\x0a\x09\x22Answers true if this Mapless already have an ID.\x22\x0a\x09\x0a\x09^ data includesKey: #id\x0a\x09",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["at:"]
-}),
-$globals.Mapless);
-
-$core.addMethod(
-$core.method({
-selector: "id:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-$recv(self["@data"])._at_put_("id",aString);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"id:",{aString:aString},$globals.Mapless)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "id: aString\x0a\x0a\x09data at: #id put: aString",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["at:put:"]
+messageSends: ["includesKey:"]
 }),
 $globals.Mapless);
 
@@ -760,55 +707,6 @@ source: "initialize\x0a\x0a\x09super initialize.\x0a\x0a\x09data := self newData
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initialize", "newData", "modelClass:", "name", "class"]
-}),
-$globals.Mapless);
-
-$core.addMethod(
-$core.method({
-selector: "initializeCreatedOn",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-self._createdOn_($recv($Date())._now());
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initializeCreatedOn",{},$globals.Mapless)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "initializeCreatedOn\x0a\x0a\x09self createdOn: Date now",
-referencedClasses: ["Date"],
-//>>excludeEnd("ide");
-messageSends: ["createdOn:", "now"]
-}),
-$globals.Mapless);
-
-$core.addMethod(
-$core.method({
-selector: "initializeInstanceVersion",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-self._v_((1));
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initializeInstanceVersion",{},$globals.Mapless)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "initializeInstanceVersion\x09\x0a\x0a\x09self v: 1",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["v:"]
 }),
 $globals.Mapless);
 
@@ -1013,7 +911,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=self._syncFromJSON_($recv($recv(window)._localStorage())._getItem_(self._id()));
+$1=self._syncFromJSON_($recv($recv(window)._localStorage())._getItem_(self._cid()));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"localFresh",{},$globals.Mapless)});
@@ -1021,10 +919,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "localFresh\x0a\x09\x22Answers the receiver loaded with a fresh version the contents regarding to the localStorage.\x22\x0a\x0a\x09^ self syncFromJSON: (window localStorage getItem: self id)",
+source: "localFresh\x0a\x09\x22Answers the receiver loaded with a fresh version the contents regarding to the localStorage.\x22\x0a\x0a\x09^ self syncFromJSON: (window localStorage getItem: self cid)",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["syncFromJSON:", "getItem:", "localStorage", "id"]
+messageSends: ["syncFromJSON:", "getItem:", "localStorage", "cid"]
 }),
 $globals.Mapless);
 
@@ -1329,7 +1227,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "onAboutToSave",
+source: "onAboutToSave\x0a\x09",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -1608,7 +1506,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "save\x0a\x09\x22Saves this mapless (upserts it)\x22\x0a\x09^ self saveThen:[ :res | self onAfterSave: res ]",
+source: "save\x0a\x09\x22Saves this mapless (upserts it)\x22\x0a\x09^ self saveThen: [ :res | self onAfterSave: res ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["saveThen:", "onAfterSave:"]
@@ -1655,7 +1553,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "saveThen: aBlock\x0a\x09\x22Saves this mapless using the remote API\x22\x0a\x0a\x09self \x0a\x09\x09saveThen: aBlock \x0a\x09\x09onError: [ :res | \x0a\x09\x09\x09MaplessError signal: 'Problem saving ', self asString,'. Backend said: ', res responseText asString ]",
+source: "saveThen: aBlock\x0a\x09\x22Saves this mapless using the remote API (upsert)\x22\x0a\x0a\x09self \x0a\x09\x09saveThen: aBlock \x0a\x09\x09onError: [ :res | \x0a\x09\x09\x09MaplessError signal: 'Problem saving ', self asString,'. Backend said: ', res responseText asString ]",
 referencedClasses: ["MaplessError"],
 //>>excludeEnd("ide");
 messageSends: ["saveThen:onError:", "signal:", ",", "asString", "responseText"]
@@ -1879,7 +1777,6 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._onAboutToUpdate();
-self._localSave();
 $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri(),"type","PUT","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",self._asJSONString(),"complete",(function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -1896,10 +1793,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "updateThen: aBlock\x0a\x09\x22Updates this mapless using the remote API\x22\x0a\x0a\x09self onAboutToUpdate.\x0a\x09\x0a\x09self localSave.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | aBlock value: res ]\x0a\x09}",
+source: "updateThen: aBlock\x0a\x09\x22Updates this mapless using the remote API\x22\x0a\x0a\x09self onAboutToUpdate.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | aBlock value: res ]\x0a\x09}",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["onAboutToUpdate", "localSave", "ajax:", "uri", "asJSONString", "value:"]
+messageSends: ["onAboutToUpdate", "ajax:", "uri", "asJSONString", "value:"]
 }),
 $globals.Mapless);
 
@@ -1912,11 +1809,27 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv($recv(self._path()).__comma("/")).__comma(self._id());
+var $2,$4,$3,$1;
+$2=self._hasId();
+if($core.assert($2)){
+$4=self._path();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["path"]=1;
+//>>excludeEnd("ctx");
+$3=$recv($4).__comma("/");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=2;
+//>>excludeEnd("ctx");
+$1=$recv($3).__comma(self._id());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
+} else {
+$1=$recv($recv(self._path()).__comma("/")).__comma(self._cid());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=3;
+//>>excludeEnd("ctx");
+};
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"uri",{},$globals.Mapless)});
@@ -1924,38 +1837,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "uri \x0a\x09\x22Answers the URI corresponding to this particular mapless\x22\x0a\x09^ self path,'/',self id",
+source: "uri \x0a\x09\x22Answers the URI corresponding to this particular mapless.\x0a\x09It will return the id regarding to the server unless is not existin yet\x0a\x09in which case it will return the cid as fallback.\x22\x0a\x0a\x09^ self hasId\x0a\x09\x09ifTrue: [ self path,'/',self id ]\x0a\x09\x09ifFalse: [ self path,'/',self cid ]\x09",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: [",", "path", "id"]
-}),
-$globals.Mapless);
-
-$core.addMethod(
-$core.method({
-selector: "url",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($recv(self._path()).__comma("/")).__comma($recv(self._id())._asString());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=1;
-//>>excludeEnd("ctx");
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"url",{},$globals.Mapless)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "url\x0a\x0a\x09^ self path,'/',self id asString",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: [",", "path", "asString", "id"]
+messageSends: ["ifTrue:ifFalse:", "hasId", ",", "path", "id", "cid"]
 }),
 $globals.Mapless);
 
@@ -2806,10 +2691,80 @@ $globals.Mapless.klass);
 $core.addClass('MaplessModel', $globals.Mapless, [], 'MiniMapless');
 $core.addMethod(
 $core.method({
+selector: "createdOn",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var selector,expectsInstanceOf,object;
+function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1,$2,$3,$4,$5,$receiver;
+selector="createdOn";
+expectsInstanceOf=$Date();
+$1=$recv(selector)._asString();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asString"]=1;
+//>>excludeEnd("ctx");
+object=self._at_($1);
+$2=object;
+if(($receiver = $2) == null || $receiver.isNil){
+return nil;
+} else {
+$2;
+};
+$3=$recv(object)._isKindOf_(expectsInstanceOf);
+if($core.assert($3)){
+$4=object;
+return $4;
+};
+$5=self._at_put_($recv(selector)._asString(),self._dateAndTimeAt_(selector));
+return $5;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"createdOn",{selector:selector,expectsInstanceOf:expectsInstanceOf,object:object},$globals.MaplessModel)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "createdOn \x09\x0a\x0a\x09| selector expectsInstanceOf object |\x0a\x0a\x09selector := #createdOn.\x0a\x09expectsInstanceOf := Date.\x0a\x0a\x09object := self at: selector asString.\x0a\x09object ifNil:[^nil].\x0a\x0a\x09(object isKindOf: expectsInstanceOf) ifTrue:[^object].\x0a\x0a\x09^ self at: selector asString put: (self dateAndTimeAt: selector).",
+referencedClasses: ["Date"],
+//>>excludeEnd("ide");
+messageSends: ["at:", "asString", "ifNil:", "ifTrue:", "isKindOf:", "at:put:", "dateAndTimeAt:"]
+}),
+$globals.MaplessModel);
+
+$core.addMethod(
+$core.method({
+selector: "createdOn:",
+protocol: 'accessing',
+fn: function (aDate){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+self._at_put_("createdOn",aDate);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"createdOn:",{aDate:aDate},$globals.MaplessModel)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aDate"],
+source: "createdOn: aDate\x0a\x0a\x09self at: #createdOn put: aDate",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["at:put:"]
+}),
+$globals.MaplessModel);
+
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
+function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
@@ -2821,8 +2776,9 @@ $globals.MaplessModel.superclass.fn.prototype._initialize.apply($recv(self), [])
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
+self._cid_($recv(self._class())._newUUID());
 self._initializeInstanceVersion();
-self._id_($recv(self._class())._newUUID());
+self._createdOn_($recv($Date())._now());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.MaplessModel)});
@@ -2830,10 +2786,59 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "initialize\x0a\x0a\x09super initialize.\x0a\x0a\x09self initializeInstanceVersion.\x0a\x09self id: self class newUUID.",
+source: "initialize\x0a\x0a\x09super initialize.\x0a\x0a\x09self cid: self class newUUID.\x0a\x09self initializeInstanceVersion.\x0a\x09self createdOn: Date now.",
+referencedClasses: ["Date"],
+//>>excludeEnd("ide");
+messageSends: ["initialize", "cid:", "newUUID", "class", "initializeInstanceVersion", "createdOn:", "now"]
+}),
+$globals.MaplessModel);
+
+$core.addMethod(
+$core.method({
+selector: "initializeCreatedOn",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+self._createdOn_($recv($Date())._now());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initializeCreatedOn",{},$globals.MaplessModel)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initializeCreatedOn\x0a\x0a\x09self createdOn: Date now",
+referencedClasses: ["Date"],
+//>>excludeEnd("ide");
+messageSends: ["createdOn:", "now"]
+}),
+$globals.MaplessModel);
+
+$core.addMethod(
+$core.method({
+selector: "initializeInstanceVersion",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+self._v_((1));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initializeInstanceVersion",{},$globals.MaplessModel)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initializeInstanceVersion\x09\x0a\x0a\x09self v: 1",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["initialize", "initializeInstanceVersion", "id:", "newUUID", "class"]
+messageSends: ["v:"]
 }),
 $globals.MaplessModel);
 

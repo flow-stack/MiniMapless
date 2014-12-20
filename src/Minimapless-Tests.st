@@ -5,6 +5,39 @@ TestCase subclass: #MaplessLocalTest
 
 !MaplessLocalTest methodsFor: 'tests'!
 
+testCid
+	"Test the client id"
+	
+	| createdOne loadedOne |
+	
+	createdOne := Thing new.
+	
+	createdOne localSave.
+	
+	self shouldnt: [
+			loadedOne := Mapless localFindCid: createdOne cid.
+			loadedOne localFresh.
+			self assert: loadedOne id isNil.
+			self assert: loadedOne cid notNil.
+		] raise: Error
+!
+
+testEquality
+	
+	| one two pretender |
+	
+	one := Thing new.
+	two := Thing new.
+
+
+	self deny: one = two.
+	
+	pretender := Thing new.
+	self assert: pretender cid ~= one cid.
+	pretender cid: one cid.
+	self assert: one = pretender.
+!
+
 testFresh
 
 	| createdOne loadedOne |
@@ -22,6 +55,17 @@ testFresh
 			self deny: loadedOne remember = 'something'.
 			self assert: loadedOne remember = 42.
 		] raise: Error
+!
+
+testIdDetection
+	
+	| one |
+	
+	one := Thing new.
+
+	self deny: one id notNil.
+	
+	self deny: one hasId
 !
 
 testLocalUpdate
