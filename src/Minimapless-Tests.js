@@ -134,7 +134,7 @@ self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-loadedOne=$recv($Mapless())._localFindId_($recv(createdOne)._id());
+loadedOne=$recv($Mapless())._localFindCid_($recv(createdOne)._cid());
 loadedOne;
 $recv(loadedOne)._remember_("something");
 $2=$recv(loadedOne)._remember();
@@ -171,10 +171,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testFresh\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 42.\x0a\x09createdOne localSave.\x0a\x09\x0a\x09self shouldnt: [\x0a\x09\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09\x09loadedOne remember: 'something'.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x09loadedOne localFresh.\x0a\x09\x09\x09self deny: loadedOne remember = 'something'.\x0a\x09\x09\x09self assert: loadedOne remember = 42.\x0a\x09\x09] raise: Error",
+source: "testFresh\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 42.\x0a\x09createdOne localSave.\x0a\x09\x0a\x09self shouldnt: [\x0a\x09\x09\x09loadedOne := Mapless localFindCid: createdOne cid.\x0a\x09\x09\x09loadedOne remember: 'something'.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x09loadedOne localFresh.\x0a\x09\x09\x09self deny: loadedOne remember = 'something'.\x0a\x09\x09\x09self assert: loadedOne remember = 42.\x0a\x09\x09] raise: Error",
 referencedClasses: ["Thing", "Mapless", "Error"],
 //>>excludeEnd("ide");
-messageSends: ["new", "remember:", "localSave", "shouldnt:raise:", "localFindId:", "id", "assert:", "=", "remember", "localFresh", "deny:"]
+messageSends: ["new", "remember:", "localSave", "shouldnt:raise:", "localFindCid:", "cid", "assert:", "=", "remember", "localFresh", "deny:"]
 }),
 $globals.MaplessLocalTest);
 
@@ -232,9 +232,9 @@ $3=$recv(window)._localStorage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["localStorage"]=1;
 //>>excludeEnd("ctx");
-$4=$recv(createdOne)._id();
+$4=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["id"]=1;
+$ctx1.sendIdx["cid"]=1;
 //>>excludeEnd("ctx");
 $2=$recv($3)._getItem_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -253,9 +253,9 @@ $recv(createdOne)._localSave();
 $ctx1.sendIdx["localSave"]=1;
 //>>excludeEnd("ctx");
 $7=$recv(window)._localStorage();
-$8=$recv(createdOne)._id();
+$8=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["id"]=2;
+$ctx1.sendIdx["cid"]=2;
 //>>excludeEnd("ctx");
 $6=$recv($7)._getItem_($8);
 $5=$recv($6)._notNil();
@@ -267,13 +267,13 @@ self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$9=$recv(createdOne)._id();
+$9=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=3;
+$ctx2.sendIdx["cid"]=3;
 //>>excludeEnd("ctx");
-loadedOne=$recv($Mapless())._localFindId_($9);
+loadedOne=$recv($Mapless())._localFindCid_($9);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindId:"]=1;
+$ctx2.sendIdx["localFindCid:"]=1;
 //>>excludeEnd("ctx");
 loadedOne;
 $10=$recv($recv(loadedOne)._class()).__eq($Thing());
@@ -284,13 +284,13 @@ self._assert_($10);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=2;
 //>>excludeEnd("ctx");
-$12=$recv(loadedOne)._id();
+$12=$recv(loadedOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=4;
+$ctx2.sendIdx["cid"]=4;
 //>>excludeEnd("ctx");
-$13=$recv(createdOne)._id();
+$13=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=5;
+$ctx2.sendIdx["cid"]=5;
 //>>excludeEnd("ctx");
 $11=$recv($12).__eq($13);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -338,7 +338,7 @@ self._assert_($18);
 $ctx2.sendIdx["assert:"]=5;
 //>>excludeEnd("ctx");
 $recv(loadedOne)._localSave();
-loadedOne=$recv($Mapless())._localFindId_($recv(createdOne)._id());
+loadedOne=$recv($Mapless())._localFindCid_($recv(createdOne)._cid());
 loadedOne;
 $21=$recv(loadedOne)._remember();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -361,10 +361,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testLocalUpdate\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09createdOne localSave.\x0a\x0a\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09\x09\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne id = createdOne id.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x09self deny: loadedOne remember = 'else'.\x0a\x09\x09\x09loadedOne remember: 'else'.\x0a\x09\x09\x09self assert: loadedOne remember = 'else'.\x0a\x09\x09\x09loadedOne localSave.\x0a\x09\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09\x09self deny: loadedOne remember = 'something'.\x0a\x09\x09\x09self assert: loadedOne remember = 'else'.\x0a\x09\x09] raise: Error",
+source: "testLocalUpdate\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne cid) notNil.\x0a\x09\x0a\x09createdOne localSave.\x0a\x0a\x09self assert: (window localStorage getItem: createdOne cid) notNil.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09\x09loadedOne := Mapless localFindCid: createdOne cid.\x0a\x09\x09\x09\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne cid = createdOne cid.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x09self deny: loadedOne remember = 'else'.\x0a\x09\x09\x09loadedOne remember: 'else'.\x0a\x09\x09\x09self assert: loadedOne remember = 'else'.\x0a\x09\x09\x09loadedOne localSave.\x0a\x09\x09\x09loadedOne := Mapless localFindCid: createdOne cid.\x0a\x09\x09\x09self deny: loadedOne remember = 'something'.\x0a\x09\x09\x09self assert: loadedOne remember = 'else'.\x0a\x09\x09] raise: Error",
 referencedClasses: ["Thing", "Mapless", "Error"],
 //>>excludeEnd("ide");
-messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "id", "localSave", "assert:", "shouldnt:raise:", "localFindId:", "=", "class", "remember"]
+messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "cid", "localSave", "assert:", "shouldnt:raise:", "localFindCid:", "=", "class", "remember"]
 }),
 $globals.MaplessLocalTest);
 
@@ -388,9 +388,9 @@ $3=$recv(window)._localStorage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["localStorage"]=1;
 //>>excludeEnd("ctx");
-$4=$recv(createdOne)._id();
+$4=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["id"]=1;
+$ctx1.sendIdx["cid"]=1;
 //>>excludeEnd("ctx");
 $2=$recv($3)._getItem_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -410,9 +410,9 @@ $7=$recv(window)._localStorage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["localStorage"]=2;
 //>>excludeEnd("ctx");
-$8=$recv(createdOne)._id();
+$8=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=2;
+$ctx2.sendIdx["cid"]=2;
 //>>excludeEnd("ctx");
 $6=$recv($7)._getItem_($8);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -423,13 +423,13 @@ self._assert_($5);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-$9=$recv(createdOne)._id();
+$9=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=3;
+$ctx2.sendIdx["cid"]=3;
 //>>excludeEnd("ctx");
-loadedOne=$recv($Mapless())._localFindId_($9);
+loadedOne=$recv($Mapless())._localFindCid_($9);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindId:"]=1;
+$ctx2.sendIdx["localFindCid:"]=1;
 //>>excludeEnd("ctx");
 loadedOne;
 self._assert_($recv($recv(loadedOne)._remember()).__eq("something"));
@@ -438,9 +438,9 @@ $ctx2.sendIdx["assert:"]=2;
 //>>excludeEnd("ctx");
 $recv(loadedOne)._localDelete();
 $12=$recv(window)._localStorage();
-$13=$recv(createdOne)._id();
+$13=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=4;
+$ctx2.sendIdx["cid"]=4;
 //>>excludeEnd("ctx");
 $11=$recv($12)._getItem_($13);
 $10=$recv($11)._isNil();
@@ -451,7 +451,7 @@ self._assert_($10);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=3;
 //>>excludeEnd("ctx");
-return self._assert_($recv($recv($Mapless())._localFindId_($recv(createdOne)._id()))._isNil());
+return self._assert_($recv($recv($Mapless())._localFindCid_($recv(createdOne)._cid()))._isNil());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -463,10 +463,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testSaveAndDelete\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09createdOne localSave.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x0a\x09\x09loadedOne localDelete.\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: createdOne id) isNil.\x0a\x09\x09] raise: Error",
+source: "testSaveAndDelete\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne cid) notNil.\x0a\x09\x0a\x09createdOne localSave.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09self assert: (window localStorage getItem: createdOne cid) notNil.\x0a\x09\x09loadedOne := Mapless localFindCid: createdOne cid.\x0a\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09\x0a\x09\x09loadedOne localDelete.\x0a\x09\x09self assert: (window localStorage getItem: createdOne cid) isNil.\x0a\x09\x09self assert: (Mapless localFindCid: createdOne cid) isNil.\x0a\x09\x09] raise: Error",
 referencedClasses: ["Thing", "Mapless", "Error"],
 //>>excludeEnd("ide");
-messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "id", "localSave", "shouldnt:raise:", "assert:", "localFindId:", "=", "remember", "localDelete", "isNil"]
+messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "cid", "localSave", "shouldnt:raise:", "assert:", "localFindCid:", "=", "remember", "localDelete", "isNil"]
 }),
 $globals.MaplessLocalTest);
 
@@ -490,9 +490,9 @@ $3=$recv(window)._localStorage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["localStorage"]=1;
 //>>excludeEnd("ctx");
-$4=$recv(createdOne)._id();
+$4=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["id"]=1;
+$ctx1.sendIdx["cid"]=1;
 //>>excludeEnd("ctx");
 $2=$recv($3)._getItem_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -505,9 +505,9 @@ $ctx1.sendIdx["notNil"]=1;
 self._deny_($1);
 $recv(createdOne)._localSave();
 $7=$recv(window)._localStorage();
-$8=$recv(createdOne)._id();
+$8=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["id"]=2;
+$ctx1.sendIdx["cid"]=2;
 //>>excludeEnd("ctx");
 $6=$recv($7)._getItem_($8);
 $5=$recv($6)._notNil();
@@ -519,11 +519,11 @@ self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$9=$recv(createdOne)._id();
+$9=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=3;
+$ctx2.sendIdx["cid"]=3;
 //>>excludeEnd("ctx");
-loadedOne=$recv($Mapless())._localFindId_($9);
+loadedOne=$recv($Mapless())._localFindCid_($9);
 loadedOne;
 $10=$recv($recv(loadedOne)._class()).__eq($Thing());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -533,11 +533,11 @@ self._assert_($10);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=2;
 //>>excludeEnd("ctx");
-$12=$recv(loadedOne)._id();
+$12=$recv(loadedOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=4;
+$ctx2.sendIdx["cid"]=4;
 //>>excludeEnd("ctx");
-$11=$recv($12).__eq($recv(createdOne)._id());
+$11=$recv($12).__eq($recv(createdOne)._cid());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["="]=2;
 //>>excludeEnd("ctx");
@@ -557,10 +557,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testSaveAndFindOne\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09createdOne localSave.\x0a\x0a\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne id = createdOne id.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09] raise: Error",
+source: "testSaveAndFindOne\x0a\x0a\x09| createdOne loadedOne |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne cid) notNil.\x0a\x09\x0a\x09createdOne localSave.\x0a\x0a\x09self assert: (window localStorage getItem: createdOne cid) notNil.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09\x09loadedOne := Mapless localFindCid: createdOne cid.\x0a\x09\x09\x09self assert: loadedOne class = Thing.\x0a\x09\x09\x09self assert: loadedOne cid = createdOne cid.\x0a\x09\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09] raise: Error",
 referencedClasses: ["Thing", "Mapless", "Error"],
 //>>excludeEnd("ide");
-messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "id", "localSave", "assert:", "shouldnt:raise:", "localFindId:", "=", "class", "remember"]
+messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "cid", "localSave", "assert:", "shouldnt:raise:", "localFindCid:", "=", "class", "remember"]
 }),
 $globals.MaplessLocalTest);
 
@@ -597,9 +597,9 @@ $3=$recv(window)._localStorage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["localStorage"]=1;
 //>>excludeEnd("ctx");
-$4=$recv(createdOne)._id();
+$4=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["id"]=1;
+$ctx1.sendIdx["cid"]=1;
 //>>excludeEnd("ctx");
 $2=$recv($3)._getItem_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -638,9 +638,9 @@ $13=$recv(window)._localStorage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["localStorage"]=2;
 //>>excludeEnd("ctx");
-$14=$recv(createdOne)._id();
+$14=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=2;
+$ctx2.sendIdx["cid"]=2;
 //>>excludeEnd("ctx");
 $12=$recv($13)._getItem_($14);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -651,31 +651,31 @@ self._assert_($11);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-$15=$recv(createdOne)._id();
+$15=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=3;
+$ctx2.sendIdx["cid"]=3;
 //>>excludeEnd("ctx");
-loadedOne=$recv($Mapless())._localFindId_($15);
+loadedOne=$recv($Mapless())._localFindCid_($15);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindId:"]=1;
+$ctx2.sendIdx["localFindCid:"]=1;
 //>>excludeEnd("ctx");
 loadedOne;
-$16=$recv(composed1)._id();
+$16=$recv(composed1)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=4;
+$ctx2.sendIdx["cid"]=4;
 //>>excludeEnd("ctx");
-part1=$recv($Mapless())._localFindId_($16);
+part1=$recv($Mapless())._localFindCid_($16);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindId:"]=2;
+$ctx2.sendIdx["localFindCid:"]=2;
 //>>excludeEnd("ctx");
 part1;
-$17=$recv(composed2)._id();
+$17=$recv(composed2)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=5;
+$ctx2.sendIdx["cid"]=5;
 //>>excludeEnd("ctx");
-part2=$recv($Mapless())._localFindId_($17);
+part2=$recv($Mapless())._localFindCid_($17);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindId:"]=3;
+$ctx2.sendIdx["localFindCid:"]=3;
 //>>excludeEnd("ctx");
 part2;
 $18=$recv($recv(loadedOne)._remember()).__eq("something");
@@ -739,13 +739,13 @@ $32=$recv(loadedOne)._parts();
 $ctx2.sendIdx["parts"]=3;
 //>>excludeEnd("ctx");
 $31=$recv($32)._first();
-$30=$recv($31)._id();
+$30=$recv($31)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=6;
+$ctx2.sendIdx["cid"]=6;
 //>>excludeEnd("ctx");
-$33=$recv(part1)._id();
+$33=$recv(part1)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=7;
+$ctx2.sendIdx["cid"]=7;
 //>>excludeEnd("ctx");
 $29=$recv($30).__eq($33);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -799,13 +799,13 @@ self._assert_($39);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=7;
 //>>excludeEnd("ctx");
-$44=$recv($recv($recv(loadedOne)._parts())._second())._id();
+$44=$recv($recv($recv(loadedOne)._parts())._second())._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=8;
+$ctx2.sendIdx["cid"]=8;
 //>>excludeEnd("ctx");
-$45=$recv(part2)._id();
+$45=$recv(part2)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=9;
+$ctx2.sendIdx["cid"]=9;
 //>>excludeEnd("ctx");
 $43=$recv($44).__eq($45);
 self._assert_($43);
@@ -825,9 +825,9 @@ $48=$recv(window)._localStorage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["localStorage"]=3;
 //>>excludeEnd("ctx");
-$49=$recv(createdOne)._id();
+$49=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=10;
+$ctx2.sendIdx["cid"]=10;
 //>>excludeEnd("ctx");
 $47=$recv($48)._getItem_($49);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -845,9 +845,9 @@ $52=$recv(window)._localStorage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["localStorage"]=4;
 //>>excludeEnd("ctx");
-$53=$recv(composed1)._id();
+$53=$recv(composed1)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=11;
+$ctx2.sendIdx["cid"]=11;
 //>>excludeEnd("ctx");
 $51=$recv($52)._getItem_($53);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -862,9 +862,9 @@ self._assert_($50);
 $ctx2.sendIdx["assert:"]=10;
 //>>excludeEnd("ctx");
 $56=$recv(window)._localStorage();
-$57=$recv(composed2)._id();
+$57=$recv(composed2)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=12;
+$ctx2.sendIdx["cid"]=12;
 //>>excludeEnd("ctx");
 $55=$recv($56)._getItem_($57);
 $54=$recv($55)._isNil();
@@ -875,13 +875,13 @@ self._assert_($54);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=11;
 //>>excludeEnd("ctx");
-$60=$recv(createdOne)._id();
+$60=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=13;
+$ctx2.sendIdx["cid"]=13;
 //>>excludeEnd("ctx");
-$59=$recv($Mapless())._localFindId_($60);
+$59=$recv($Mapless())._localFindCid_($60);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindId:"]=4;
+$ctx2.sendIdx["localFindCid:"]=4;
 //>>excludeEnd("ctx");
 $58=$recv($59)._isNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -891,13 +891,13 @@ self._assert_($58);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=12;
 //>>excludeEnd("ctx");
-$63=$recv(composed1)._id();
+$63=$recv(composed1)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=14;
+$ctx2.sendIdx["cid"]=14;
 //>>excludeEnd("ctx");
-$62=$recv($Mapless())._localFindId_($63);
+$62=$recv($Mapless())._localFindCid_($63);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindId:"]=5;
+$ctx2.sendIdx["localFindCid:"]=5;
 //>>excludeEnd("ctx");
 $61=$recv($62)._isNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -907,7 +907,7 @@ self._assert_($61);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=13;
 //>>excludeEnd("ctx");
-return self._assert_($recv($recv($Mapless())._localFindId_($recv(composed2)._id()))._isNil());
+return self._assert_($recv($recv($Mapless())._localFindCid_($recv(composed2)._cid()))._isNil());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -919,10 +919,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testSaveComposedMany\x0a\x0a\x09| createdOne composed1 composed2 loadedOne part1 part2 |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09composed1 := Stuff new.\x0a\x09composed2 := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09composed1 localSave.\x0a\x09composed2 localSave.\x0a\x09createdOne\x0a\x09\x09parts: (Array new\x0a\x09\x09\x09\x09\x09add: composed1;\x0a\x09\x09\x09\x09\x09add: composed2;\x0a\x09\x09\x09\x09\x09yourself);\x0a\x09\x09localSave.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09part1 := Mapless localFindId: composed1 id.\x0a\x09\x09part2 := Mapless localFindId: composed2 id.\x0a\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09self assert: loadedOne parts first class = composed1 class.\x0a\x09\x09self assert: loadedOne parts first class = part1 class.\x0a\x09\x09self assert: loadedOne parts first id = part1 id.\x0a\x0a\x09\x09self assert: loadedOne parts second class = composed2 class.\x0a\x09\x09self assert: loadedOne parts second class = part2 class.\x0a\x09\x09self assert: loadedOne parts second id = part2 id.\x0a\x0a\x09\x09loadedOne localDelete.\x0a\x09\x09composed1 localDelete.\x0a\x09\x09composed2 localDelete.\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) isNil.\x0a\x09\x09self assert: (window localStorage getItem: composed1 id) isNil.\x0a\x09\x09self assert: (window localStorage getItem: composed2 id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: createdOne id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: composed1 id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: composed2 id) isNil.\x0a\x09\x09] raise: Error",
+source: "testSaveComposedMany\x0a\x0a\x09| createdOne composed1 composed2 loadedOne part1 part2 |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09composed1 := Stuff new.\x0a\x09composed2 := Thing new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne cid) notNil.\x0a\x09\x0a\x09composed1 localSave.\x0a\x09composed2 localSave.\x0a\x09createdOne\x0a\x09\x09parts: (Array new\x0a\x09\x09\x09\x09\x09add: composed1;\x0a\x09\x09\x09\x09\x09add: composed2;\x0a\x09\x09\x09\x09\x09yourself);\x0a\x09\x09localSave.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09self assert: (window localStorage getItem: createdOne cid) notNil.\x0a\x09\x09loadedOne := Mapless localFindCid: createdOne cid.\x0a\x09\x09part1 := Mapless localFindCid: composed1 cid.\x0a\x09\x09part2 := Mapless localFindCid: composed2 cid.\x0a\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09self assert: loadedOne parts first class = composed1 class.\x0a\x09\x09self assert: loadedOne parts first class = part1 class.\x0a\x09\x09self assert: loadedOne parts first cid = part1 cid.\x0a\x0a\x09\x09self assert: loadedOne parts second class = composed2 class.\x0a\x09\x09self assert: loadedOne parts second class = part2 class.\x0a\x09\x09self assert: loadedOne parts second cid = part2 cid.\x0a\x0a\x09\x09loadedOne localDelete.\x0a\x09\x09composed1 localDelete.\x0a\x09\x09composed2 localDelete.\x0a\x09\x09self assert: (window localStorage getItem: createdOne cid) isNil.\x0a\x09\x09self assert: (window localStorage getItem: composed1 cid) isNil.\x0a\x09\x09self assert: (window localStorage getItem: composed2 cid) isNil.\x0a\x09\x09self assert: (Mapless localFindCid: createdOne cid) isNil.\x0a\x09\x09self assert: (Mapless localFindCid: composed1 cid) isNil.\x0a\x09\x09self assert: (Mapless localFindCid: composed2 cid) isNil.\x0a\x09\x09] raise: Error",
 referencedClasses: ["Thing", "Stuff", "Array", "Mapless", "Error"],
 //>>excludeEnd("ide");
-messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "id", "localSave", "parts:", "add:", "yourself", "shouldnt:raise:", "assert:", "localFindId:", "=", "remember", "class", "first", "parts", "second", "localDelete", "isNil"]
+messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "cid", "localSave", "parts:", "add:", "yourself", "shouldnt:raise:", "assert:", "localFindCid:", "=", "remember", "class", "first", "parts", "second", "localDelete", "isNil"]
 }),
 $globals.MaplessLocalTest);
 
@@ -951,9 +951,9 @@ $3=$recv(window)._localStorage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["localStorage"]=1;
 //>>excludeEnd("ctx");
-$4=$recv(createdOne)._id();
+$4=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["id"]=1;
+$ctx1.sendIdx["cid"]=1;
 //>>excludeEnd("ctx");
 $2=$recv($3)._getItem_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -979,9 +979,9 @@ $9=$recv(window)._localStorage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["localStorage"]=2;
 //>>excludeEnd("ctx");
-$10=$recv(createdOne)._id();
+$10=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=2;
+$ctx2.sendIdx["cid"]=2;
 //>>excludeEnd("ctx");
 $8=$recv($9)._getItem_($10);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -992,22 +992,22 @@ self._assert_($7);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-$11=$recv(createdOne)._id();
+$11=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=3;
+$ctx2.sendIdx["cid"]=3;
 //>>excludeEnd("ctx");
-loadedOne=$recv($Mapless())._localFindId_($11);
+loadedOne=$recv($Mapless())._localFindCid_($11);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindId:"]=1;
+$ctx2.sendIdx["localFindCid:"]=1;
 //>>excludeEnd("ctx");
 loadedOne;
-$12=$recv(composedOne)._id();
+$12=$recv(composedOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=4;
+$ctx2.sendIdx["cid"]=4;
 //>>excludeEnd("ctx");
-part=$recv($Mapless())._localFindId_($12);
+part=$recv($Mapless())._localFindCid_($12);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindId:"]=2;
+$ctx2.sendIdx["localFindCid:"]=2;
 //>>excludeEnd("ctx");
 part;
 $13=$recv($recv(loadedOne)._remember()).__eq("something");
@@ -1054,13 +1054,13 @@ self._assert_($18);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=4;
 //>>excludeEnd("ctx");
-$22=$recv($recv(loadedOne)._hasOneOf())._id();
+$22=$recv($recv(loadedOne)._hasOneOf())._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=5;
+$ctx2.sendIdx["cid"]=5;
 //>>excludeEnd("ctx");
-$23=$recv(part)._id();
+$23=$recv(part)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=6;
+$ctx2.sendIdx["cid"]=6;
 //>>excludeEnd("ctx");
 $21=$recv($22).__eq($23);
 self._assert_($21);
@@ -1076,9 +1076,9 @@ $26=$recv(window)._localStorage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["localStorage"]=3;
 //>>excludeEnd("ctx");
-$27=$recv(createdOne)._id();
+$27=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=7;
+$ctx2.sendIdx["cid"]=7;
 //>>excludeEnd("ctx");
 $25=$recv($26)._getItem_($27);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1093,9 +1093,9 @@ self._assert_($24);
 $ctx2.sendIdx["assert:"]=6;
 //>>excludeEnd("ctx");
 $30=$recv(window)._localStorage();
-$31=$recv(composedOne)._id();
+$31=$recv(composedOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=8;
+$ctx2.sendIdx["cid"]=8;
 //>>excludeEnd("ctx");
 $29=$recv($30)._getItem_($31);
 $28=$recv($29)._isNil();
@@ -1106,13 +1106,13 @@ self._assert_($28);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=7;
 //>>excludeEnd("ctx");
-$34=$recv(createdOne)._id();
+$34=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["id"]=9;
+$ctx2.sendIdx["cid"]=9;
 //>>excludeEnd("ctx");
-$33=$recv($Mapless())._localFindId_($34);
+$33=$recv($Mapless())._localFindCid_($34);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindId:"]=3;
+$ctx2.sendIdx["localFindCid:"]=3;
 //>>excludeEnd("ctx");
 $32=$recv($33)._isNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1122,7 +1122,7 @@ self._assert_($32);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=8;
 //>>excludeEnd("ctx");
-return self._assert_($recv($recv($Mapless())._localFindId_($recv(composedOne)._id()))._isNil());
+return self._assert_($recv($recv($Mapless())._localFindCid_($recv(composedOne)._cid()))._isNil());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -1134,10 +1134,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testSaveComposedOne\x0a\x0a\x09| createdOne composedOne loadedOne part |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09composedOne := Stuff new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x0a\x09composedOne localSave.\x0a\x09createdOne \x0a\x09\x09hasOneOf: composedOne;\x0a\x09\x09localSave.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) notNil.\x0a\x09\x09loadedOne := Mapless localFindId: createdOne id.\x0a\x09\x09part := Mapless localFindId: composedOne id.\x0a\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09self assert: loadedOne hasOneOf class = composedOne class.\x0a\x09\x09self assert: loadedOne hasOneOf class = part class.\x0a\x09\x09self assert: loadedOne hasOneOf id = part id.\x0a\x09\x09\x0a\x09\x09loadedOne localDelete.\x0a\x09\x09composedOne localDelete.\x0a\x09\x09self assert: (window localStorage getItem: createdOne id) isNil.\x0a\x09\x09self assert: (window localStorage getItem: composedOne id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: createdOne id) isNil.\x0a\x09\x09self assert: (Mapless localFindId: composedOne id) isNil.\x0a\x09\x09] raise: Error",
+source: "testSaveComposedOne\x0a\x0a\x09| createdOne composedOne loadedOne part |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09composedOne := Stuff new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne cid) notNil.\x0a\x09\x0a\x09composedOne localSave.\x0a\x09createdOne \x0a\x09\x09hasOneOf: composedOne;\x0a\x09\x09localSave.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09self assert: (window localStorage getItem: createdOne cid) notNil.\x0a\x09\x09loadedOne := Mapless localFindCid: createdOne cid.\x0a\x09\x09part := Mapless localFindCid: composedOne cid.\x0a\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09self assert: loadedOne hasOneOf class = composedOne class.\x0a\x09\x09self assert: loadedOne hasOneOf class = part class.\x0a\x09\x09self assert: loadedOne hasOneOf cid = part cid.\x0a\x09\x09\x0a\x09\x09loadedOne localDelete.\x0a\x09\x09composedOne localDelete.\x0a\x09\x09self assert: (window localStorage getItem: createdOne cid) isNil.\x0a\x09\x09self assert: (window localStorage getItem: composedOne cid) isNil.\x0a\x09\x09self assert: (Mapless localFindCid: createdOne cid) isNil.\x0a\x09\x09self assert: (Mapless localFindCid: composedOne cid) isNil.\x0a\x09\x09] raise: Error",
 referencedClasses: ["Thing", "Stuff", "Mapless", "Error"],
 //>>excludeEnd("ide");
-messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "id", "localSave", "hasOneOf:", "shouldnt:raise:", "assert:", "localFindId:", "=", "remember", "class", "hasOneOf", "localDelete", "isNil"]
+messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "cid", "localSave", "hasOneOf:", "shouldnt:raise:", "assert:", "localFindCid:", "=", "remember", "class", "hasOneOf", "localDelete", "isNil"]
 }),
 $globals.MaplessLocalTest);
 
