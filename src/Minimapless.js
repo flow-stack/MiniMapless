@@ -192,19 +192,33 @@ selector: "createThen:",
 protocol: 'actions',
 fn: function (aBlock){
 var self=this;
+function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._onAboutToCreate();
-$recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._path(),"type","POST","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",self._asJSONString(),"complete",(function(res){
+var $4,$3,$2,$1;
+self._createThen_onError_(aBlock,(function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return $recv(aBlock)._value_(res);
+$4=self._asString();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["asString"]=1;
+//>>excludeEnd("ctx");
+$3="Problem creating ".__comma($4);
+$2=$recv($3).__comma(". Backend said: ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=2;
+//>>excludeEnd("ctx");
+$1=$recv($2).__comma($recv($recv(res)._responseText())._asString());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+return $recv($MaplessError())._signal_($1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({res:res},$ctx1,1)});
 //>>excludeEnd("ctx");
-})]));
+}));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"createThen:",{aBlock:aBlock},$globals.Mapless)});
@@ -212,10 +226,53 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "createThen: aBlock\x0a\x09\x22Creates this mapless using the remote API\x22\x0a\x0a\x09self onAboutToCreate.\x0a\x0a\x09jQuery ajax: #{\x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'POST'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | aBlock value: res ]\x0a\x09}.",
+source: "createThen: aBlock\x0a\x09\x22Creates this mapless using the remote API\x22\x0a\x0a\x09self \x0a\x09\x09createThen: aBlock \x0a\x09\x09onError: [ :res | \x0a\x09\x09\x09MaplessError signal: 'Problem creating ', self asString,'. Backend said: ', res responseText asString ]",
+referencedClasses: ["MaplessError"],
+//>>excludeEnd("ide");
+messageSends: ["createThen:onError:", "signal:", ",", "asString", "responseText"]
+}),
+$globals.Mapless);
+
+$core.addMethod(
+$core.method({
+selector: "createThen:onError:",
+protocol: 'actions',
+fn: function (aBlock,aFallbackBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1;
+self._onAboutToCreate();
+$recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._path(),"type","POST","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",self._asJSONString(),"complete",(function(res){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$1=$recv($recv(res)._status()).__eq((201));
+if($core.assert($1)){
+self._onAfterCreate_(res);
+return $recv(aBlock)._value_(res);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["value:"]=1;
+//>>excludeEnd("ctx");
+} else {
+return $recv(aFallbackBlock)._value_(res);
+};
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({res:res},$ctx1,1)});
+//>>excludeEnd("ctx");
+})]));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"createThen:onError:",{aBlock:aBlock,aFallbackBlock:aFallbackBlock},$globals.Mapless)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock", "aFallbackBlock"],
+source: "createThen: aBlock onError: aFallbackBlock\x0a\x09\x22Creates this mapless using the remote API\x22\x0a\x0a\x09self onAboutToCreate.\x0a\x0a\x09jQuery ajax: #{\x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'POST'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res |\x0a\x09\x09\x09res status = 201\x0a\x09\x09\x09\x09ifTrue:[ \x0a\x09\x09\x09\x09\x09self onAfterCreate: res.\x0a\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09\x09\x09\x09ifFalse:[ aFallbackBlock value: res ] ]\x0a\x09}.",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["onAboutToCreate", "ajax:", "path", "asJSONString", "value:"]
+messageSends: ["onAboutToCreate", "ajax:", "path", "asJSONString", "ifTrue:ifFalse:", "=", "status", "onAfterCreate:", "value:"]
 }),
 $globals.Mapless);
 
@@ -674,6 +731,31 @@ source: "hasId\x0a\x09\x22Answers true if this Mapless already have an ID.\x22\x
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["notNil", "at:"]
+}),
+$globals.Mapless);
+
+$core.addMethod(
+$core.method({
+selector: "id",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._data())._at_($recv(self._class())._idAttribute());
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"id",{},$globals.Mapless)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "id\x0a\x0a\x09^ self data at: self class idAttribute ",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["at:", "data", "idAttribute", "class"]
 }),
 $globals.Mapless);
 
@@ -1262,7 +1344,7 @@ function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="un
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-var $1,$4,$3,$2;
+var $1,$4,$3,$2,$5,$7,$6;
 $1=$recv($recv(aResponse)._status()).__tild_eq((201));
 if($core.assert($1)){
 self._localDelete();
@@ -1277,6 +1359,16 @@ $ctx1.sendIdx[","]=1;
 $2=$recv($MaplessError())._signal_($3);
 return $2;
 };
+$5=self._data();
+$7=self._class();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["class"]=1;
+//>>excludeEnd("ctx");
+$6=$recv($7)._idAttribute();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["idAttribute"]=1;
+//>>excludeEnd("ctx");
+$recv($5)._at_put_($6,$recv($recv(aResponse)._responseJSON())._at_($recv(self._class())._idAttribute()));
 self._localSave();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1285,10 +1377,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aResponse"],
-source: "onAfterCreate: aResponse \x0a\x09\x22This mapless got created.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved, then we make sure this mapless is not in local either\x0a\x09and raise the exception.\x22\x0a\x09\x09\x0a\x09aResponse status ~= 201 ifTrue:[\x0a\x09\x09self localDelete.\x0a\x09\x09^ MaplessError signal: 'Could not create ', self asString,':  ', aResponse responseText ].\x0a\x09\x0a\x09self localSave",
+source: "onAfterCreate: aResponse \x0a\x09\x22This mapless got created.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved, then we make sure this mapless is not in local either\x0a\x09and raise the exception.\x22\x0a\x09\x09\x0a\x09aResponse status ~= 201 ifTrue:[\x0a\x09\x09self localDelete.\x0a\x09\x09^ MaplessError signal: 'Could not create ', self asString,':  ', aResponse responseText ].\x0a\x09\x0a\x09\x22After saves we expect the id that our backend has defined for this object\x22\x0a\x09self data at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).\x0a\x0a\x09self localSave",
 referencedClasses: ["MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:", "~=", "status", "localDelete", "signal:", ",", "asString", "responseText", "localSave"]
+messageSends: ["ifTrue:", "~=", "status", "localDelete", "signal:", ",", "asString", "responseText", "at:put:", "data", "idAttribute", "class", "at:", "responseJSON", "localSave"]
 }),
 $globals.Mapless);
 
@@ -1385,7 +1477,7 @@ function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="un
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-var $1,$4,$3,$2;
+var $1,$4,$3,$2,$5,$7,$6;
 $1=$recv($recv(aResponse)._status()).__tild_eq((200));
 if($core.assert($1)){
 self._localFresh();
@@ -1400,6 +1492,16 @@ $ctx1.sendIdx[","]=1;
 $2=$recv($MaplessError())._signal_($3);
 return $2;
 };
+$5=self._data();
+$7=self._class();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["class"]=1;
+//>>excludeEnd("ctx");
+$6=$recv($7)._idAttribute();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["idAttribute"]=1;
+//>>excludeEnd("ctx");
+$recv($5)._at_put_($6,$recv($recv(aResponse)._responseJSON())._at_($recv(self._class())._idAttribute()));
 self._localSave();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1408,10 +1510,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aResponse"],
-source: "onAfterSave: aResponse\x0a\x09\x22This mapless got saved.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved, then we restore this mapless state from local\x0a\x09and raise the exception.\x22\x0a\x09\x0a\x09aResponse status ~= 200 ifTrue:[\x0a\x09\x09self localFresh.\x0a\x09\x09^ MaplessError signal: 'Could not save ', self asString,':  ', aResponse responseText ].\x0a\x09\x09\x0a\x09self localSave",
+source: "onAfterSave: aResponse\x0a\x09\x22This mapless got saved.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved, then we restore this mapless state from local\x0a\x09and raise the exception.\x22\x0a\x09\x0a\x09aResponse status ~= 200 ifTrue:[\x0a\x09\x09self localFresh.\x0a\x09\x09^ MaplessError signal: 'Could not save ', self asString,':  ', aResponse responseText ].\x0a\x0a\x09\x22After saves we expect the id that our backend has defined for this object\x22\x0a\x09self data at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).\x0a\x0a\x09self localSave",
 referencedClasses: ["MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:", "~=", "status", "localFresh", "signal:", ",", "asString", "responseText", "localSave"]
+messageSends: ["ifTrue:", "~=", "status", "localFresh", "signal:", ",", "asString", "responseText", "at:put:", "data", "idAttribute", "class", "at:", "responseJSON", "localSave"]
 }),
 $globals.Mapless);
 
@@ -1491,13 +1593,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._saveThen_((function(res){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return self._onAfterSave_(res);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({res:res},$ctx1,1)});
-//>>excludeEnd("ctx");
+
 }));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1506,10 +1602,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "save\x0a\x09\x22Saves this mapless (upserts it)\x22\x0a\x09^ self saveThen: [ :res | self onAfterSave: res ]",
+source: "save\x0a\x09\x22Saves this mapless (upserts it)\x22\x0a\x09^ self saveThen: [ :res |  ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["saveThen:", "onAfterSave:"]
+messageSends: ["saveThen:"]
 }),
 $globals.Mapless);
 
@@ -1577,6 +1673,7 @@ return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=$recv($recv(res)._status()).__eq((200));
 if($core.assert($1)){
+self._onAfterSave_(res);
 return $recv(aBlock)._value_(res);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["value:"]=1;
@@ -1595,10 +1692,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "aFallbackBlock"],
-source: "saveThen: aBlock onError: aFallbackBlock\x0a\x09\x22Saves this mapless using the remote API, then evaluates aBlock.\x0a\x09If there is an error, evaluates aFallbackBlock.\x22\x0a\x0a\x09self onAboutToSave.\x0a\x09\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09res status = 200 \x0a\x09\x09\x09\x09ifTrue:[ aBlock value: res ]\x0a\x09\x09\x09\x09ifFalse:[ aFallbackBlock value: res ] ]\x0a\x09}",
+source: "saveThen: aBlock onError: aFallbackBlock\x0a\x09\x22Saves this mapless using the remote API, then evaluates aBlock.\x0a\x09If there is an error, evaluates aFallbackBlock.\x22\x0a\x0a\x09self onAboutToSave.\x0a\x09\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09res status = 200 \x0a\x09\x09\x09\x09ifTrue:[ \x0a\x09\x09\x09\x09\x09self onAfterSave: res.\x0a\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09\x09\x09\x09ifFalse:[ aFallbackBlock value: res ] ]\x0a\x09}",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["onAboutToSave", "ajax:", "path", "asJSONString", "ifTrue:ifFalse:", "=", "status", "value:"]
+messageSends: ["onAboutToSave", "ajax:", "path", "asJSONString", "ifTrue:ifFalse:", "=", "status", "onAfterSave:", "value:"]
 }),
 $globals.Mapless);
 
@@ -1745,13 +1842,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._updateDo_((function(res){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return self._onAfterUpdate_(res);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({res:res},$ctx1,1)});
-//>>excludeEnd("ctx");
+
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1760,10 +1851,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "update\x0a\x09\x22Updates this mapless using the remote API\x22\x0a\x09self updateDo:[ :res | self onAfterUpdate: res ]",
+source: "update\x0a\x09\x22Updates this mapless using the remote API\x22\x0a\x09self updateDo:[ :res | ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["updateDo:", "onAfterUpdate:"]
+messageSends: ["updateDo:"]
 }),
 $globals.Mapless);
 
@@ -1781,6 +1872,7 @@ $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri()
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
+self._onAfterUpdate_(res);
 return $recv(aBlock)._value_(res);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({res:res},$ctx1,1)});
@@ -1793,10 +1885,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "updateThen: aBlock\x0a\x09\x22Updates this mapless using the remote API\x22\x0a\x0a\x09self onAboutToUpdate.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | aBlock value: res ]\x0a\x09}",
+source: "updateThen: aBlock\x0a\x09\x22Updates this mapless using the remote API\x22\x0a\x0a\x09self onAboutToUpdate.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09self onAfterUpdate: res.\x0a\x09\x09\x09aBlock value: res ]\x0a\x09}",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["onAboutToUpdate", "ajax:", "uri", "asJSONString", "value:"]
+messageSends: ["onAboutToUpdate", "ajax:", "uri", "asJSONString", "onAfterUpdate:", "value:"]
 }),
 $globals.Mapless);
 

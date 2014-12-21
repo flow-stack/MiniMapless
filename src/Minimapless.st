@@ -34,6 +34,11 @@ dateAndTimeAt: aSelector
 	^ Date fromString: (self at: aSelector)
 !
 
+id
+
+	^ self data at: self class idAttribute
+!
+
 path 
 
 	^ self class path
@@ -84,6 +89,15 @@ at: aKey ifAbsent: aBlock
 createThen: aBlock
 	"Creates this mapless using the remote API"
 
+	self 
+		createThen: aBlock 
+		onError: [ :res | 
+			MaplessError signal: 'Problem creating ', self asString,'. Backend said: ', res responseText asString ]
+!
+
+createThen: aBlock onError: aFallbackBlock
+	"Creates this mapless using the remote API"
+
 	self onAboutToCreate.
 
 	jQuery ajax: #{
@@ -93,7 +107,12 @@ createThen: aBlock
 		'contentType'-> 'application/json; charset=utf-8'.
 		'dataType'-> 'json'.
 		'data' -> self asJSONString.
-		'complete' -> [ :res | aBlock value: res ]
+		'complete' -> [ :res |
+			res status = 201
+				ifTrue:[ 
+					self onAfterCreate: res.
+					aBlock value: res ]
+				ifFalse:[ aFallbackBlock value: res ] ]
 	}.
 !
 
@@ -235,7 +254,7 @@ newJSObject
 
 save
 	"Saves this mapless (upserts it)"
-	^ self saveThen: [ :res | self onAfterSave: res ]
+	^ self saveThen: [ :res |  ]
 !
 
 saveThen: aBlock
@@ -262,7 +281,9 @@ saveThen: aBlock onError: aFallbackBlock
 		'data' -> self asJSONString.
 		'complete' -> [ :res | 
 			res status = 200 
-				ifTrue:[ aBlock value: res ]
+				ifTrue:[ 
+					self onAfterSave: res.
+					aBlock value: res ]
 				ifFalse:[ aFallbackBlock value: res ] ]
 	}
 !
@@ -289,7 +310,7 @@ syncWith: aReifiedJSON
 
 update
 	"Updates this mapless using the remote API"
-	self updateDo:[ :res | self onAfterUpdate: res ]
+	self updateDo:[ :res | ]
 !
 
 updateThen: aBlock
@@ -304,7 +325,9 @@ updateThen: aBlock
 		'contentType'-> 'application/json; charset=utf-8'.
 		'dataType'-> 'json'.
 		'data' -> self asJSONString.
-		'complete' -> [ :res | aBlock value: res ]
+		'complete' -> [ :res | 
+			self onAfterUpdate: res.
+			aBlock value: res ]
 	}
 ! !
 
@@ -381,6 +404,9 @@ onAfterCreate: aResponse
 		self localDelete.
 		^ MaplessError signal: 'Could not create ', self asString,':  ', aResponse responseText ].
 	
+	"After saves we expect the id that our backend has defined for this object"
+	self data at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).
+
 	self localSave
 !
 
@@ -418,7 +444,10 @@ onAfterSave: aResponse
 	aResponse status ~= 200 ifTrue:[
 		self localFresh.
 		^ MaplessError signal: 'Could not save ', self asString,':  ', aResponse responseText ].
-		
+
+	"After saves we expect the id that our backend has defined for this object"
+	self data at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).
+
 	self localSave
 !
 
