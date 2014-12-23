@@ -788,7 +788,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "id\x0a\x0a\x09^ self data at: self class idAttribute ",
+source: "id\x0a\x0a\x09^ self data at: self class idAttribute",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:", "data", "idAttribute", "class"]
@@ -1172,170 +1172,6 @@ $globals.Mapless);
 
 $core.addMethod(
 $core.method({
-selector: "onAboutToJSON",
-protocol: 'reactions',
-fn: function (){
-var self=this;
-var obj,keys;
-function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
-function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
-function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-var $3,$2,$4,$1,$7,$6,$5,$10,$9,$8;
-obj=self._newJSObject();
-obj=$recv($JSObjectProxy())._on_(obj);
-keys=$recv(obj)._keys_(self["@data"]);
-$recv(keys)._do_((function(key){
-var value;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-value=$recv(self["@data"])._at_(key);
-value;
-$3=$recv(value)._class();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["class"]=1;
-//>>excludeEnd("ctx");
-$2=$recv($3).__tild_eq($Array());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["~="]=1;
-//>>excludeEnd("ctx");
-$1=$recv($2)._and_((function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx3) {
-//>>excludeEnd("ctx");
-$4=$recv(value)._class();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx3.sendIdx["class"]=2;
-//>>excludeEnd("ctx");
-return $recv($4).__tild_eq($JSObjectProxy());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx3.sendIdx["~="]=2;
-//>>excludeEnd("ctx");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
-//>>excludeEnd("ctx");
-}));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["and:"]=1;
-//>>excludeEnd("ctx");
-if($core.assert($1)){
-value=self._perform_($recv(key)._asSymbol());
-value;
-};
-$7=$recv(value)._class();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["class"]=3;
-//>>excludeEnd("ctx");
-$6=$recv($7).__tild_eq($JSObjectProxy());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["~="]=3;
-//>>excludeEnd("ctx");
-$5=$recv($6)._and_((function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx3) {
-//>>excludeEnd("ctx");
-return $recv(value)._isKindOf_($Mapless());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx3.sendIdx["isKindOf:"]=1;
-//>>excludeEnd("ctx");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)});
-//>>excludeEnd("ctx");
-}));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["and:"]=2;
-//>>excludeEnd("ctx");
-if($core.assert($5)){
-$recv(value)._onAboutToJSON();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["onAboutToJSON"]=1;
-//>>excludeEnd("ctx");
-value=$recv(value)._data();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["data"]=1;
-//>>excludeEnd("ctx");
-value;
-};
-$10=$recv(value)._class();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["class"]=4;
-//>>excludeEnd("ctx");
-$9=$recv($10).__eq($Array());
-$8=$recv($9)._and_((function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx3) {
-//>>excludeEnd("ctx");
-return $recv($recv(value)._notEmpty())._and_((function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx4) {
-//>>excludeEnd("ctx");
-return $recv(value)._anySatisfy_((function(e){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx5) {
-//>>excludeEnd("ctx");
-return $recv($recv($recv(e)._class()).__tild_eq($JSObjectProxy()))._and_((function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx6) {
-//>>excludeEnd("ctx");
-return $recv(e)._isKindOf_($Mapless());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx6) {$ctx6.fillBlock({},$ctx5,9)});
-//>>excludeEnd("ctx");
-}));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx5) {$ctx5.fillBlock({e:e},$ctx4,8)});
-//>>excludeEnd("ctx");
-}));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,7)});
-//>>excludeEnd("ctx");
-}));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx3.sendIdx["and:"]=4;
-//>>excludeEnd("ctx");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,6)});
-//>>excludeEnd("ctx");
-}));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["and:"]=3;
-//>>excludeEnd("ctx");
-if($core.assert($8)){
-value=$recv(value)._collect_((function(e){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx3) {
-//>>excludeEnd("ctx");
-return $recv($recv(e)._onAboutToJSON())._data();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2,11)});
-//>>excludeEnd("ctx");
-}));
-value;
-};
-return $recv(self["@data"])._at_put_(key,value);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"onAboutToJSON",{obj:obj,keys:keys},$globals.Mapless)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "onAboutToJSON\x0a\x09\x22This mapless is about to be stringified as JSON.\x0a\x09All inst var with mapless objects will be stringify-friendly after this.\x0a\x09Note: Mapless currently support composition of Mapless and composition with many Mapless\x22\x0a\x09\x0a\x09| obj keys |\x0a\x0a\x09obj := self newJSObject.\x0a\x09obj := JSObjectProxy on: obj.\x0a\x09keys := obj keys: data. \x0a\x0a\x09keys do:[ :key | | value |\x0a\x09\x0a\x09\x09\x22In case the value is the usual stringifiable object\x22\x0a\x09\x09value := data at: key.\x0a\x09\x09(value class ~= Array and:[\x0a\x09\x09value class ~= JSObjectProxy ] ) ifTrue:[\x0a\x09\x09\x09value := self perform: key asSymbol ].\x0a\x0a\x09\x09\x22In case the value is a (sub)Mapless\x22\x0a\x09\x09( value class ~= JSObjectProxy and:[\x0a\x09\x09value isKindOf: Mapless ] ) ifTrue:[\x0a\x09\x09\x09value onAboutToJSON.\x0a\x09\x09\x09value := value data ].\x0a\x0a\x09\x09\x22In case the value is a collection of (sub)Mapless\x22\x0a\x09\x09( value class = Array and:[\x0a\x09\x09value notEmpty and:[\x0a\x09\x09value anySatisfy:[ :e | \x0a\x09\x09\x09e class ~= JSObjectProxy and:[\x0a\x09\x09\x09e isKindOf: Mapless ] ] ] ] ) ifTrue:[\x0a\x09\x09\x09\x09value := (value collect:[ :e | e onAboutToJSON data ] ) ].\x0a\x09\x09\x0a\x09\x09data at: key put: value ]",
-referencedClasses: ["JSObjectProxy", "Array", "Mapless"],
-//>>excludeEnd("ide");
-messageSends: ["newJSObject", "on:", "keys:", "do:", "at:", "ifTrue:", "and:", "~=", "class", "perform:", "asSymbol", "isKindOf:", "onAboutToJSON", "data", "=", "notEmpty", "anySatisfy:", "collect:", "at:put:"]
-}),
-$globals.Mapless);
-
-$core.addMethod(
-$core.method({
 selector: "onAboutToSave",
 protocol: 'reactions',
 fn: function (){
@@ -1345,7 +1181,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "onAboutToSave\x0a\x09",
+source: "onAboutToSave",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -1965,7 +1801,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "uri \x0a\x09\x22Answers the URI corresponding to this particular mapless.\x0a\x09It will return the id regarding to the server unless is not existin yet\x0a\x09in which case it will return the cid as fallback.\x22\x0a\x0a\x09^ self hasId\x0a\x09\x09ifTrue: [ self path,'/',self id ]\x0a\x09\x09ifFalse: [ self path,'/',self cid ]\x09",
+source: "uri \x0a\x09\x22Answers the URI corresponding to this particular mapless.\x0a\x09It will return the id regarding to the server unless is not existin yet\x0a\x09in which case it will return the cid as fallback.\x22\x0a\x0a\x09^ self hasId\x0a\x09\x09ifTrue: [ self path,'/',self id ]\x0a\x09\x09ifFalse: [ self path,'/',self cid ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "hasId", ",", "path", "id", "cid"]

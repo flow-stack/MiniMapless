@@ -2152,7 +2152,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testComposedMaplessAsJSON\x0a\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new\x0a\x09\x09\x09\x09stuff: (Stuff new \x0a\x09\x09\x09\x09\x09\x09\x09what: 42;\x0a\x09\x09\x09\x09\x09\x09\x09with: Thing new;\x0a\x09\x09\x09\x09\x09\x09\x09yourself);\x0a\x09\x09\x09\x09why: 1776;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x0a\x09self assert: (thing asJSON at: #why) = 1776.\x0a\x09self assert: (thing asJSON at: #stuff) notNil.\x0a\x09self deny: ((thing asJSON at: #stuff) isKindOf: Mapless).\x0a\x09self assert: ((thing asJSON at: #stuff) includesKey: #with).\x0a\x09self deny: (((thing asJSON at: #stuff) at: #with) isKindOf: Mapless).\x0a\x09",
+source: "testComposedMaplessAsJSON\x0a\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new\x0a\x09\x09\x09\x09stuff: (Stuff new \x0a\x09\x09\x09\x09\x09\x09\x09what: 42;\x0a\x09\x09\x09\x09\x09\x09\x09with: Thing new;\x0a\x09\x09\x09\x09\x09\x09\x09yourself);\x0a\x09\x09\x09\x09why: 1776;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x0a\x09self assert: (thing asJSON at: #why) = 1776.\x0a\x09self assert: (thing asJSON at: #stuff) notNil.\x0a\x09self deny: ((thing asJSON at: #stuff) isKindOf: Mapless).\x0a\x09self assert: ((thing asJSON at: #stuff) includesKey: #with).\x0a\x09self deny: (((thing asJSON at: #stuff) at: #with) isKindOf: Mapless).",
 referencedClasses: ["Thing", "Stuff", "Mapless"],
 //>>excludeEnd("ide");
 messageSends: ["stuff:", "new", "what:", "with:", "yourself", "why:", "assert:", "=", "at:", "asJSON", "notNil", "deny:", "isKindOf:", "includesKey:"]
