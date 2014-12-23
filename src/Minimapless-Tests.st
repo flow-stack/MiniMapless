@@ -436,6 +436,53 @@ TestCase subclass: #MaplessSharedTest
 
 !MaplessSharedTest methodsFor: 'tests'!
 
+testComposedMaplessAsJSON
+
+	| thing |
+	
+	thing := Thing new
+				stuff: (Stuff new 
+							what: 42;
+							with: Thing new;
+							yourself);
+				why: 1776;
+				yourself.
+	
+	self assert: (thing asJSON at: #why) = 1776.
+	self assert: (thing asJSON at: #stuff) notNil.
+	self deny: ((thing asJSON at: #stuff) isKindOf: Mapless).
+	self assert: ((thing asJSON at: #stuff) includesKey: #with).
+	self deny: (((thing asJSON at: #stuff) at: #with) isKindOf: Mapless).
+!
+
+testDictionaryAsJSON
+
+	| dic |
+	
+	dic := Dictionary new
+			at: #what put: 42;
+			at: #why put: 1776;
+			yourself.
+	
+	self assert: (dic asJSON at: #what) = 42.
+	self assert: (dic asJSON at: #why) = 1776.
+	self assert: dic asJSONString = '{"what":42,"why":1776}'
+!
+
+testOrderedCollectionAsJSON
+
+	| collection |
+	
+	collection := OrderedCollection new
+			add: 42;
+			add: 1776;
+			yourself.
+	
+	self assert: collection asJSON first = 42.
+	self assert: collection asJSON second = 1776.
+	self assert: collection asJSONString = '[42,1776]'
+!
+
 testPath
 
 	self deny: Thing path = 'api/1.0/thing'.
@@ -483,6 +530,32 @@ testSerializationWithIdentityPreservation
 	self assert: stuff things == things.	
 	(1 to: 10) do: [ :i |
 		self assert: (stuff things at: i) == (things at: i) ].
+!
+
+testSetAsJSON
+
+	| collection |
+	
+	collection := Set new
+			add: 42;
+			add: 1776;
+			yourself.
+	
+	self assert: (collection asJSON includes: 42).
+	self assert: (collection asJSON includes: 1776).
+!
+
+testSimpleMaplessAsJSON
+
+	| thing |
+	
+	thing := Thing new
+				what: 42;
+				why: 1776;
+				yourself.
+	
+	self assert: (thing asJSON at: #what) = 42.
+	self assert: (thing asJSON at: #why) = 1776.
 !
 
 testURI

@@ -74,11 +74,23 @@ uri
 
 !Mapless methodsFor: 'actions'!
 
+asJSON
+
+	| dic |
+	
+	dic := HashedCollection new.
+	
+	data 
+		addObjectVariablesTo: dic
+		doing: [ :e | e asJSON ].
+		
+		
+	^ dic
+!
+
 asJSONString
 
-	self onAboutToJSON.
-
-	^ JSON stringify: data
+	^ JSON stringify: self asJSON asJSONString
 !
 
 at: aKey ifAbsent: aBlock
@@ -840,4 +852,14 @@ onAboutToUpdate
 Error subclass: #MaplessError
 	instanceVariableNames: ''
 	package: 'MiniMapless'!
+
+!JSObjectProxy methodsFor: '*MiniMapless'!
+
+addObjectVariablesTo: aDictionary doing: aBlock
+	<
+		for(var i in self['@jsObject']) {
+			aDictionary._at_put_(i, aBlock(self['@jsObject'][i]));
+		}
+	>
+! !
 
