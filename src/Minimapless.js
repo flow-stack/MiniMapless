@@ -128,12 +128,11 @@ selector: "asJSONString",
 protocol: 'actions',
 fn: function (){
 var self=this;
-function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($JSON())._stringify_($recv(self._asJSON())._asJSONString());
+$1=$recv(self._asJSON())._asJSONString();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"asJSONString",{},$globals.Mapless)});
@@ -141,10 +140,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "asJSONString\x0a\x0a\x09^ JSON stringify: self asJSON asJSONString",
-referencedClasses: ["JSON"],
+source: "asJSONString\x0a\x0a\x09^ self asJSON asJSONString",
+referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["stringify:", "asJSONString", "asJSON"]
+messageSends: ["asJSONString", "asJSON"]
 }),
 $globals.Mapless);
 

@@ -90,7 +90,7 @@ asJSON
 
 asJSONString
 
-	^ JSON stringify: self asJSON asJSONString
+	^ self asJSON asJSONString
 !
 
 at: aKey ifAbsent: aBlock
