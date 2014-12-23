@@ -74,11 +74,23 @@ uri
 
 !Mapless methodsFor: 'actions'!
 
+asJSON
+
+	| dic |
+	
+	dic := HashedCollection new.
+	
+	data 
+		addObjectVariablesTo: dic
+		doing: [ :e | e asJSON ].
+		
+		
+	^ dic
+!
+
 asJSONString
 
-	self onAboutToJSON.
-
-	^ JSON stringify: data
+	^ self asJSON asJSONString
 !
 
 at: aKey ifAbsent: aBlock
@@ -350,42 +362,6 @@ onAboutToDelete
 !
 
 onAboutToFresh
-!
-
-onAboutToJSON
-	"This mapless is about to be stringified as JSON.
-	All inst var with mapless objects will be stringify-friendly after this.
-	Note: Mapless currently support composition of Mapless and composition with many Mapless"
-	
-	| obj keys |
-
-	obj := self newJSObject.
-	obj := JSObjectProxy on: obj.
-	keys := obj keys: data. 
-
-	keys do:[ :key | | value |
-	
-		"In case the value is the usual stringifiable object"
-		value := data at: key.
-		(value class ~= Array and:[
-		value class ~= JSObjectProxy ] ) ifTrue:[
-			value := self perform: key asSymbol ].
-
-		"In case the value is a (sub)Mapless"
-		( value class ~= JSObjectProxy and:[
-		value isKindOf: Mapless ] ) ifTrue:[
-			value onAboutToJSON.
-			value := value data ].
-
-		"In case the value is a collection of (sub)Mapless"
-		( value class = Array and:[
-		value notEmpty and:[
-		value anySatisfy:[ :e | 
-			e class ~= JSObjectProxy and:[
-			e isKindOf: Mapless ] ] ] ] ) ifTrue:[
-				value := (value collect:[ :e | e onAboutToJSON data ] ) ].
-		
-		data at: key put: value ]
 !
 
 onAboutToSave
@@ -840,4 +816,14 @@ onAboutToUpdate
 Error subclass: #MaplessError
 	instanceVariableNames: ''
 	package: 'MiniMapless'!
+
+!JSObjectProxy methodsFor: '*MiniMapless'!
+
+addObjectVariablesTo: aDictionary doing: aBlock
+	<
+		for(var i in self['@jsObject']) {
+			aDictionary._at_put_(i, aBlock(self['@jsObject'][i]));
+		}
+	>
+! !
 

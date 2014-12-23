@@ -2055,6 +2055,227 @@ $globals.MaplessRemoteTest);
 $core.addClass('MaplessSharedTest', $globals.TestCase, [], 'MiniMapless-Tests');
 $core.addMethod(
 $core.method({
+selector: "testComposedMaplessAsJSON",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var thing;
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
+function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1,$2,$4,$5,$3,$6,$9,$8,$7,$12,$11,$10,$15,$14,$13,$18,$17,$16,$20,$19;
+$1=$recv($Thing())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=1;
+//>>excludeEnd("ctx");
+$2=$1;
+$4=$recv($Stuff())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=2;
+//>>excludeEnd("ctx");
+$recv($4)._what_((42));
+$recv($4)._with_($recv($Thing())._new());
+$5=$recv($4)._yourself();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["yourself"]=1;
+//>>excludeEnd("ctx");
+$3=$5;
+$recv($2)._stuff_($3);
+$recv($1)._why_((1776));
+$6=$recv($1)._yourself();
+thing=$6;
+$9=$recv(thing)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=1;
+//>>excludeEnd("ctx");
+$8=$recv($9)._at_("why");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:"]=1;
+//>>excludeEnd("ctx");
+$7=$recv($8).__eq((1776));
+self._assert_($7);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+$12=$recv(thing)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=2;
+//>>excludeEnd("ctx");
+$11=$recv($12)._at_("stuff");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:"]=2;
+//>>excludeEnd("ctx");
+$10=$recv($11)._notNil();
+self._assert_($10);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+$15=$recv(thing)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=3;
+//>>excludeEnd("ctx");
+$14=$recv($15)._at_("stuff");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:"]=3;
+//>>excludeEnd("ctx");
+$13=$recv($14)._isKindOf_($Mapless());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isKindOf:"]=1;
+//>>excludeEnd("ctx");
+self._deny_($13);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=1;
+//>>excludeEnd("ctx");
+$18=$recv(thing)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=4;
+//>>excludeEnd("ctx");
+$17=$recv($18)._at_("stuff");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:"]=4;
+//>>excludeEnd("ctx");
+$16=$recv($17)._includesKey_("with");
+self._assert_($16);
+$20=$recv($recv($recv(thing)._asJSON())._at_("stuff"))._at_("with");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:"]=5;
+//>>excludeEnd("ctx");
+$19=$recv($20)._isKindOf_($Mapless());
+self._deny_($19);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testComposedMaplessAsJSON",{thing:thing},$globals.MaplessSharedTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testComposedMaplessAsJSON\x0a\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new\x0a\x09\x09\x09\x09stuff: (Stuff new \x0a\x09\x09\x09\x09\x09\x09\x09what: 42;\x0a\x09\x09\x09\x09\x09\x09\x09with: Thing new;\x0a\x09\x09\x09\x09\x09\x09\x09yourself);\x0a\x09\x09\x09\x09why: 1776;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x0a\x09self assert: (thing asJSON at: #why) = 1776.\x0a\x09self assert: (thing asJSON at: #stuff) notNil.\x0a\x09self deny: ((thing asJSON at: #stuff) isKindOf: Mapless).\x0a\x09self assert: ((thing asJSON at: #stuff) includesKey: #with).\x0a\x09self deny: (((thing asJSON at: #stuff) at: #with) isKindOf: Mapless).",
+referencedClasses: ["Thing", "Stuff", "Mapless"],
+//>>excludeEnd("ide");
+messageSends: ["stuff:", "new", "what:", "with:", "yourself", "why:", "assert:", "=", "at:", "asJSON", "notNil", "deny:", "isKindOf:", "includesKey:"]
+}),
+$globals.MaplessSharedTest);
+
+$core.addMethod(
+$core.method({
+selector: "testDictionaryAsJSON",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var dic;
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1,$2,$5,$4,$3,$6;
+$1=$recv($Dictionary())._new();
+$recv($1)._at_put_("what",(42));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:put:"]=1;
+//>>excludeEnd("ctx");
+$recv($1)._at_put_("why",(1776));
+$2=$recv($1)._yourself();
+dic=$2;
+$5=$recv(dic)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=1;
+//>>excludeEnd("ctx");
+$4=$recv($5)._at_("what");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:"]=1;
+//>>excludeEnd("ctx");
+$3=$recv($4).__eq((42));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=1;
+//>>excludeEnd("ctx");
+self._assert_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+$6=$recv($recv($recv(dic)._asJSON())._at_("why")).__eq((1776));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=2;
+//>>excludeEnd("ctx");
+self._assert_($6);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+self._assert_($recv($recv(dic)._asJSONString()).__eq("{\x22what\x22:42,\x22why\x22:1776}"));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testDictionaryAsJSON",{dic:dic},$globals.MaplessSharedTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testDictionaryAsJSON\x0a\x0a\x09| dic |\x0a\x09\x0a\x09dic := Dictionary new\x0a\x09\x09\x09at: #what put: 42;\x0a\x09\x09\x09at: #why put: 1776;\x0a\x09\x09\x09yourself.\x0a\x09\x0a\x09self assert: (dic asJSON at: #what) = 42.\x0a\x09self assert: (dic asJSON at: #why) = 1776.\x0a\x09self assert: dic asJSONString = '{\x22what\x22:42,\x22why\x22:1776}'",
+referencedClasses: ["Dictionary"],
+//>>excludeEnd("ide");
+messageSends: ["at:put:", "new", "yourself", "assert:", "=", "at:", "asJSON", "asJSONString"]
+}),
+$globals.MaplessSharedTest);
+
+$core.addMethod(
+$core.method({
+selector: "testOrderedCollectionAsJSON",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var collection;
+function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1,$2,$5,$4,$3,$6;
+$1=$recv($OrderedCollection())._new();
+$recv($1)._add_((42));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["add:"]=1;
+//>>excludeEnd("ctx");
+$recv($1)._add_((1776));
+$2=$recv($1)._yourself();
+collection=$2;
+$5=$recv(collection)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=1;
+//>>excludeEnd("ctx");
+$4=$recv($5)._first();
+$3=$recv($4).__eq((42));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=1;
+//>>excludeEnd("ctx");
+self._assert_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+$6=$recv($recv($recv(collection)._asJSON())._second()).__eq((1776));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=2;
+//>>excludeEnd("ctx");
+self._assert_($6);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+self._assert_($recv($recv(collection)._asJSONString()).__eq("[42,1776]"));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testOrderedCollectionAsJSON",{collection:collection},$globals.MaplessSharedTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testOrderedCollectionAsJSON\x0a\x0a\x09| collection |\x0a\x09\x0a\x09collection := OrderedCollection new\x0a\x09\x09\x09add: 42;\x0a\x09\x09\x09add: 1776;\x0a\x09\x09\x09yourself.\x0a\x09\x0a\x09self assert: collection asJSON first = 42.\x0a\x09self assert: collection asJSON second = 1776.\x0a\x09self assert: collection asJSONString = '[42,1776]'",
+referencedClasses: ["OrderedCollection"],
+//>>excludeEnd("ide");
+messageSends: ["add:", "new", "yourself", "assert:", "=", "first", "asJSON", "second", "asJSONString"]
+}),
+$globals.MaplessSharedTest);
+
+$core.addMethod(
+$core.method({
 selector: "testPath",
 protocol: 'tests',
 fn: function (){
@@ -2098,6 +2319,361 @@ source: "testPath\x0a\x0a\x09self deny: Thing path = 'api/1.0/thing'.\x0a\x09sel
 referencedClasses: ["Thing", "Stuff"],
 //>>excludeEnd("ide");
 messageSends: ["deny:", "=", "path", "assert:"]
+}),
+$globals.MaplessSharedTest);
+
+$core.addMethod(
+$core.method({
+selector: "testSaveWithIdentityPreservation",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var stuff,things;
+function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1,$2,$4,$3,$5,$8,$7,$9,$6,$11,$10,$13,$12;
+stuff=$recv($Stuff())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=1;
+//>>excludeEnd("ctx");
+$recv(stuff)._things_([]);
+$1=(1)._to_((10));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["to:"]=1;
+//>>excludeEnd("ctx");
+$recv($1)._do_((function(i){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$2=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["things"]=1;
+//>>excludeEnd("ctx");
+return $recv($2)._add_($recv($Thing())._new());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["do:"]=1;
+//>>excludeEnd("ctx");
+things=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["things"]=2;
+//>>excludeEnd("ctx");
+$4=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["things"]=3;
+//>>excludeEnd("ctx");
+$3=$recv($4).__eq_eq(things);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=1;
+//>>excludeEnd("ctx");
+self._assert_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+$5=(1)._to_((10));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["to:"]=2;
+//>>excludeEnd("ctx");
+$recv($5)._do_((function(i){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$8=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["things"]=4;
+//>>excludeEnd("ctx");
+$7=$recv($8)._at_(i);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["at:"]=1;
+//>>excludeEnd("ctx");
+$9=$recv(things)._at_(i);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["at:"]=2;
+//>>excludeEnd("ctx");
+$6=$recv($7).__eq_eq($9);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["=="]=2;
+//>>excludeEnd("ctx");
+return self._assert_($6);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1,2)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["do:"]=2;
+//>>excludeEnd("ctx");
+$recv(stuff)._localSave();
+$11=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["things"]=5;
+//>>excludeEnd("ctx");
+$10=$recv($11).__eq_eq(things);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=3;
+//>>excludeEnd("ctx");
+self._assert_($10);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=3;
+//>>excludeEnd("ctx");
+$recv((1)._to_((10)))._do_((function(i){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$13=$recv($recv(stuff)._things())._at_(i);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["at:"]=3;
+//>>excludeEnd("ctx");
+$12=$recv($13).__eq_eq($recv(things)._at_(i));
+return self._assert_($12);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1,3)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testSaveWithIdentityPreservation",{stuff:stuff,things:things},$globals.MaplessSharedTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testSaveWithIdentityPreservation\x0a\x0a\x09| stuff things |\x0a\x09\x0a\x09stuff := Stuff new.\x0a\x09stuff things: #().\x0a\x09(1 to: 10) do: [ :i | stuff things add: Thing new ].\x0a\x09\x0a\x09things := stuff things.\x0a\x09self assert: stuff things == things.\x09\x0a\x09(1 to: 10) do: [ :i |\x0a\x09\x09self assert: (stuff things at: i) == (things at: i) ].\x0a\x09\x09\x0a\x09stuff localSave.\x0a\x09\x0a\x09self assert: stuff things == things.\x09\x0a\x09(1 to: 10) do: [ :i |\x0a\x09\x09self assert: (stuff things at: i) == (things at: i) ].",
+referencedClasses: ["Stuff", "Thing"],
+//>>excludeEnd("ide");
+messageSends: ["new", "things:", "do:", "to:", "add:", "things", "assert:", "==", "at:", "localSave"]
+}),
+$globals.MaplessSharedTest);
+
+$core.addMethod(
+$core.method({
+selector: "testSerializationWithIdentityPreservation",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var stuff,things;
+function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1,$2,$4,$3,$5,$8,$7,$9,$6,$11,$10,$13,$12;
+stuff=$recv($Stuff())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=1;
+//>>excludeEnd("ctx");
+$recv(stuff)._things_([]);
+$1=(1)._to_((10));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["to:"]=1;
+//>>excludeEnd("ctx");
+$recv($1)._do_((function(i){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$2=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["things"]=1;
+//>>excludeEnd("ctx");
+return $recv($2)._add_($recv($Thing())._new());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["do:"]=1;
+//>>excludeEnd("ctx");
+things=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["things"]=2;
+//>>excludeEnd("ctx");
+$4=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["things"]=3;
+//>>excludeEnd("ctx");
+$3=$recv($4).__eq_eq(things);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=1;
+//>>excludeEnd("ctx");
+self._assert_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+$5=(1)._to_((10));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["to:"]=2;
+//>>excludeEnd("ctx");
+$recv($5)._do_((function(i){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$8=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["things"]=4;
+//>>excludeEnd("ctx");
+$7=$recv($8)._at_(i);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["at:"]=1;
+//>>excludeEnd("ctx");
+$9=$recv(things)._at_(i);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["at:"]=2;
+//>>excludeEnd("ctx");
+$6=$recv($7).__eq_eq($9);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["=="]=2;
+//>>excludeEnd("ctx");
+return self._assert_($6);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1,2)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["do:"]=2;
+//>>excludeEnd("ctx");
+$recv(stuff)._asJSONString();
+$11=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["things"]=5;
+//>>excludeEnd("ctx");
+$10=$recv($11).__eq_eq(things);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=3;
+//>>excludeEnd("ctx");
+self._assert_($10);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=3;
+//>>excludeEnd("ctx");
+$recv((1)._to_((10)))._do_((function(i){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$13=$recv($recv(stuff)._things())._at_(i);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["at:"]=3;
+//>>excludeEnd("ctx");
+$12=$recv($13).__eq_eq($recv(things)._at_(i));
+return self._assert_($12);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1,3)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testSerializationWithIdentityPreservation",{stuff:stuff,things:things},$globals.MaplessSharedTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testSerializationWithIdentityPreservation\x0a\x0a\x09| stuff things |\x0a\x09\x0a\x09stuff := Stuff new.\x0a\x09stuff things: #().\x0a\x09(1 to: 10) do: [ :i | stuff things add: Thing new ].\x0a\x09\x0a\x09things := stuff things.\x0a\x09self assert: stuff things == things.\x09\x0a\x09(1 to: 10) do: [ :i |\x0a\x09\x09self assert: (stuff things at: i) == (things at: i) ].\x0a\x09\x09\x0a\x09stuff asJSONString.\x0a\x09\x0a\x09self assert: stuff things == things.\x09\x0a\x09(1 to: 10) do: [ :i |\x0a\x09\x09self assert: (stuff things at: i) == (things at: i) ].",
+referencedClasses: ["Stuff", "Thing"],
+//>>excludeEnd("ide");
+messageSends: ["new", "things:", "do:", "to:", "add:", "things", "assert:", "==", "at:", "asJSONString"]
+}),
+$globals.MaplessSharedTest);
+
+$core.addMethod(
+$core.method({
+selector: "testSetAsJSON",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var collection;
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1,$2,$4,$3;
+$1=$recv($Set())._new();
+$recv($1)._add_((42));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["add:"]=1;
+//>>excludeEnd("ctx");
+$recv($1)._add_((1776));
+$2=$recv($1)._yourself();
+collection=$2;
+$4=$recv(collection)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=1;
+//>>excludeEnd("ctx");
+$3=$recv($4)._includes_((42));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["includes:"]=1;
+//>>excludeEnd("ctx");
+self._assert_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+self._assert_($recv($recv(collection)._asJSON())._includes_((1776)));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testSetAsJSON",{collection:collection},$globals.MaplessSharedTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testSetAsJSON\x0a\x0a\x09| collection |\x0a\x09\x0a\x09collection := Set new\x0a\x09\x09\x09add: 42;\x0a\x09\x09\x09add: 1776;\x0a\x09\x09\x09yourself.\x0a\x09\x0a\x09self assert: (collection asJSON includes: 42).\x0a\x09self assert: (collection asJSON includes: 1776).",
+referencedClasses: ["Set"],
+//>>excludeEnd("ide");
+messageSends: ["add:", "new", "yourself", "assert:", "includes:", "asJSON"]
+}),
+$globals.MaplessSharedTest);
+
+$core.addMethod(
+$core.method({
+selector: "testSimpleMaplessAsJSON",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var thing;
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1,$2,$5,$4,$3;
+$1=$recv($Thing())._new();
+$recv($1)._what_((42));
+$recv($1)._why_((1776));
+$2=$recv($1)._yourself();
+thing=$2;
+$5=$recv(thing)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=1;
+//>>excludeEnd("ctx");
+$4=$recv($5)._at_("what");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:"]=1;
+//>>excludeEnd("ctx");
+$3=$recv($4).__eq((42));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=1;
+//>>excludeEnd("ctx");
+self._assert_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+self._assert_($recv($recv($recv(thing)._asJSON())._at_("why")).__eq((1776)));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testSimpleMaplessAsJSON",{thing:thing},$globals.MaplessSharedTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testSimpleMaplessAsJSON\x0a\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new\x0a\x09\x09\x09\x09what: 42;\x0a\x09\x09\x09\x09why: 1776;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x0a\x09self assert: (thing asJSON at: #what) = 42.\x0a\x09self assert: (thing asJSON at: #why) = 1776.",
+referencedClasses: ["Thing"],
+//>>excludeEnd("ide");
+messageSends: ["what:", "new", "why:", "yourself", "assert:", "=", "at:", "asJSON"]
 }),
 $globals.MaplessSharedTest);
 
