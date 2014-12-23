@@ -445,7 +445,7 @@ testPath
 	self assert: Stuff path = 'api/1.0/stuff'.
 !
 
-testSerializationWithIdentityPreservation
+testSaveWithIdentityPreservation
 
 	| stuff things |
 	
@@ -459,6 +459,26 @@ testSerializationWithIdentityPreservation
 		self assert: (stuff things at: i) == (things at: i) ].
 		
 	stuff localSave.
+	
+	self assert: stuff things == things.	
+	(1 to: 10) do: [ :i |
+		self assert: (stuff things at: i) == (things at: i) ].
+!
+
+testSerializationWithIdentityPreservation
+
+	| stuff things |
+	
+	stuff := Stuff new.
+	stuff things: #().
+	(1 to: 10) do: [ :i | stuff things add: Thing new ].
+	
+	things := stuff things.
+	self assert: stuff things == things.	
+	(1 to: 10) do: [ :i |
+		self assert: (stuff things at: i) == (things at: i) ].
+		
+	stuff asJSONString.
 	
 	self assert: stuff things == things.	
 	(1 to: 10) do: [ :i |

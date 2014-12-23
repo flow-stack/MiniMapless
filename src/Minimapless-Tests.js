@@ -2103,7 +2103,7 @@ $globals.MaplessSharedTest);
 
 $core.addMethod(
 $core.method({
-selector: "testSerializationWithIdentityPreservation",
+selector: "testSaveWithIdentityPreservation",
 protocol: 'tests',
 fn: function (){
 var self=this;
@@ -2219,15 +2219,145 @@ return self._assert_($12);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testSaveWithIdentityPreservation",{stuff:stuff,things:things},$globals.MaplessSharedTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testSaveWithIdentityPreservation\x0a\x0a\x09| stuff things |\x0a\x09\x0a\x09stuff := Stuff new.\x0a\x09stuff things: #().\x0a\x09(1 to: 10) do: [ :i | stuff things add: Thing new ].\x0a\x09\x0a\x09things := stuff things.\x0a\x09self assert: stuff things == things.\x09\x0a\x09(1 to: 10) do: [ :i |\x0a\x09\x09self assert: (stuff things at: i) == (things at: i) ].\x0a\x09\x09\x0a\x09stuff localSave.\x0a\x09\x0a\x09self assert: stuff things == things.\x09\x0a\x09(1 to: 10) do: [ :i |\x0a\x09\x09self assert: (stuff things at: i) == (things at: i) ].",
+referencedClasses: ["Stuff", "Thing"],
+//>>excludeEnd("ide");
+messageSends: ["new", "things:", "do:", "to:", "add:", "things", "assert:", "==", "at:", "localSave"]
+}),
+$globals.MaplessSharedTest);
+
+$core.addMethod(
+$core.method({
+selector: "testSerializationWithIdentityPreservation",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var stuff,things;
+function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1,$2,$4,$3,$5,$8,$7,$9,$6,$11,$10,$13,$12;
+stuff=$recv($Stuff())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=1;
+//>>excludeEnd("ctx");
+$recv(stuff)._things_([]);
+$1=(1)._to_((10));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["to:"]=1;
+//>>excludeEnd("ctx");
+$recv($1)._do_((function(i){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$2=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["things"]=1;
+//>>excludeEnd("ctx");
+return $recv($2)._add_($recv($Thing())._new());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["do:"]=1;
+//>>excludeEnd("ctx");
+things=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["things"]=2;
+//>>excludeEnd("ctx");
+$4=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["things"]=3;
+//>>excludeEnd("ctx");
+$3=$recv($4).__eq_eq(things);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=1;
+//>>excludeEnd("ctx");
+self._assert_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+$5=(1)._to_((10));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["to:"]=2;
+//>>excludeEnd("ctx");
+$recv($5)._do_((function(i){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$8=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["things"]=4;
+//>>excludeEnd("ctx");
+$7=$recv($8)._at_(i);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["at:"]=1;
+//>>excludeEnd("ctx");
+$9=$recv(things)._at_(i);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["at:"]=2;
+//>>excludeEnd("ctx");
+$6=$recv($7).__eq_eq($9);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["=="]=2;
+//>>excludeEnd("ctx");
+return self._assert_($6);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1,2)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["do:"]=2;
+//>>excludeEnd("ctx");
+$recv(stuff)._asJSONString();
+$11=$recv(stuff)._things();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["things"]=5;
+//>>excludeEnd("ctx");
+$10=$recv($11).__eq_eq(things);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=3;
+//>>excludeEnd("ctx");
+self._assert_($10);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=3;
+//>>excludeEnd("ctx");
+$recv((1)._to_((10)))._do_((function(i){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$13=$recv($recv(stuff)._things())._at_(i);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["at:"]=3;
+//>>excludeEnd("ctx");
+$12=$recv($13).__eq_eq($recv(things)._at_(i));
+return self._assert_($12);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({i:i},$ctx1,3)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testSerializationWithIdentityPreservation",{stuff:stuff,things:things},$globals.MaplessSharedTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testSerializationWithIdentityPreservation\x0a\x0a\x09| stuff things |\x0a\x09\x0a\x09stuff := Stuff new.\x0a\x09stuff things: #().\x0a\x09(1 to: 10) do: [ :i | stuff things add: Thing new ].\x0a\x09\x0a\x09things := stuff things.\x0a\x09self assert: stuff things == things.\x09\x0a\x09(1 to: 10) do: [ :i |\x0a\x09\x09self assert: (stuff things at: i) == (things at: i) ].\x0a\x09\x09\x0a\x09stuff localSave.\x0a\x09\x0a\x09self assert: stuff things == things.\x09\x0a\x09(1 to: 10) do: [ :i |\x0a\x09\x09self assert: (stuff things at: i) == (things at: i) ].",
+source: "testSerializationWithIdentityPreservation\x0a\x0a\x09| stuff things |\x0a\x09\x0a\x09stuff := Stuff new.\x0a\x09stuff things: #().\x0a\x09(1 to: 10) do: [ :i | stuff things add: Thing new ].\x0a\x09\x0a\x09things := stuff things.\x0a\x09self assert: stuff things == things.\x09\x0a\x09(1 to: 10) do: [ :i |\x0a\x09\x09self assert: (stuff things at: i) == (things at: i) ].\x0a\x09\x09\x0a\x09stuff asJSONString.\x0a\x09\x0a\x09self assert: stuff things == things.\x09\x0a\x09(1 to: 10) do: [ :i |\x0a\x09\x09self assert: (stuff things at: i) == (things at: i) ].",
 referencedClasses: ["Stuff", "Thing"],
 //>>excludeEnd("ide");
-messageSends: ["new", "things:", "do:", "to:", "add:", "things", "assert:", "==", "at:", "localSave"]
+messageSends: ["new", "things:", "do:", "to:", "add:", "things", "assert:", "==", "at:", "asJSONString"]
 }),
 $globals.MaplessSharedTest);
 
