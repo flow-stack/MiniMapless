@@ -80,12 +80,9 @@ asJSON
 	
 	dic := HashedCollection new.
 	
-	data 
-		addObjectVariablesTo: dic
-		doing: [ :e | e asJSON ].
+	data addObjectVariablesTo: dic.		
 		
-		
-	^ dic
+	^ dic collect: [ :e | e asJSON ]
 !
 
 asJSONString
@@ -816,14 +813,4 @@ onAboutToUpdate
 Error subclass: #MaplessError
 	instanceVariableNames: ''
 	package: 'MiniMapless'!
-
-!JSObjectProxy methodsFor: '*MiniMapless'!
-
-addObjectVariablesTo: aDictionary doing: aBlock
-	<
-		for(var i in self['@jsObject']) {
-			aDictionary._at_put_(i, aBlock(self['@jsObject'][i]));
-		}
-	>
-! !
 
