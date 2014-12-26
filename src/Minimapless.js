@@ -1,4 +1,4 @@
-define("minimapless/MiniMapless", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Infrastructure"], function($boot){
+define("minimapless/MiniMapless", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('MiniMapless');
@@ -98,7 +98,8 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 dic=$recv($HashedCollection())._new();
-$recv(self["@data"])._addObjectVariablesTo_doing_(dic,(function(e){
+$recv(self["@data"])._addObjectVariablesTo_(dic);
+$1=$recv(dic)._collect_((function(e){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -107,7 +108,6 @@ return $recv(e)._asJSON();
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-$1=dic;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{dic:dic},$globals.Mapless)});
@@ -115,10 +115,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "asJSON\x0a\x0a\x09| dic |\x0a\x09\x0a\x09dic := HashedCollection new.\x0a\x09\x0a\x09data \x0a\x09\x09addObjectVariablesTo: dic\x0a\x09\x09doing: [ :e | e asJSON ].\x0a\x09\x09\x0a\x09\x09\x0a\x09^ dic",
+source: "asJSON\x0a\x0a\x09| dic |\x0a\x09\x0a\x09dic := HashedCollection new.\x0a\x09\x0a\x09data addObjectVariablesTo: dic.\x09\x09\x0a\x09\x09\x0a\x09^ dic collect: [ :e | e asJSON ]",
 referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
-messageSends: ["new", "addObjectVariablesTo:doing:", "asJSON"]
+messageSends: ["new", "addObjectVariablesTo:", "collect:", "asJSON"]
 }),
 $globals.Mapless);
 
@@ -2958,33 +2958,5 @@ $globals.MaplessModel);
 
 
 $core.addClass('MaplessError', $globals.Error, [], 'MiniMapless');
-
-$core.addMethod(
-$core.method({
-selector: "addObjectVariablesTo:doing:",
-protocol: '*MiniMapless',
-fn: function (aDictionary,aBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
-//>>excludeEnd("ctx");
-
-		for(var i in self['@jsObject']) {
-			aDictionary._at_put_(i, aBlock(self['@jsObject'][i]));
-		}
-	;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"addObjectVariablesTo:doing:",{aDictionary:aDictionary,aBlock:aBlock},$globals.JSObjectProxy)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aDictionary", "aBlock"],
-source: "addObjectVariablesTo: aDictionary doing: aBlock\x0a\x09<\x0a\x09\x09for(var i in self['@jsObject']) {\x0a\x09\x09\x09aDictionary._at_put_(i, aBlock(self['@jsObject'][i]));\x0a\x09\x09}\x0a\x09>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.JSObjectProxy);
 
 });
