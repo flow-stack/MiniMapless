@@ -5,6 +5,39 @@ TestCase subclass: #MaplessLocalTest
 
 !MaplessLocalTest methodsFor: 'tests'!
 
+testCid
+	"Test the client id"
+	
+	| createdOne loadedOne |
+	
+	createdOne := Thing new.
+	
+	createdOne localSave.
+	
+	self shouldnt: [
+			loadedOne := Mapless localFindCid: createdOne cid.
+			loadedOne localFresh.
+			self assert: loadedOne id isNil.
+			self assert: loadedOne cid notNil.
+		] raise: Error
+!
+
+testEquality
+	
+	| one two pretender |
+	
+	one := Thing new.
+	two := Thing new.
+
+
+	self deny: one = two.
+	
+	pretender := Thing new.
+	self assert: pretender cid ~= one cid.
+	pretender cid: one cid.
+	self assert: one = pretender.
+!
+
 testFresh
 
 	| createdOne loadedOne |
@@ -15,13 +48,24 @@ testFresh
 	createdOne localSave.
 	
 	self shouldnt: [
-			loadedOne := Mapless localFindId: createdOne id.
+			loadedOne := Mapless localFindCid: createdOne cid.
 			loadedOne remember: 'something'.
 			self assert: loadedOne remember = 'something'.
 			loadedOne localFresh.
 			self deny: loadedOne remember = 'something'.
 			self assert: loadedOne remember = 42.
 		] raise: Error
+!
+
+testIdDetection
+	
+	| one |
+	
+	one := Thing new.
+
+	self deny: one id notNil.
+	
+	self deny: one hasId
 !
 
 testLocalUpdate
@@ -32,23 +76,23 @@ testLocalUpdate
 	
 	createdOne remember: 'something'.
 	
-	self deny: (window localStorage getItem: createdOne id) notNil.
+	self deny: (window localStorage getItem: createdOne cid) notNil.
 	
 	createdOne localSave.
 
-	self assert: (window localStorage getItem: createdOne id) notNil.
+	self assert: (window localStorage getItem: createdOne cid) notNil.
 
 	self shouldnt: [
-			loadedOne := Mapless localFindId: createdOne id.
+			loadedOne := Mapless localFindCid: createdOne cid.
 			
 			self assert: loadedOne class = Thing.
-			self assert: loadedOne id = createdOne id.
+			self assert: loadedOne cid = createdOne cid.
 			self assert: loadedOne remember = 'something'.
 			self deny: loadedOne remember = 'else'.
 			loadedOne remember: 'else'.
 			self assert: loadedOne remember = 'else'.
 			loadedOne localSave.
-			loadedOne := Mapless localFindId: createdOne id.
+			loadedOne := Mapless localFindCid: createdOne cid.
 			self deny: loadedOne remember = 'something'.
 			self assert: loadedOne remember = 'else'.
 		] raise: Error
@@ -62,18 +106,18 @@ testSaveAndDelete
 	
 	createdOne remember: 'something'.
 	
-	self deny: (window localStorage getItem: createdOne id) notNil.
+	self deny: (window localStorage getItem: createdOne cid) notNil.
 	
 	createdOne localSave.
 
 	self shouldnt: [
-		self assert: (window localStorage getItem: createdOne id) notNil.
-		loadedOne := Mapless localFindId: createdOne id.
+		self assert: (window localStorage getItem: createdOne cid) notNil.
+		loadedOne := Mapless localFindCid: createdOne cid.
 		self assert: loadedOne remember = 'something'.
 		
 		loadedOne localDelete.
-		self assert: (window localStorage getItem: createdOne id) isNil.
-		self assert: (Mapless localFindId: createdOne id) isNil.
+		self assert: (window localStorage getItem: createdOne cid) isNil.
+		self assert: (Mapless localFindCid: createdOne cid) isNil.
 		] raise: Error
 !
 
@@ -85,16 +129,16 @@ testSaveAndFindOne
 	
 	createdOne remember: 'something'.
 	
-	self deny: (window localStorage getItem: createdOne id) notNil.
+	self deny: (window localStorage getItem: createdOne cid) notNil.
 	
 	createdOne localSave.
 
-	self assert: (window localStorage getItem: createdOne id) notNil.
+	self assert: (window localStorage getItem: createdOne cid) notNil.
 
 	self shouldnt: [
-			loadedOne := Mapless localFindId: createdOne id.
+			loadedOne := Mapless localFindCid: createdOne cid.
 			self assert: loadedOne class = Thing.
-			self assert: loadedOne id = createdOne id.
+			self assert: loadedOne cid = createdOne cid.
 			self assert: loadedOne remember = 'something'.
 		] raise: Error
 !
@@ -109,7 +153,7 @@ testSaveComposedMany
 	
 	createdOne remember: 'something'.
 	
-	self deny: (window localStorage getItem: createdOne id) notNil.
+	self deny: (window localStorage getItem: createdOne cid) notNil.
 	
 	composed1 localSave.
 	composed2 localSave.
@@ -121,28 +165,28 @@ testSaveComposedMany
 		localSave.
 
 	self shouldnt: [
-		self assert: (window localStorage getItem: createdOne id) notNil.
-		loadedOne := Mapless localFindId: createdOne id.
-		part1 := Mapless localFindId: composed1 id.
-		part2 := Mapless localFindId: composed2 id.
+		self assert: (window localStorage getItem: createdOne cid) notNil.
+		loadedOne := Mapless localFindCid: createdOne cid.
+		part1 := Mapless localFindCid: composed1 cid.
+		part2 := Mapless localFindCid: composed2 cid.
 		self assert: loadedOne remember = 'something'.
 		self assert: loadedOne parts first class = composed1 class.
 		self assert: loadedOne parts first class = part1 class.
-		self assert: loadedOne parts first id = part1 id.
+		self assert: loadedOne parts first cid = part1 cid.
 
 		self assert: loadedOne parts second class = composed2 class.
 		self assert: loadedOne parts second class = part2 class.
-		self assert: loadedOne parts second id = part2 id.
+		self assert: loadedOne parts second cid = part2 cid.
 
 		loadedOne localDelete.
 		composed1 localDelete.
 		composed2 localDelete.
-		self assert: (window localStorage getItem: createdOne id) isNil.
-		self assert: (window localStorage getItem: composed1 id) isNil.
-		self assert: (window localStorage getItem: composed2 id) isNil.
-		self assert: (Mapless localFindId: createdOne id) isNil.
-		self assert: (Mapless localFindId: composed1 id) isNil.
-		self assert: (Mapless localFindId: composed2 id) isNil.
+		self assert: (window localStorage getItem: createdOne cid) isNil.
+		self assert: (window localStorage getItem: composed1 cid) isNil.
+		self assert: (window localStorage getItem: composed2 cid) isNil.
+		self assert: (Mapless localFindCid: createdOne cid) isNil.
+		self assert: (Mapless localFindCid: composed1 cid) isNil.
+		self assert: (Mapless localFindCid: composed2 cid) isNil.
 		] raise: Error
 !
 
@@ -155,7 +199,7 @@ testSaveComposedOne
 	
 	createdOne remember: 'something'.
 	
-	self deny: (window localStorage getItem: createdOne id) notNil.
+	self deny: (window localStorage getItem: createdOne cid) notNil.
 	
 	composedOne localSave.
 	createdOne 
@@ -163,20 +207,20 @@ testSaveComposedOne
 		localSave.
 
 	self shouldnt: [
-		self assert: (window localStorage getItem: createdOne id) notNil.
-		loadedOne := Mapless localFindId: createdOne id.
-		part := Mapless localFindId: composedOne id.
+		self assert: (window localStorage getItem: createdOne cid) notNil.
+		loadedOne := Mapless localFindCid: createdOne cid.
+		part := Mapless localFindCid: composedOne cid.
 		self assert: loadedOne remember = 'something'.
 		self assert: loadedOne hasOneOf class = composedOne class.
 		self assert: loadedOne hasOneOf class = part class.
-		self assert: loadedOne hasOneOf id = part id.
+		self assert: loadedOne hasOneOf cid = part cid.
 		
 		loadedOne localDelete.
 		composedOne localDelete.
-		self assert: (window localStorage getItem: createdOne id) isNil.
-		self assert: (window localStorage getItem: composedOne id) isNil.
-		self assert: (Mapless localFindId: createdOne id) isNil.
-		self assert: (Mapless localFindId: composedOne id) isNil.
+		self assert: (window localStorage getItem: createdOne cid) isNil.
+		self assert: (window localStorage getItem: composedOne cid) isNil.
+		self assert: (Mapless localFindCid: createdOne cid) isNil.
+		self assert: (Mapless localFindCid: composedOne cid) isNil.
 		] raise: Error
 ! !
 
@@ -392,6 +436,53 @@ TestCase subclass: #MaplessSharedTest
 
 !MaplessSharedTest methodsFor: 'tests'!
 
+testComposedMaplessAsJSON
+
+	| thing |
+	
+	thing := Thing new
+				stuff: (Stuff new 
+							what: 42;
+							with: Thing new;
+							yourself);
+				why: 1776;
+				yourself.
+	
+	self assert: (thing asJSON at: #why) = 1776.
+	self assert: (thing asJSON at: #stuff) notNil.
+	self deny: ((thing asJSON at: #stuff) isKindOf: Mapless).
+	self assert: ((thing asJSON at: #stuff) includesKey: #with).
+	self deny: (((thing asJSON at: #stuff) at: #with) isKindOf: Mapless).
+!
+
+testDictionaryAsJSON
+
+	| dic |
+	
+	dic := Dictionary new
+			at: #what put: 42;
+			at: #why put: 1776;
+			yourself.
+	
+	self assert: (dic asJSON at: #what) = 42.
+	self assert: (dic asJSON at: #why) = 1776.
+	self assert: dic asJSONString = '{"what":42,"why":1776}'
+!
+
+testOrderedCollectionAsJSON
+
+	| collection |
+	
+	collection := OrderedCollection new
+			add: 42;
+			add: 1776;
+			yourself.
+	
+	self assert: collection asJSON first = 42.
+	self assert: collection asJSON second = 1776.
+	self assert: collection asJSONString = '[42,1776]'
+!
+
 testPath
 
 	self deny: Thing path = 'api/1.0/thing'.
@@ -401,14 +492,81 @@ testPath
 	self assert: Stuff path = 'api/1.0/stuff'.
 !
 
+testSaveWithIdentityPreservation
+
+	| stuff things |
+	
+	stuff := Stuff new.
+	stuff things: #().
+	(1 to: 10) do: [ :i | stuff things add: Thing new ].
+	
+	things := stuff things.
+	self assert: stuff things == things.	
+	(1 to: 10) do: [ :i |
+		self assert: (stuff things at: i) == (things at: i) ].
+		
+	stuff localSave.
+	
+	self assert: stuff things == things.	
+	(1 to: 10) do: [ :i |
+		self assert: (stuff things at: i) == (things at: i) ].
+!
+
+testSerializationWithIdentityPreservation
+
+	| stuff things |
+	
+	stuff := Stuff new.
+	stuff things: #().
+	(1 to: 10) do: [ :i | stuff things add: Thing new ].
+	
+	things := stuff things.
+	self assert: stuff things == things.	
+	(1 to: 10) do: [ :i |
+		self assert: (stuff things at: i) == (things at: i) ].
+		
+	stuff asJSONString.
+	
+	self assert: stuff things == things.	
+	(1 to: 10) do: [ :i |
+		self assert: (stuff things at: i) == (things at: i) ].
+!
+
+testSetAsJSON
+
+	| collection |
+	
+	collection := Set new
+			add: 42;
+			add: 1776;
+			yourself.
+	
+	self assert: (collection asJSON includes: 42).
+	self assert: (collection asJSON includes: 1776).
+!
+
+testSimpleMaplessAsJSON
+
+	| thing |
+	
+	thing := Thing new
+				what: 42;
+				why: 1776;
+				yourself.
+	
+	self assert: (thing asJSON at: #what) = 42.
+	self assert: (thing asJSON at: #why) = 1776.
+!
+
 testURI
 	| thing |
 	
 	thing := Thing new.
 	
-	self assert: thing id notNil.
+	self assert: thing id isNil.
+	self assert: thing cid notNil.
 	
-	self assert: thing uri = ('api/1.0/things/', thing id)
+	self assert: thing uri = ('api/1.0/things/', thing cid)
 ! !
 
 MaplessModel subclass: #Stuff

@@ -23,26 +23,6 @@ at: aKey put: anObject
 	^ anObject
 !
 
-createdOn 
-
-	| selector expectsInstanceOf object |
-
-	selector := #createdOn.
-	expectsInstanceOf := Date.
-
-	object := self at: selector asString.
-	object ifNil:[^nil].
-
-	(object isKindOf: expectsInstanceOf) ifTrue:[^object].
-
-	^ self at: selector asString put: (self dateAndTimeAt: selector).
-!
-
-createdOn: aDate
-
-	self at: #createdOn put: aDate
-!
-
 data
 	"Answers the raw content of this mapless.
 	Warning: NOT meant to be overriden by subclasses."
@@ -56,12 +36,7 @@ dateAndTimeAt: aSelector
 
 id
 
-	^ data at: #id
-!
-
-id: aString
-
-	data at: #id put: aString
+	^ self data at: self class idAttribute
 !
 
 path 
@@ -88,22 +63,34 @@ subModelAt: aSelector
 !
 
 uri 
-	"Answers the URI corresponding to this particular mapless"
-	^ self path,'/',self id
-!
+	"Answers the URI corresponding to this particular mapless.
+	It will return the id regarding to the server unless is not existin yet
+	in which case it will return the cid as fallback."
 
-url
-
-	^ self path,'/',self id asString
+	^ self hasId
+		ifTrue: [ self path,'/',self id ]
+		ifFalse: [ self path,'/',self cid ]
 ! !
 
 !Mapless methodsFor: 'actions'!
 
+asJSON
+
+	| dic |
+	
+	dic := HashedCollection new.
+	
+	data 
+		addObjectVariablesTo: dic
+		doing: [ :e | e asJSON ].
+		
+		
+	^ dic
+!
+
 asJSONString
 
-	self onAboutToJSON.
-
-	^ JSON stringify: data
+	^ self asJSON asJSONString
 !
 
 at: aKey ifAbsent: aBlock
@@ -112,6 +99,15 @@ at: aKey ifAbsent: aBlock
 !
 
 createThen: aBlock
+	"Creates this mapless using the remote API"
+
+	self 
+		createThen: aBlock 
+		onError: [ :res | 
+			MaplessError signal: 'Problem creating ', self asString,'. Backend said: ', res responseText asString ]
+!
+
+createThen: aBlock onError: aFallbackBlock
 	"Creates this mapless using the remote API"
 
 	self onAboutToCreate.
@@ -123,7 +119,12 @@ createThen: aBlock
 		'contentType'-> 'application/json; charset=utf-8'.
 		'dataType'-> 'json'.
 		'data' -> self asJSONString.
-		'complete' -> [ :res | aBlock value: res ]
+		'complete' -> [ :res |
+			res status = 201
+				ifTrue:[ 
+					self onAfterCreate: res.
+					aBlock value: res ]
+				ifFalse:[ aFallbackBlock value: res ] ]
 	}.
 !
 
@@ -247,7 +248,7 @@ localDelete
 localFresh
 	"Answers the receiver loaded with a fresh version the contents regarding to the localStorage."
 
-	^ self syncFromJSON: (window localStorage getItem: self id)
+	^ self syncFromJSON: (window localStorage getItem: self cid)
 !
 
 localSave
@@ -265,11 +266,11 @@ newJSObject
 
 save
 	"Saves this mapless (upserts it)"
-	^ self saveThen:[ :res | self onAfterSave: res ]
+	^ self saveThen: [ :res |  ]
 !
 
 saveThen: aBlock
-	"Saves this mapless using the remote API"
+	"Saves this mapless using the remote API (upsert)"
 
 	self 
 		saveThen: aBlock 
@@ -292,7 +293,9 @@ saveThen: aBlock onError: aFallbackBlock
 		'data' -> self asJSONString.
 		'complete' -> [ :res | 
 			res status = 200 
-				ifTrue:[ aBlock value: res ]
+				ifTrue:[ 
+					self onAfterSave: res.
+					aBlock value: res ]
 				ifFalse:[ aFallbackBlock value: res ] ]
 	}
 !
@@ -319,15 +322,13 @@ syncWith: aReifiedJSON
 
 update
 	"Updates this mapless using the remote API"
-	self updateDo:[ :res | self onAfterUpdate: res ]
+	self updateDo:[ :res | ]
 !
 
 updateThen: aBlock
 	"Updates this mapless using the remote API"
 
 	self onAboutToUpdate.
-	
-	self localSave.
 
 	jQuery ajax: #{ 
 		'url' -> self uri.
@@ -336,7 +337,9 @@ updateThen: aBlock
 		'contentType'-> 'application/json; charset=utf-8'.
 		'dataType'-> 'json'.
 		'data' -> self asJSONString.
-		'complete' -> [ :res | aBlock value: res ]
+		'complete' -> [ :res | 
+			self onAfterUpdate: res.
+			aBlock value: res ]
 	}
 ! !
 
@@ -348,16 +351,6 @@ initialize
 
 	data := self newData.
 	self modelClass: self class name.
-!
-
-initializeCreatedOn
-
-	self createdOn: Date now
-!
-
-initializeInstanceVersion	
-
-	self v: 1
 ! !
 
 !Mapless methodsFor: 'reactions'!
@@ -369,42 +362,6 @@ onAboutToDelete
 !
 
 onAboutToFresh
-!
-
-onAboutToJSON
-	"This mapless is about to be stringified as JSON.
-	All inst var with mapless objects will be stringify-friendly after this.
-	Note: Mapless currently support composition of Mapless and composition with many Mapless"
-	
-	| obj keys |
-
-	obj := self newJSObject.
-	obj := JSObjectProxy on: obj.
-	keys := obj keys: data. 
-
-	keys do:[ :key | | value |
-	
-		"In case the value is the usual stringifiable object"
-		value := data at: key.
-		(value class ~= Array and:[
-		value class ~= JSObjectProxy ] ) ifTrue:[
-			value := self perform: key asSymbol ].
-
-		"In case the value is a (sub)Mapless"
-		( value class ~= JSObjectProxy and:[
-		value isKindOf: Mapless ] ) ifTrue:[
-			value onAboutToJSON.
-			value := value data ].
-
-		"In case the value is a collection of (sub)Mapless"
-		( value class = Array and:[
-		value notEmpty and:[
-		value anySatisfy:[ :e | 
-			e class ~= JSObjectProxy and:[
-			e isKindOf: Mapless ] ] ] ] ) ifTrue:[
-				value := (value collect:[ :e | e onAboutToJSON data ] ) ].
-		
-		data at: key put: value ]
 !
 
 onAboutToSave
@@ -423,6 +380,9 @@ onAfterCreate: aResponse
 		self localDelete.
 		^ MaplessError signal: 'Could not create ', self asString,':  ', aResponse responseText ].
 	
+	"After saves we expect the id that our backend has defined for this object"
+	self data at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).
+
 	self localSave
 !
 
@@ -460,7 +420,10 @@ onAfterSave: aResponse
 	aResponse status ~= 200 ifTrue:[
 		self localFresh.
 		^ MaplessError signal: 'Could not save ', self asString,':  ', aResponse responseText ].
-		
+
+	"After saves we expect the id that our backend has defined for this object"
+	self data at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).
+
 	self localSave
 !
 
@@ -479,10 +442,19 @@ onAfterUpdate: aResponse
 
 !Mapless methodsFor: 'testing'!
 
-= anObject
+= aMapless
 
-	^ (anObject respondsTo: #id) and:[
-	self id = anObject id]
+	^ (self cid notNil and: [ 
+	self cid = aMapless cid ]) or: [
+	
+	(self id notNil and: [
+	self id = aMapless id ]) ]
+!
+
+hasId
+	"Answers true if this Mapless already have an ID."
+	
+	^ (data at: #id) notNil
 !
 
 isJavaScriptObject: anObject
@@ -515,12 +487,27 @@ isUnary: aSelector
 	^ (aSelector asString includes: ':') not
 ! !
 
+Mapless class instanceVariableNames: 'idAttribute'!
+
 !Mapless class methodsFor: 'accessing'!
 
 basePath
 	"Answers the base URI for remote mapless"
 	
 	^ 'api/1.0'
+!
+
+idAttribute
+	"Answers the attribute name for the id used by the server side.
+	Uses '_id' as default because we're assuming that MongoDB is 
+	a reasonable default and that's what it uses as id."
+	
+	^ idAttribute ifNil: [ idAttribute := '_id' ]
+!
+
+idAttribute: aString
+	
+	idAttribute := aString
 !
 
 path
@@ -613,7 +600,7 @@ findAllThen: aBlock ifEmpty: emptyBlock onError: aFallbackBlock
 findId: anId then: aBlock
 
 	self 
-		findOne: #{ '_id' -> anId }
+		findOne: #{ self idAttribute -> anId }
 		then: aBlock
 !
 
@@ -712,18 +699,18 @@ fromResponse: aResponse
 
 localDelete: aMapless
 
-	window localStorage removeItem: aMapless id
+	window localStorage removeItem: aMapless cid
 !
 
-localFindId: anId
+localFindCid: aCid
 
-	^ self fromJSONString: (window localStorage getItem: anId)
+	^ self fromJSONString: (window localStorage getItem: aCid)
 !
 
 localSave: aMapless
 
 	window localStorage
-		setItem: aMapless id
+		setItem: aMapless cid
 		value: aMapless asJSONString
 !
 
@@ -760,14 +747,47 @@ Mapless subclass: #MaplessModel
 	instanceVariableNames: ''
 	package: 'MiniMapless'!
 
+!MaplessModel methodsFor: 'accessing'!
+
+createdOn 	
+
+	| selector expectsInstanceOf object |
+
+	selector := #createdOn.
+	expectsInstanceOf := Date.
+
+	object := self at: selector asString.
+	object ifNil:[^nil].
+
+	(object isKindOf: expectsInstanceOf) ifTrue:[^object].
+
+	^ self at: selector asString put: (self dateAndTimeAt: selector).
+!
+
+createdOn: aDate
+
+	self at: #createdOn put: aDate
+! !
+
 !MaplessModel methodsFor: 'initialization'!
 
 initialize
 
 	super initialize.
 
+	self cid: self class newUUID.
 	self initializeInstanceVersion.
-	self id: self class newUUID.
+	self createdOn: Date now.
+!
+
+initializeCreatedOn
+
+	self createdOn: Date now
+!
+
+initializeInstanceVersion	
+
+	self v: 1
 ! !
 
 !MaplessModel methodsFor: 'reactions'!
@@ -796,4 +816,14 @@ onAboutToUpdate
 Error subclass: #MaplessError
 	instanceVariableNames: ''
 	package: 'MiniMapless'!
+
+!JSObjectProxy methodsFor: '*MiniMapless'!
+
+addObjectVariablesTo: aDictionary doing: aBlock
+	<
+		for(var i in self['@jsObject']) {
+			aDictionary._at_put_(i, aBlock(self['@jsObject'][i]));
+		}
+	>
+! !
 
