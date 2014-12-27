@@ -2220,6 +2220,48 @@ $globals.MaplessSharedTest);
 
 $core.addMethod(
 $core.method({
+selector: "testHasID",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var thing;
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1;
+thing=$recv($Thing())._new();
+self._assert_($recv($recv(thing)._id())._isNil());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+self._assert_($recv($recv(thing)._cid())._notNil());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+$1=$recv(thing)._hasId();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["hasId"]=1;
+//>>excludeEnd("ctx");
+self._deny_($1);
+$recv(thing)._id_("123456789");
+self._assert_($recv(thing)._hasId());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testHasID",{thing:thing},$globals.MaplessSharedTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testHasID\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new.\x0a\x09\x0a\x09self assert: thing id isNil.\x0a\x09self assert: thing cid notNil.\x0a\x09\x0a\x09self deny: thing hasId.\x0a\x0a\x09thing id: '123456789'.\x0a\x09\x0a\x09self assert: thing hasId",
+referencedClasses: ["Thing"],
+//>>excludeEnd("ide");
+messageSends: ["new", "assert:", "isNil", "id", "notNil", "cid", "deny:", "hasId", "id:"]
+}),
+$globals.MaplessSharedTest);
+
+$core.addMethod(
+$core.method({
 selector: "testOrderedCollectionAsJSON",
 protocol: 'tests',
 fn: function (){

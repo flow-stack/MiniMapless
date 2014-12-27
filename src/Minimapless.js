@@ -754,7 +754,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($recv(self["@data"])._at_("id"))._notNil();
+$1=$recv(self._id())._notNil();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"hasId",{},$globals.Mapless)});
@@ -762,10 +762,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "hasId\x0a\x09\x22Answers true if this Mapless already have an ID.\x22\x0a\x09\x0a\x09^ (data at: #id) notNil",
+source: "hasId\x0a\x09\x22Answers true if this Mapless already have an ID.\x22\x0a\x09\x0a\x09^ self id notNil",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["notNil", "at:"]
+messageSends: ["notNil", "id"]
 }),
 $globals.Mapless);
 
@@ -791,6 +791,31 @@ source: "id\x0a\x0a\x09^ self data at: self class idAttribute",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["at:", "data", "idAttribute", "class"]
+}),
+$globals.Mapless);
+
+$core.addMethod(
+$core.method({
+selector: "id:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._data())._at_put_($recv(self._class())._idAttribute(),aString);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"id:",{aString:aString},$globals.Mapless)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "id: aString\x0a\x0a\x09^ self data \x0a\x09\x09at: self class idAttribute \x0a\x09\x09put: aString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["at:put:", "data", "idAttribute", "class"]
 }),
 $globals.Mapless);
 

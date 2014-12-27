@@ -39,6 +39,13 @@ id
 	^ self data at: self class idAttribute
 !
 
+id: aString
+
+	^ self data 
+		at: self class idAttribute 
+		put: aString
+!
+
 path 
 
 	^ self class path
@@ -451,7 +458,7 @@ onAfterUpdate: aResponse
 hasId
 	"Answers true if this Mapless already have an ID."
 	
-	^ (data at: #id) notNil
+	^ self id notNil
 !
 
 isJavaScriptObject: anObject

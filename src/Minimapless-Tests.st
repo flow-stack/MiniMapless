@@ -469,6 +469,21 @@ testDictionaryAsJSON
 	self assert: dic asJSONString = '{"what":42,"why":1776}'
 !
 
+testHasID
+	| thing |
+	
+	thing := Thing new.
+	
+	self assert: thing id isNil.
+	self assert: thing cid notNil.
+	
+	self deny: thing hasId.
+
+	thing id: '123456789'.
+	
+	self assert: thing hasId
+!
+
 testOrderedCollectionAsJSON
 
 	| collection |
