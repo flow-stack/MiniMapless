@@ -561,7 +561,7 @@ find: someConditionsInJSON then: aBlock
 	self 
 		find: someConditionsInJSON 
 		then: aBlock 
-		ifNone: [ MaplessError signal: 'Nothing found for ', someConditionsInJSON asJSONString ] 
+		ifNone: [ aBlock value: nil ] 
 		onError: [ :res | MaplessError signal: 'Problem while querying for ', someConditionsInJSON asJSONString, ' server says: ', res statusText ]
 !
 
@@ -620,8 +620,20 @@ findAllThen: aBlock ifEmpty: emptyBlock onError: aFallbackBlock
 findId: anId then: aBlock
 
 	self 
+		findId: anId 
+		then: aBlock 
+		ifNone: [ aBlock value: nil ]
+		onError: [ :res |
+			MaplessError signal: 'Problem while querying for anId ', anId, ' server says: ', res statusText ]
+!
+
+findId: anId then: foundBlock ifNone: noneBlock onError: errorBlock
+
+	self 
 		findOne: #{ self idAttribute -> anId }
-		then: aBlock
+		then: foundBlock
+		ifNone: noneBlock
+		onError: errorBlock
 !
 
 findOne: someConditionsInJSON then: aBlock

@@ -1915,23 +1915,12 @@ function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="un
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-var $2,$1,$4,$3;
+var $2,$1;
 self._find_then_ifNone_onError_(someConditionsInJSON,aBlock,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$2=$recv(someConditionsInJSON)._asJSONString();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["asJSONString"]=1;
-//>>excludeEnd("ctx");
-$1="Nothing found for ".__comma($2);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx[","]=1;
-//>>excludeEnd("ctx");
-return $recv($MaplessError())._signal_($1);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["signal:"]=1;
-//>>excludeEnd("ctx");
+return $recv(aBlock)._value_(nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -1939,15 +1928,15 @@ $ctx2.sendIdx["signal:"]=1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$4=$recv("Problem while querying for ".__comma($recv(someConditionsInJSON)._asJSONString())).__comma(" server says: ");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx[","]=3;
-//>>excludeEnd("ctx");
-$3=$recv($4).__comma($recv(res)._statusText());
+$2=$recv("Problem while querying for ".__comma($recv(someConditionsInJSON)._asJSONString())).__comma(" server says: ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=2;
 //>>excludeEnd("ctx");
-return $recv($MaplessError())._signal_($3);
+$1=$recv($2).__comma($recv(res)._statusText());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+return $recv($MaplessError())._signal_($1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({res:res},$ctx1,2)});
 //>>excludeEnd("ctx");
@@ -1959,10 +1948,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["someConditionsInJSON", "aBlock"],
-source: "find: someConditionsInJSON then: aBlock\x0a\x09\x22Finds some mapless using the remote API to resolve someConditionsInJSON\x22\x0a\x0a\x09self \x0a\x09\x09find: someConditionsInJSON \x0a\x09\x09then: aBlock \x0a\x09\x09ifNone: [ MaplessError signal: 'Nothing found for ', someConditionsInJSON asJSONString ] \x0a\x09\x09onError: [ :res | MaplessError signal: 'Problem while querying for ', someConditionsInJSON asJSONString, ' server says: ', res statusText ]",
+source: "find: someConditionsInJSON then: aBlock\x0a\x09\x22Finds some mapless using the remote API to resolve someConditionsInJSON\x22\x0a\x0a\x09self \x0a\x09\x09find: someConditionsInJSON \x0a\x09\x09then: aBlock \x0a\x09\x09ifNone: [ aBlock value: nil ] \x0a\x09\x09onError: [ :res | MaplessError signal: 'Problem while querying for ', someConditionsInJSON asJSONString, ' server says: ', res statusText ]",
 referencedClasses: ["MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["find:then:ifNone:onError:", "signal:", ",", "asJSONString", "statusText"]
+messageSends: ["find:then:ifNone:onError:", "value:", "signal:", ",", "asJSONString", "statusText"]
 }),
 $globals.Mapless.klass);
 
@@ -2136,10 +2125,36 @@ selector: "findId:then:",
 protocol: 'actions',
 fn: function (anId,aBlock){
 var self=this;
+function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._findOne_then_($globals.HashedCollection._newFromPairs_([self._idAttribute(),anId]),aBlock);
+var $2,$1;
+self._findId_then_ifNone_onError_(anId,aBlock,(function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(aBlock)._value_(nil);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}),(function(res){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$2=$recv("Problem while querying for anId ".__comma(anId)).__comma(" server says: ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=2;
+//>>excludeEnd("ctx");
+$1=$recv($2).__comma($recv(res)._statusText());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+return $recv($MaplessError())._signal_($1);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({res:res},$ctx1,2)});
+//>>excludeEnd("ctx");
+}));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"findId:then:",{anId:anId,aBlock:aBlock},$globals.Mapless.klass)});
@@ -2147,10 +2162,34 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anId", "aBlock"],
-source: "findId: anId then: aBlock\x0a\x0a\x09self \x0a\x09\x09findOne: #{ self idAttribute -> anId }\x0a\x09\x09then: aBlock",
+source: "findId: anId then: aBlock\x0a\x0a\x09self \x0a\x09\x09findId: anId \x0a\x09\x09then: aBlock \x0a\x09\x09ifNone: [ aBlock value: nil ]\x0a\x09\x09onError: [ :res |\x0a\x09\x09\x09MaplessError signal: 'Problem while querying for anId ', anId, ' server says: ', res statusText ]",
+referencedClasses: ["MaplessError"],
+//>>excludeEnd("ide");
+messageSends: ["findId:then:ifNone:onError:", "value:", "signal:", ",", "statusText"]
+}),
+$globals.Mapless.klass);
+
+$core.addMethod(
+$core.method({
+selector: "findId:then:ifNone:onError:",
+protocol: 'actions',
+fn: function (anId,foundBlock,noneBlock,errorBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+self._findOne_then_ifNone_onError_($globals.HashedCollection._newFromPairs_([self._idAttribute(),anId]),foundBlock,noneBlock,errorBlock);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"findId:then:ifNone:onError:",{anId:anId,foundBlock:foundBlock,noneBlock:noneBlock,errorBlock:errorBlock},$globals.Mapless.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anId", "foundBlock", "noneBlock", "errorBlock"],
+source: "findId: anId then: foundBlock ifNone: noneBlock onError: errorBlock\x0a\x0a\x09self \x0a\x09\x09findOne: #{ self idAttribute -> anId }\x0a\x09\x09then: foundBlock\x0a\x09\x09ifNone: noneBlock\x0a\x09\x09onError: errorBlock",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["findOne:then:", "idAttribute"]
+messageSends: ["findOne:then:ifNone:onError:", "idAttribute"]
 }),
 $globals.Mapless.klass);
 
