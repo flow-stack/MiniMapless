@@ -102,6 +102,12 @@ at: aKey ifAbsent: aBlock
 	^ data at: aKey ifAbsent: aBlock
 !
 
+create
+	"Creates this mapless using the remote API"
+
+	self createThen: [ :res |  nil ]
+!
+
 createThen: aBlock
 	"Creates this mapless using the remote API"
 
@@ -132,6 +138,12 @@ createThen: aBlock onError: aFallbackBlock
 	}.
 !
 
+delete
+	"Delete this mapless using the remote API"
+
+	self deleteThen: [ :res | nil ]
+!
+
 deleteThen: aBlock
 	"Delete this mapless using the remote API"
 
@@ -142,7 +154,9 @@ deleteThen: aBlock
 		'type' -> 'DELETE'.
 		'cache' -> false.
 		'data' -> self asJSONString.
-		'complete' -> [ :res | aBlock value: res ]
+		'complete' -> [ :res | 
+						self onAfterDelete: res.
+						aBlock value: res ]
 	}
 !
 
@@ -199,7 +213,7 @@ doesNotUnderstand: aMessage
 
 fresh
 	"Re-read this mapless' state."
-	self freshThen:[ :res | self onAfterFresh: res ]
+	self freshThen:[ :res | nil ]
 !
 
 freshThen: aBlock
@@ -211,7 +225,9 @@ freshThen: aBlock
 		'url' -> self uri.
 		'type' -> 'GET'.
 		'cache' -> false.
-		'complete' -> [ :res | aBlock value: res ]
+		'complete' -> [ :res | 
+						self onAfterFresh: res.
+						aBlock value: res ]
 	}
 !
 
@@ -270,7 +286,7 @@ newJSObject
 
 save
 	"Saves this mapless (upserts it)"
-	^ self saveThen: [ :res |  ]
+	^ self saveThen: [ :res | nil ]
 !
 
 saveThen: aBlock
@@ -326,7 +342,7 @@ syncWith: aReifiedJSON
 
 update
 	"Updates this mapless using the remote API"
-	self updateDo:[ :res | ]
+	self updateDo:[ :res | nil ]
 !
 
 updateThen: aBlock

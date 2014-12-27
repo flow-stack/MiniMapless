@@ -223,6 +223,33 @@ $globals.Mapless);
 
 $core.addMethod(
 $core.method({
+selector: "create",
+protocol: 'actions',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+self._createThen_((function(res){
+return nil;
+
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"create",{},$globals.Mapless)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "create\x0a\x09\x22Creates this mapless using the remote API\x22\x0a\x0a\x09self createThen: [ :res |  nil ]\x0a\x09\x09",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["createThen:"]
+}),
+$globals.Mapless);
+
+$core.addMethod(
+$core.method({
 selector: "createThen:",
 protocol: 'actions',
 fn: function (aBlock){
@@ -359,6 +386,33 @@ $globals.Mapless);
 
 $core.addMethod(
 $core.method({
+selector: "delete",
+protocol: 'actions',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+self._deleteThen_((function(res){
+return nil;
+
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"delete",{},$globals.Mapless)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "delete\x0a\x09\x22Delete this mapless using the remote API\x22\x0a\x0a\x09self deleteThen: [ :res | nil ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["deleteThen:"]
+}),
+$globals.Mapless);
+
+$core.addMethod(
+$core.method({
 selector: "deleteThen:",
 protocol: 'actions',
 fn: function (aBlock){
@@ -371,6 +425,7 @@ $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri()
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
+self._onAfterDelete_(res);
 return $recv(aBlock)._value_(res);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({res:res},$ctx1,1)});
@@ -383,10 +438,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "deleteThen: aBlock\x0a\x09\x22Delete this mapless using the remote API\x22\x0a\x0a\x09self onAboutToDelete.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'DELETE'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | aBlock value: res ]\x0a\x09}",
+source: "deleteThen: aBlock\x0a\x09\x22Delete this mapless using the remote API\x22\x0a\x0a\x09self onAboutToDelete.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'DELETE'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09\x09\x09\x09self onAfterDelete: res.\x0a\x09\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09}",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["onAboutToDelete", "ajax:", "uri", "asJSONString", "value:"]
+messageSends: ["onAboutToDelete", "ajax:", "uri", "asJSONString", "onAfterDelete:", "value:"]
 }),
 $globals.Mapless);
 
@@ -540,13 +595,8 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._freshThen_((function(res){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return self._onAfterFresh_(res);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({res:res},$ctx1,1)});
-//>>excludeEnd("ctx");
+return nil;
+
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -555,10 +605,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "fresh\x0a\x09\x22Re-read this mapless' state.\x22\x0a\x09self freshThen:[ :res | self onAfterFresh: res ]",
+source: "fresh\x0a\x09\x22Re-read this mapless' state.\x22\x0a\x09self freshThen:[ :res | nil ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["freshThen:", "onAfterFresh:"]
+messageSends: ["freshThen:"]
 }),
 $globals.Mapless);
 
@@ -576,6 +626,7 @@ $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri()
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
+self._onAfterFresh_(res);
 return $recv(aBlock)._value_(res);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({res:res},$ctx1,1)});
@@ -588,10 +639,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "freshThen: aBlock\x0a\x09\x22Re-read this mapless' state from the remote API.\x22\x0a\x0a\x09self onAboutToFresh.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'GET'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'complete' -> [ :res | aBlock value: res ]\x0a\x09}",
+source: "freshThen: aBlock\x0a\x09\x22Re-read this mapless' state from the remote API.\x22\x0a\x0a\x09self onAboutToFresh.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'GET'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09\x09\x09\x09self onAfterFresh: res.\x0a\x09\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09}",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["onAboutToFresh", "ajax:", "uri", "value:"]
+messageSends: ["onAboutToFresh", "ajax:", "uri", "onAfterFresh:", "value:"]
 }),
 $globals.Mapless);
 
@@ -1489,6 +1540,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._saveThen_((function(res){
+return nil;
 
 }));
 return $1;
@@ -1498,7 +1550,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "save\x0a\x09\x22Saves this mapless (upserts it)\x22\x0a\x09^ self saveThen: [ :res |  ]",
+source: "save\x0a\x09\x22Saves this mapless (upserts it)\x22\x0a\x09^ self saveThen: [ :res | nil ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["saveThen:"]
@@ -1738,6 +1790,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._updateDo_((function(res){
+return nil;
 
 }));
 return self;
@@ -1747,7 +1800,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "update\x0a\x09\x22Updates this mapless using the remote API\x22\x0a\x09self updateDo:[ :res | ]",
+source: "update\x0a\x09\x22Updates this mapless using the remote API\x22\x0a\x09self updateDo:[ :res | nil ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["updateDo:"]
