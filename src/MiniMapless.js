@@ -15,7 +15,7 @@ protocol: 'testing',
 fn: function (aMapless){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $4,$3,$5,$2,$7,$6,$8,$1;
 $4=self._cid();
@@ -94,7 +94,7 @@ var self=this;
 var dic;
 function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 dic=$recv($HashedCollection())._new();
@@ -129,7 +129,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self._asJSON())._asJSONString();
@@ -154,7 +154,7 @@ protocol: 'accessing',
 fn: function (aKey){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self["@data"])._at_(aKey);
@@ -179,7 +179,7 @@ protocol: 'actions',
 fn: function (aKey,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self["@data"])._at_ifAbsent_(aKey,aBlock);
@@ -204,7 +204,7 @@ protocol: 'accessing',
 fn: function (aKey,anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(self["@data"])._at_put_(aKey,anObject);
 return anObject;
@@ -228,7 +228,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._createThen_((function(res){
 return nil;
@@ -241,7 +241,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "create\x0a\x09\x22Creates this mapless using the remote API\x22\x0a\x0a\x09self createThen: [ :res |  nil ]\x0a\x09\x09",
+source: "create\x0a\x09\x22Creates this mapless using the remote API\x22\x0a\x0a\x09self createThen: [ :res |  nil ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["createThen:"]
@@ -256,7 +256,7 @@ fn: function (aBlock){
 var self=this;
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 self._createThen_onError_(aBlock,(function(res){
@@ -302,7 +302,7 @@ protocol: 'actions',
 fn: function (aBlock,aFallbackBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 self._onAboutToCreate();
@@ -366,7 +366,7 @@ fn: function (aSelector){
 var self=this;
 function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($Date())._fromString_(self._at_(aSelector));
@@ -391,7 +391,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._deleteThen_((function(res){
 return nil;
@@ -418,7 +418,7 @@ protocol: 'actions',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._onAboutToDelete();
 $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri(),"type","DELETE","cache",false,"data",self._asJSONString(),"complete",(function(res){
@@ -455,7 +455,7 @@ var key,part,subModel,isUndefined,isObject,obj,keys;
 function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$21,$20,$19,$18,$receiver;
 key=$recv($recv(aMessage)._selector())._asSymbol();
@@ -592,7 +592,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._freshThen_((function(res){
 return nil;
@@ -619,7 +619,7 @@ protocol: 'actions',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._onAboutToFresh();
 $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri(),"type","GET","cache",false,"complete",(function(res){
@@ -653,7 +653,7 @@ protocol: 'actions',
 fn: function (anAttribute,aPart){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 return aPart[anAttribute];
 return self;
@@ -679,7 +679,7 @@ var self=this;
 function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
 function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1,$6,$5,$7,$8,$9;
 $1=$recv(someObjects)._anySatisfy_((function(e){
@@ -802,7 +802,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self._id())._notNil();
@@ -827,7 +827,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self._data())._at_($recv(self._class())._idAttribute());
@@ -852,7 +852,7 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self._data())._at_put_($recv(self._class())._idAttribute(),aString);
@@ -877,7 +877,7 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -910,7 +910,7 @@ protocol: 'testing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 return typeof anObject=='object';
 return self;
@@ -934,7 +934,7 @@ protocol: 'testing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 return anObject=='undefined';
 return self;
@@ -958,7 +958,7 @@ protocol: 'testing',
 fn: function (aSelector){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($recv(aSelector)._asString())._includes_(":");
@@ -984,7 +984,7 @@ fn: function (aKey,someObjects){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 $1=$recv(self._isUnary_(aKey))._and_((function(){
@@ -1052,7 +1052,7 @@ protocol: 'testing',
 fn: function (aSelector){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($recv($recv(aSelector)._asString())._includes_(":"))._not();
@@ -1077,7 +1077,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(self._class())._localDelete_(self);
 return self;
@@ -1101,7 +1101,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._syncFromJSON_($recv($recv(window)._localStorage())._getItem_(self._cid()));
@@ -1126,7 +1126,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(self._class())._localSave_(self);
 return self;
@@ -1150,7 +1150,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 return new Object;
 return self;
@@ -1174,7 +1174,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 return Object;
 return self;
@@ -1289,7 +1289,7 @@ fn: function (aResponse){
 var self=this;
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2,$5,$7,$6;
 $1=$recv($recv(aResponse)._status()).__tild_eq((201));
@@ -1339,7 +1339,7 @@ fn: function (aResponse){
 var self=this;
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2;
 $1=$recv($recv(aResponse)._status()).__tild_eq((200));
@@ -1378,7 +1378,7 @@ fn: function (aResponse){
 var self=this;
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$4,$5,$3,$2;
 $1=$recv($recv(aResponse)._status()).__tild_eq((200));
@@ -1422,7 +1422,7 @@ fn: function (aResponse){
 var self=this;
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2,$5,$7,$6;
 $1=$recv($recv(aResponse)._status()).__tild_eq((200));
@@ -1472,7 +1472,7 @@ fn: function (aResponse){
 var self=this;
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2;
 $1=$recv($recv(aResponse)._status()).__tild_eq((200));
@@ -1511,7 +1511,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self._class())._path();
@@ -1536,7 +1536,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._saveThen_((function(res){
@@ -1565,7 +1565,7 @@ fn: function (aBlock){
 var self=this;
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 self._saveThen_onError_(aBlock,(function(res){
@@ -1611,7 +1611,7 @@ protocol: 'actions',
 fn: function (aBlock,aFallbackBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 self._onAboutToSave();
@@ -1657,7 +1657,7 @@ var subMaplessData,modelClass;
 function $SmalltalkImage(){return $globals.SmalltalkImage||(typeof SmalltalkImage=="undefined"?nil:SmalltalkImage)}
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$4,$6,$receiver;
 subMaplessData=$recv(self["@data"])._at_(aSelector);
@@ -1714,7 +1714,7 @@ protocol: 'actions',
 fn: function (someJSONString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._syncWith_($recv(self._class())._reify_(someJSONString));
@@ -1740,7 +1740,7 @@ fn: function (aReifiedJSON){
 var self=this;
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $3,$2,$1,$receiver;
 if(($receiver = aReifiedJSON) == null || $receiver.isNil){
@@ -1787,7 +1787,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._updateDo_((function(res){
 return nil;
@@ -1814,7 +1814,7 @@ protocol: 'actions',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._onAboutToUpdate();
 $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri(),"type","PUT","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",self._asJSONString(),"complete",(function(res){
@@ -1848,7 +1848,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$4,$3,$1;
 $2=self._hasId();
@@ -1913,7 +1913,7 @@ fn: function (someConditionsInJSON,aBlock){
 var self=this;
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1;
 self._find_then_ifNone_onError_(someConditionsInJSON,aBlock,(function(){
@@ -1962,7 +1962,7 @@ protocol: 'actions',
 fn: function (someConditionsInJSON,aBlock,noneBlock,aFallbackBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",$recv(self._path()).__comma("/query"),"type","POST","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",$recv(someConditionsInJSON)._asJSONString(),"complete",(function(res){
@@ -2020,7 +2020,7 @@ fn: function (aBlock){
 var self=this;
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1;
 self._findAllThen_ifEmpty_onError_(aBlock,(function(){
@@ -2069,7 +2069,7 @@ protocol: 'actions',
 fn: function (aBlock,emptyBlock,aFallbackBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._path(),"type","GET","cache",false,"contentType","application/json; charset=utf-8","complete",(function(res){
@@ -2127,7 +2127,7 @@ fn: function (anId,aBlock){
 var self=this;
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1;
 self._findId_then_ifNone_onError_(anId,aBlock,(function(){
@@ -2176,7 +2176,7 @@ protocol: 'actions',
 fn: function (anId,foundBlock,noneBlock,errorBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._findOne_then_ifNone_onError_($globals.HashedCollection._newFromPairs_([self._idAttribute(),anId]),foundBlock,noneBlock,errorBlock);
 return self;
@@ -2201,7 +2201,7 @@ fn: function (someConditionsInJSON,aBlock){
 var self=this;
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1;
 self._findOne_then_ifNone_onError_(someConditionsInJSON,aBlock,(function(){
@@ -2250,7 +2250,7 @@ protocol: 'actions',
 fn: function (someConditionsInJSON,aBlock,noneBlock,aFallbackBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",$recv(self._path()).__comma("/queryOne"),"type","POST","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",$recv(someConditionsInJSON)._asJSONString(),"complete",(function(res){
@@ -2299,7 +2299,7 @@ protocol: 'actions',
 fn: function (someJSON){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self._new())._syncFromJSON_(someJSON);
@@ -2327,7 +2327,7 @@ var json,modelClass;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$6,$4,$receiver;
 var $early={};
@@ -2392,7 +2392,7 @@ protocol: 'actions',
 fn: function (anArrayOfJSONObjects){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(anArrayOfJSONObjects)._collect_((function(someJSON){
@@ -2427,7 +2427,7 @@ var self=this;
 var modelClass;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 var $early={};
@@ -2468,7 +2468,7 @@ fn: function (aResponse){
 var self=this;
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$3,$4,$2,$5;
 $1=$recv($recv(aResponse)._status()).__tild_eq((200));
@@ -2509,7 +2509,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@idAttribute"];
@@ -2559,7 +2559,7 @@ protocol: 'actions',
 fn: function (aMapless){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv($recv(window)._localStorage())._removeItem_($recv(aMapless)._cid());
 return self;
@@ -2583,7 +2583,7 @@ protocol: 'actions',
 fn: function (aCid){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._fromJSONString_($recv($recv(window)._localStorage())._getItem_(aCid));
@@ -2608,7 +2608,7 @@ protocol: 'actions',
 fn: function (aMapless){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv($recv(window)._localStorage())._setItem_value_($recv(aMapless)._cid(),$recv(aMapless)._asJSONString());
 return self;
@@ -2633,7 +2633,7 @@ fn: function (someJSONString){
 var self=this;
 function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($recv($JSON())._parse_(someJSONString))._collect_((function(each){
@@ -2666,7 +2666,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self._uuidGenerator())._value();
@@ -2691,7 +2691,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($recv(self._basePath()).__comma("/")).__comma(self._pluralName());
@@ -2719,7 +2719,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self._singularName()).__comma("s");
@@ -2745,7 +2745,7 @@ fn: function (jsonString){
 var self=this;
 function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($JSON())._parse_(jsonString);
@@ -2770,7 +2770,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self._name())._asLowercase();
@@ -2795,7 +2795,7 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 return function guid() {
     function _p8(s) {
@@ -2829,7 +2829,7 @@ var self=this;
 var selector,expectsInstanceOf,object;
 function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$receiver;
 selector="createdOn";
@@ -2872,7 +2872,7 @@ protocol: 'accessing',
 fn: function (aDate){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._at_put_("createdOn",aDate);
 return self;
@@ -2897,7 +2897,7 @@ fn: function (){
 var self=this;
 function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2932,7 +2932,7 @@ fn: function (){
 var self=this;
 function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._createdOn_($recv($Date())._now());
 return self;
@@ -2956,7 +2956,7 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._v_((1));
 return self;
@@ -2981,7 +2981,7 @@ fn: function (){
 var self=this;
 function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3014,7 +3014,7 @@ fn: function (){
 var self=this;
 function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3047,7 +3047,7 @@ fn: function (){
 var self=this;
 function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

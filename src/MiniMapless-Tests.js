@@ -16,7 +16,7 @@ function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 createdOne=$recv($Thing())._new();
@@ -64,7 +64,7 @@ var self=this;
 var one,two,pretender;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$3,$4,$2;
 one=$recv($Thing())._new();
@@ -121,7 +121,7 @@ function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3;
 createdOne=$recv($Thing())._new();
@@ -187,7 +187,7 @@ var self=this;
 var one;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 one=$recv($Thing())._new();
 self._deny_($recv($recv(one)._id())._notNil());
@@ -220,7 +220,7 @@ function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $3,$4,$2,$1,$7,$8,$6,$5,$9,$10,$12,$13,$11,$15,$14,$17,$16,$19,$18,$21,$20;
 createdOne=$recv($Thing())._new();
@@ -379,7 +379,7 @@ function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $3,$4,$2,$1,$7,$8,$6,$5,$9,$12,$13,$11,$10;
 createdOne=$recv($Thing())._new();
@@ -481,7 +481,7 @@ function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $3,$4,$2,$1,$7,$8,$6,$5,$9,$10,$12,$11;
 createdOne=$recv($Thing())._new();
@@ -577,7 +577,7 @@ function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $3,$4,$2,$1,$5,$6,$8,$9,$7,$10,$13,$14,$12,$11,$15,$16,$17,$18,$22,$21,$20,$23,$19,$27,$26,$25,$28,$24,$32,$31,$30,$33,$29,$37,$36,$35,$38,$34,$42,$41,$40,$39,$44,$45,$43,$48,$49,$47,$46,$52,$53,$51,$50,$56,$57,$55,$54,$60,$59,$58,$63,$62,$61;
 createdOne=$recv($Thing())._new();
@@ -938,7 +938,7 @@ function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
 function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $3,$4,$2,$1,$5,$6,$9,$10,$8,$7,$11,$12,$13,$16,$15,$17,$14,$20,$19,$18,$22,$23,$21,$26,$27,$25,$24,$30,$31,$29,$28,$34,$33,$32;
 createdOne=$recv($Thing())._new();
@@ -1154,7 +1154,7 @@ var createdOne,loadedOne;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1;
 createdOne=$recv($Thing())._new();
@@ -1243,7 +1243,7 @@ var createdOne,loadedOne;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3;
 createdOne=$recv($Thing())._new();
@@ -1328,7 +1328,7 @@ var createdOne,loadedOne;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5;
 createdOne=$recv($Thing())._new();
@@ -1412,7 +1412,7 @@ var createdOne,loadedOnes;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$7,$6;
 createdOne=$recv($Thing())._new();
@@ -1546,7 +1546,7 @@ var createdOne,query,loadedOnes;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$7,$6;
 createdOne=$recv($Thing())._new();
@@ -1681,7 +1681,7 @@ var createdOne,loadedOne;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3,$5,$6,$7;
 createdOne=$recv($Thing())._new();
@@ -1801,7 +1801,7 @@ var createdOne,loadedOne,updatedOne;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$3,$4,$5,$7,$6,$9,$8,$11,$10,$12,$14,$15,$13,$17,$16,$19,$18,$20,$21,$23,$24,$22,$26,$25;
 createdOne=$recv($Thing())._new();
@@ -2064,7 +2064,7 @@ function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
 function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$4,$5,$3,$6,$9,$8,$7,$12,$11,$10,$15,$14,$13,$18,$17,$16,$20,$19;
 $1=$recv($Thing())._new();
@@ -2168,7 +2168,7 @@ var self=this;
 var dic;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$5,$4,$3,$6;
 $1=$recv($Dictionary())._new();
@@ -2227,7 +2227,7 @@ var self=this;
 var thing;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 thing=$recv($Thing())._new();
@@ -2269,7 +2269,7 @@ var self=this;
 var collection;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$5,$4,$3,$6;
 $1=$recv($OrderedCollection())._new();
@@ -2325,7 +2325,7 @@ var self=this;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3;
 $2=$recv($Thing())._path();
@@ -2374,7 +2374,7 @@ var stuff,things;
 function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3,$5,$8,$7,$9,$6,$11,$10,$13,$12;
 stuff=$recv($Stuff())._new();
@@ -2504,7 +2504,7 @@ var stuff,things;
 function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3,$5,$8,$7,$9,$6,$11,$10,$13,$12;
 stuff=$recv($Stuff())._new();
@@ -2633,7 +2633,7 @@ var self=this;
 var collection;
 function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3;
 $1=$recv($Set())._new();
@@ -2680,7 +2680,7 @@ var self=this;
 var thing;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$5,$4,$3;
 $1=$recv($Thing())._new();
@@ -2728,7 +2728,7 @@ var self=this;
 var thing;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1;
 thing=$recv($Thing())._new();
@@ -2771,7 +2771,7 @@ fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=(
