@@ -1,7 +1,7 @@
 {
     "name": "minimapless",
     "description": "Mapless in the frontend!",
-    "version": "0.10.7",
+    "version": "0.10.8",
     "main": "src/Minimapless.js",
     "ignore": [
         "**/.*",
@@ -27,7 +27,7 @@
     ],
     "private": false,
     "dependencies": {
-        "amber": "^0.14.0",
+        "amber": "^0.14.0"
     },
     "devDependencies": {
         "amber-ide-starter-dialog": "^0.1.0",
