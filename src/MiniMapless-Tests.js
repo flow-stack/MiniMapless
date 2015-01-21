@@ -1,6 +1,7 @@
 define("minimapless/MiniMapless-Tests", ["amber/boot", "amber_core/SUnit", "minimapless/MiniMapless"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('MiniMapless-Tests');
+$core.packages["MiniMapless-Tests"].innerEval = function (expr) { return eval(expr); };
 $core.packages["MiniMapless-Tests"].transport = {"type":"amd","amdNamespace":"minimapless"};
 
 $core.addClass('MaplessLocalTest', $globals.TestCase, [], 'MiniMapless-Tests');
