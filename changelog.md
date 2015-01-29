@@ -1,3 +1,9 @@
+January 29, 2015 - Release 0.10.12
+===================================
+
+* Mapless>>freshThen: is going to value the callback using the fresh mapless (instead of the raw response)
+
+
 January 21, 2015 - Release 0.10.11
 ===================================
 

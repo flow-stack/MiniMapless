@@ -227,7 +227,7 @@ freshThen: aBlock
 		'cache' -> false.
 		'complete' -> [ :res | 
 						self onAfterFresh: res.
-						aBlock value: res ]
+						aBlock value: self ]
 	}
 !
 

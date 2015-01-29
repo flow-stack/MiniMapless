@@ -627,7 +627,7 @@ $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri()
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._onAfterFresh_(res);
-return $recv(aBlock)._value_(res);
+return $recv(aBlock)._value_(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({res:res},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -639,7 +639,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "freshThen: aBlock\x0a\x09\x22Re-read this mapless' state from the remote API.\x22\x0a\x0a\x09self onAboutToFresh.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'GET'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09\x09\x09\x09self onAfterFresh: res.\x0a\x09\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09}",
+source: "freshThen: aBlock\x0a\x09\x22Re-read this mapless' state from the remote API.\x22\x0a\x0a\x09self onAboutToFresh.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'GET'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09\x09\x09\x09self onAfterFresh: res.\x0a\x09\x09\x09\x09\x09\x09aBlock value: self ]\x0a\x09}",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["onAboutToFresh", "ajax:", "uri", "onAfterFresh:", "value:"]
