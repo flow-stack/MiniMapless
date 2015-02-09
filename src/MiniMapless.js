@@ -98,14 +98,22 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 dic=$recv($HashedCollection())._new();
-$recv(self["@data"])._addObjectVariablesTo_(dic);
+$recv(self._jsObjectKeys())._do_((function(key){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(dic)._at_put_(key,self._basicAt_(key));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({key:key},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
 $1=$recv(dic)._collect_((function(e){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return $recv(e)._asJSON();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,1)});
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
 return $1;
@@ -115,10 +123,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "asJSON\x0a\x0a\x09| dic |\x0a\x09\x0a\x09dic := HashedCollection new.\x0a\x09\x0a\x09data addObjectVariablesTo: dic.\x09\x09\x0a\x09\x09\x0a\x09^ dic collect: [ :e | e asJSON ]",
+source: "asJSON\x0a\x0a\x09| dic |\x0a\x09\x0a\x09dic := HashedCollection new.\x0a\x09\x0a\x09self jsObjectKeys do: [ :key | dic at: key put: (self basicAt: key) ].\x0a\x09\x09\x0a\x09^ dic collect: [ :e | e asJSON ]",
 referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
-messageSends: ["new", "addObjectVariablesTo:", "collect:", "asJSON"]
+messageSends: ["new", "do:", "jsObjectKeys", "at:put:", "basicAt:", "collect:", "asJSON"]
 }),
 $globals.Mapless);
 
@@ -157,7 +165,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv(self["@data"])._at_(aKey);
+$1=self._basicAt_(aKey);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"at:",{aKey:aKey},$globals.Mapless)});
@@ -165,10 +173,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aKey"],
-source: "at: aKey\x0a\x0a\x09^ data at: aKey",
+source: "at: aKey\x0a\x0a\x09^ self basicAt: aKey",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["at:"]
+messageSends: ["basicAt:"]
 }),
 $globals.Mapless);
 
@@ -182,7 +190,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv(self["@data"])._at_ifAbsent_(aKey,aBlock);
+$1=self._basicAt_ifAbsent_(aKey,aBlock);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},$globals.Mapless)});
@@ -190,10 +198,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aKey", "aBlock"],
-source: "at: aKey ifAbsent: aBlock\x0a\x0a\x09^ data at: aKey ifAbsent: aBlock",
+source: "at: aKey ifAbsent: aBlock\x0a\x0a\x09^ self basicAt: aKey ifAbsent: aBlock",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["at:ifAbsent:"]
+messageSends: ["basicAt:ifAbsent:"]
 }),
 $globals.Mapless);
 
@@ -206,7 +214,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv(self["@data"])._at_put_(aKey,anObject);
+self._basicAt_put_(aKey,anObject);
 return anObject;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"at:put:",{aKey:aKey,anObject:anObject},$globals.Mapless)});
@@ -214,10 +222,10 @@ return anObject;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aKey", "anObject"],
-source: "at: aKey put: anObject\x0a\x0a\x09data at: aKey put: anObject.\x0a\x0a\x09^ anObject",
+source: "at: aKey put: anObject\x0a\x0a\x09self basicAt: aKey put: anObject.\x0a\x0a\x09^ anObject",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["at:put:"]
+messageSends: ["basicAt:put:"]
 }),
 $globals.Mapless);
 
@@ -452,117 +460,90 @@ protocol: 'actions',
 fn: function (aMessage){
 var self=this;
 var key,part,subModel,isUndefined,isObject,obj,keys;
-function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$21,$20,$19,$18,$receiver;
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$14,$13,$12,$11,$receiver;
+var $early={};
+try {
 key=$recv($recv(aMessage)._selector())._asSymbol();
 $1=self._isUnary_(key);
 if($core.assert($1)){
-$2=$recv($recv(self["@data"])._class()).__eq_eq($HashedCollection());
-if($core.assert($2)){
-$3=self["@data"];
-$4=$recv(key)._asString();
+$2=$recv(key)._asString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asString"]=1;
 //>>excludeEnd("ctx");
-part=$recv($3)._at_ifAbsent_($4,(function(){
-return nil;
+part=self._at_ifAbsent_($2,(function(){
+throw $early=[nil];
 
 }));
 part;
-} else {
-$5=self["@data"];
-$6=$recv(key)._asString();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["asString"]=2;
-//>>excludeEnd("ctx");
-part=$recv($5)._at_($6);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["at:"]=1;
-//>>excludeEnd("ctx");
-part;
-};
-$7=part;
-if(($receiver = $7) == null || $receiver.isNil){
-return nil;
-} else {
-$7;
-};
-isUndefined=self._isJavaScriptUndefined_(part);
-isUndefined;
-$8=isUndefined;
-if($core.assert($8)){
-return nil;
-};
-$9=self._isSubMaplessArrayFor_on_(key,part);
-if($core.assert($9)){
-$10=$recv(self["@data"])._at_put_(key,self._getSubMaplessAt_from_(key,part));
+$3=self._isSubMaplessArrayFor_on_(key,part);
+if($core.assert($3)){
+$4=self._at_put_(key,self._getSubMaplessAt_from_(key,part));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
-return $10;
+return $4;
 };
 isObject=self._isJavaScriptObject_(part);
 isObject;
 subModel=self._get_from_("modelClass",part);
 subModel;
-$11=subModel;
-if(($receiver = $11) == null || $receiver.isNil){
-$12=part;
-return $12;
+$5=subModel;
+if(($receiver = $5) == null || $receiver.isNil){
+$6=part;
+return $6;
 } else {
-$11;
+$5;
 };
 subModel=$recv($recv($Smalltalk())._globals())._at_(subModel);
 subModel;
-$13=subModel;
-if(($receiver = $13) == null || $receiver.isNil){
+$7=subModel;
+if(($receiver = $7) == null || $receiver.isNil){
 $recv(part)._inspect();
-$14=$recv("this should have a ".__comma(subModel)).__comma(" modelClass no?");
+$8=$recv("this should have a ".__comma(subModel)).__comma(" modelClass no?");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-self._error_($14);
+self._error_($8);
 } else {
-$13;
+$7;
 };
 subModel=$recv(subModel)._fromReified_(part);
 subModel;
-$15=self["@data"];
-$16=$recv(key)._asString();
+$9=$recv(key)._asString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["asString"]=3;
+$ctx1.sendIdx["asString"]=2;
 //>>excludeEnd("ctx");
-$recv($15)._at_put_($16,subModel);
+self._at_put_($9,subModel);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=2;
 //>>excludeEnd("ctx");
-$17=subModel;
-return $17;
+$10=subModel;
+return $10;
 };
-$19=$recv(self._isKeyword_(key))._and_((function(){
+$12=$recv(self._isKeyword_(key))._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$21=$recv(key)._asString();
+$14=$recv(key)._asString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["asString"]=4;
+$ctx2.sendIdx["asString"]=3;
 //>>excludeEnd("ctx");
-$20=$recv($21)._occurrencesOf_(":");
-return $recv($20).__eq((1));
+$13=$recv($14)._occurrencesOf_(":");
+return $recv($13).__eq((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,10)});
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)});
 //>>excludeEnd("ctx");
 }));
-if($core.assert($19)){
+if($core.assert($12)){
 key=$recv(key)._allButLast();
 key;
-$18=$recv(self["@data"])._at_put_($recv(key)._asString(),$recv($recv(aMessage)._arguments())._first());
+$11=self._at_put_($recv(key)._asString(),$recv($recv(aMessage)._arguments())._first());
 } else {
-$18=(
+$11=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
@@ -571,17 +552,19 @@ $globals.Mapless.superclass.fn.prototype._doesNotUnderstand_.apply($recv(self), 
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 };
-return $18;
+return $11;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage,key:key,part:part,subModel:subModel,isUndefined:isUndefined,isObject:isObject,obj:obj,keys:keys},$globals.Mapless)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09\x22The idea behind this DNU is to use the selector as setters or getter \x0a\x09delegating to data (aJsonObject)\x22\x0a\x09\x0a\x09| key part subModel isUndefined isObject obj keys |\x0a\x0a\x09key := aMessage selector asSymbol.\x0a\x0a\x09(self isUnary: key) ifTrue: [\x0a\x09\x09(data class == HashedCollection)\x0a\x09\x09\x09ifTrue:[part := data at: key asString ifAbsent:[nil]]\x0a\x09\x09\x09ifFalse:[part := data at: key asString].\x0a\x09\x09part ifNil:[^nil].\x0a\x09\x09isUndefined := self isJavaScriptUndefined: part.\x0a\x09\x09isUndefined ifTrue:[^nil].\x0a\x0a\x09\x09\x22Is accessing an array of (sub)Mapless?\x22\x0a\x09\x09(self isSubMaplessArrayFor: key on: part) ifTrue:[\x0a\x09\x09\x09^ data \x0a\x09\x09\x09\x09at: key\x0a\x09\x09\x09\x09put: (self getSubMaplessAt: key from: part) ].\x0a\x0a\x09\x09isObject := self isJavaScriptObject: part.\x0a\x09\x09\x22console log: 'is object'.\x0a\x09\x09console log: part.\x22\x0a\x09\x09\x0a\x09\x09\x22is part an empty js object? (would be nil for JSON eyes)\x22\x0a\x09\x09\x22isObject ifTrue:[\x09\x0a\x09\x09\x09obj := self newJSObject.\x0a\x09\x09\x09obj := JSObjectProxy on: obj.\x0a\x09\x09\x09(obj keys: part) isEmpty ifTrue:[\x0a\x09\x09\x09\x09data at: key asString put: nil.\x0a\x09\x09\x09\x09^nil]].\x22\x0a\x0a\x09\x09subModel := self get: 'modelClass' from: part.\x0a\x09\x09\x22If there is no modelClass in it, then is a direct value in the property\x22\x0a\x09\x09subModel ifNil:[ ^part].\x0a\x0a\x09\x09subModel := Smalltalk globals at: subModel.\x0a\x09\x09subModel ifNil:[part inspect. self error: 'this should have a ',subModel,' modelClass no?'].\x0a\x09\x09subModel := subModel fromReified: part.\x0a\x09\x09data at: key asString put: subModel.\x0a\x09\x09^ subModel].\x0a \x0a\x09^ ((self isKeyword: key) and: [\x0a\x09(key asString occurrencesOf: ':') = 1])\x0a\x09\x09ifTrue: [key := key allButLast.\x0a\x09\x09\x09\x09data at: key asString put: aMessage arguments first]\x0a\x09\x09ifFalse: [super doesNotUnderstand: aMessage]",
-referencedClasses: ["HashedCollection", "Smalltalk"],
+source: "doesNotUnderstand: aMessage\x0a\x09\x22The idea behind this DNU is to use the selector as setters or getter \x0a\x09delegating to data (aJsonObject)\x22\x0a\x09\x0a\x09| key part subModel isUndefined isObject obj keys |\x0a\x0a\x09key := aMessage selector asSymbol.\x0a\x0a\x09(self isUnary: key) ifTrue: [\x0a\x09\x09part := self at: key asString ifAbsent: [ ^ nil ].\x0a\x0a\x09\x09\x22Is accessing an array of (sub)Mapless?\x22\x0a\x09\x09(self isSubMaplessArrayFor: key on: part) ifTrue: [\x0a\x09\x09\x09^ self \x0a\x09\x09\x09\x09at: key\x0a\x09\x09\x09\x09put: (self getSubMaplessAt: key from: part) ].\x0a\x0a\x09\x09isObject := self isJavaScriptObject: part.\x0a\x0a\x09\x09subModel := self get: 'modelClass' from: part.\x0a\x09\x09\x22If there is no modelClass in it, then is a direct value in the property\x22\x0a\x09\x09subModel ifNil: [ ^ part ].\x0a\x0a\x09\x09subModel := Smalltalk globals at: subModel.\x0a\x09\x09subModel ifNil: [ part inspect. self error: 'this should have a ',subModel,' modelClass no?' ].\x0a\x09\x09subModel := subModel fromReified: part.\x0a\x09\x09self at: key asString put: subModel.\x0a\x09\x09^ subModel].\x0a \x0a\x09^ ((self isKeyword: key) and: [\x0a\x09(key asString occurrencesOf: ':') = 1])\x0a\x09\x09ifTrue: [ key := key allButLast.\x0a\x09\x09\x09\x09self at: key asString put: aMessage arguments first ]\x0a\x09\x09ifFalse: [ super doesNotUnderstand: aMessage ]",
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
-messageSends: ["asSymbol", "selector", "ifTrue:", "isUnary:", "ifTrue:ifFalse:", "==", "class", "at:ifAbsent:", "asString", "at:", "ifNil:", "isJavaScriptUndefined:", "isSubMaplessArrayFor:on:", "at:put:", "getSubMaplessAt:from:", "isJavaScriptObject:", "get:from:", "globals", "inspect", "error:", ",", "fromReified:", "and:", "isKeyword:", "=", "occurrencesOf:", "allButLast", "first", "arguments", "doesNotUnderstand:"]
+messageSends: ["asSymbol", "selector", "ifTrue:", "isUnary:", "at:ifAbsent:", "asString", "isSubMaplessArrayFor:on:", "at:put:", "getSubMaplessAt:from:", "isJavaScriptObject:", "get:from:", "ifNil:", "at:", "globals", "inspect", "error:", ",", "fromReified:", "ifTrue:ifFalse:", "and:", "isKeyword:", "=", "occurrencesOf:", "allButLast", "first", "arguments", "doesNotUnderstand:"]
 }),
 $globals.Mapless);
 
@@ -605,7 +588,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "fresh\x0a\x09\x22Re-read this mapless' state.\x22\x0a\x09self freshThen:[ :res | nil ]",
+source: "fresh\x0a\x09\x22Re-read this mapless' state.\x22\x0a\x0a\x09self freshThen: [ :res | nil ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["freshThen:"]
@@ -830,7 +813,10 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv(self._data())._at_($recv(self._class())._idAttribute());
+$1=self._basicAt_ifAbsent_($recv(self._class())._idAttribute(),(function(){
+return nil;
+
+}));
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"id",{},$globals.Mapless)});
@@ -838,10 +824,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "id\x0a\x0a\x09^ self data at: self class idAttribute",
+source: "id\x0a\x0a\x09^ self \x0a\x09\x09basicAt: self class idAttribute\x0a\x09\x09ifAbsent: [ nil ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["at:", "data", "idAttribute", "class"]
+messageSends: ["basicAt:ifAbsent:", "idAttribute", "class"]
 }),
 $globals.Mapless);
 
@@ -855,7 +841,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv(self._data())._at_put_($recv(self._class())._idAttribute(),aString);
+$1=self._at_put_($recv(self._class())._idAttribute(),aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"id:",{aString:aString},$globals.Mapless)});
@@ -863,10 +849,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "id: aString\x0a\x0a\x09^ self data \x0a\x09\x09at: self class idAttribute \x0a\x09\x09put: aString",
+source: "id: aString\x0a\x0a\x09^ self \x0a\x09\x09at: self class idAttribute \x0a\x09\x09put: aString",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["at:put:", "data", "idAttribute", "class"]
+messageSends: ["at:put:", "idAttribute", "class"]
 }),
 $globals.Mapless);
 
@@ -887,7 +873,6 @@ $globals.Mapless.superclass.fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
-self["@data"]=self._newData();
 self._modelClass_($recv(self._class())._name());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -896,10 +881,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "initialize\x0a\x0a\x09super initialize.\x0a\x0a\x09data := self newData.\x0a\x09self modelClass: self class name.",
+source: "initialize\x0a\x0a\x09super initialize.\x0a\x0a\x09\x22data := self newData.\x22\x0a\x09self modelClass: self class name.",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["initialize", "newData", "modelClass:", "name", "class"]
+messageSends: ["initialize", "modelClass:", "name", "class"]
 }),
 $globals.Mapless);
 
@@ -986,7 +971,7 @@ function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $3,$2,$1;
+var $1;
 $1=$recv(self._isUnary_(aKey))._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -999,23 +984,7 @@ return $recv(someObjects)._anySatisfy_((function(e){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx4) {
 //>>excludeEnd("ctx");
-$3=$recv(e)._at_("modelClass");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx4.sendIdx["at:"]=1;
-//>>excludeEnd("ctx");
-$2=$recv($3)._notNil();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx4.sendIdx["notNil"]=1;
-//>>excludeEnd("ctx");
-return $recv($2)._or_((function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx5) {
-//>>excludeEnd("ctx");
-return $recv($recv($recv(e)._data())._at_("modelClass"))._notNil();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx5) {$ctx5.fillBlock({},$ctx4,4)});
-//>>excludeEnd("ctx");
-}));
+return $recv($recv(e)._at_("modelClass"))._notNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx4) {$ctx4.fillBlock({e:e},$ctx3,3)});
 //>>excludeEnd("ctx");
@@ -1038,10 +1007,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aKey", "someObjects"],
-source: "isSubMaplessArrayFor: aKey on: someObjects\x0a\x09\x22Answers true if someObjects are some case of submapless.\x22\x0a\x09\x0a\x09^ (self isUnary: aKey) and:[\x0a\x09someObjects class = Array and:[\x0a\x09someObjects anySatisfy:[ :e |\x0a\x09\x09(e at: 'modelClass') notNil or:[\x0a\x09\x09(e data at: 'modelClass') notNil ] ] ] ]",
+source: "isSubMaplessArrayFor: aKey on: someObjects\x0a\x09\x22Answers true if someObjects are some case of submapless.\x22\x0a\x09\x0a\x09^ (self isUnary: aKey) and:[\x0a\x09someObjects class = Array and:[\x0a\x09someObjects anySatisfy:[ :e |\x0a\x09\x09(e at: 'modelClass') notNil ] ] ]",
 referencedClasses: ["Array"],
 //>>excludeEnd("ide");
-messageSends: ["and:", "isUnary:", "=", "class", "anySatisfy:", "or:", "notNil", "at:", "data"]
+messageSends: ["and:", "isUnary:", "=", "class", "anySatisfy:", "notNil", "at:"]
 }),
 $globals.Mapless);
 
@@ -1197,15 +1166,23 @@ selector: "onAboutToCreate",
 protocol: 'reactions',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+"deprecated";
+$recv(console)._log_($recv($recv(self._class())._name()).__comma(">>onAboutToCreate is deprecated. Use onBeforeCreate instead"));
+self._onBeforeCreate();
 return self;
-
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"onAboutToCreate",{},$globals.Mapless)});
+//>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "onAboutToCreate",
+source: "onAboutToCreate\x0a\x09\x0a\x09#deprecated.\x0a\x09console log: self class name,'>>onAboutToCreate is deprecated. Use onBeforeCreate instead'.\x0a\x09\x0a\x09self onBeforeCreate",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: []
+messageSends: ["log:", ",", "name", "class", "onBeforeCreate"]
 }),
 $globals.Mapless);
 
@@ -1215,15 +1192,23 @@ selector: "onAboutToDelete",
 protocol: 'reactions',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+"deprecated";
+$recv(console)._log_($recv($recv(self._class())._name()).__comma(">>onAboutToDelete is deprecated. Use onBeforeDelete instead"));
+self._onBeforeDelete();
 return self;
-
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"onAboutToDelete",{},$globals.Mapless)});
+//>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "onAboutToDelete",
+source: "onAboutToDelete\x0a\x0a\x09#deprecated.\x0a\x09console log: self class name,'>>onAboutToDelete is deprecated. Use onBeforeDelete instead'.\x0a\x09\x0a\x09self onBeforeDelete",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: []
+messageSends: ["log:", ",", "name", "class", "onBeforeDelete"]
 }),
 $globals.Mapless);
 
@@ -1233,15 +1218,23 @@ selector: "onAboutToFresh",
 protocol: 'reactions',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+"deprecated";
+$recv(console)._log_($recv($recv(self._class())._name()).__comma(">>onAboutToFresh is deprecated. Use onBeforeFresh instead"));
+self._onBeforeFresh();
 return self;
-
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"onAboutToFresh",{},$globals.Mapless)});
+//>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "onAboutToFresh",
+source: "onAboutToFresh\x0a\x0a\x09#deprecated.\x0a\x09console log: self class name,'>>onAboutToFresh is deprecated. Use onBeforeFresh instead'.\x0a\x09\x0a\x09self onBeforeFresh",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: []
+messageSends: ["log:", ",", "name", "class", "onBeforeFresh"]
 }),
 $globals.Mapless);
 
@@ -1251,15 +1244,23 @@ selector: "onAboutToSave",
 protocol: 'reactions',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+"deprecated";
+$recv(console)._log_($recv($recv(self._class())._name()).__comma(">>onAboutToSave is deprecated. Use onBeforeSave instead"));
+self._onBeforeSave();
 return self;
-
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"onAboutToSave",{},$globals.Mapless)});
+//>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "onAboutToSave",
+source: "onAboutToSave\x0a\x0a\x09#deprecated.\x0a\x09console log: self class name,'>>onAboutToSave is deprecated. Use onBeforeSave instead'.\x0a\x09\x0a\x09self onBeforeSave",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: []
+messageSends: ["log:", ",", "name", "class", "onBeforeSave"]
 }),
 $globals.Mapless);
 
@@ -1269,15 +1270,23 @@ selector: "onAboutToUpdate",
 protocol: 'reactions',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+"deprecated";
+$recv(console)._log_($recv($recv(self._class())._name()).__comma(">>onAboutToUpdate is deprecated. Use onBeforeUpdate instead"));
+self._onBeforeUpdate();
 return self;
-
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"onAboutToUpdate",{},$globals.Mapless)});
+//>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "onAboutToUpdate",
+source: "onAboutToUpdate\x0a\x0a\x09#deprecated.\x0a\x09console log: self class name,'>>onAboutToUpdate is deprecated. Use onBeforeUpdate instead'.\x0a\x09\x0a\x09self onBeforeUpdate",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: []
+messageSends: ["log:", ",", "name", "class", "onBeforeUpdate"]
 }),
 $globals.Mapless);
 
@@ -1506,6 +1515,96 @@ $globals.Mapless);
 
 $core.addMethod(
 $core.method({
+selector: "onBeforeCreate",
+protocol: 'reactions',
+fn: function (){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "onBeforeCreate\x0a\x09",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Mapless);
+
+$core.addMethod(
+$core.method({
+selector: "onBeforeDelete",
+protocol: 'reactions',
+fn: function (){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "onBeforeDelete",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Mapless);
+
+$core.addMethod(
+$core.method({
+selector: "onBeforeFresh",
+protocol: 'reactions',
+fn: function (){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "onBeforeFresh",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Mapless);
+
+$core.addMethod(
+$core.method({
+selector: "onBeforeSave",
+protocol: 'reactions',
+fn: function (){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "onBeforeSave",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Mapless);
+
+$core.addMethod(
+$core.method({
+selector: "onBeforeUpdate",
+protocol: 'reactions',
+fn: function (){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "onBeforeUpdate",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Mapless);
+
+$core.addMethod(
+$core.method({
 selector: "path",
 protocol: 'accessing',
 fn: function (){
@@ -1660,7 +1759,7 @@ function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="un
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$4,$6,$receiver;
-subMaplessData=$recv(self["@data"])._at_(aSelector);
+subMaplessData=self._at_(aSelector);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=1;
 //>>excludeEnd("ctx");
@@ -1700,7 +1799,7 @@ return $6;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aSelector"],
-source: "subModelAt: aSelector\x0a\x09\x22Answers the reified submmapless (instantiating when necessary).\x22\x0a\x09\x0a\x09| subMaplessData modelClass |\x0a\x0a\x09subMaplessData := data at: aSelector.\x0a\x09subMaplessData ifNil:[^nil].\x0a\x09\x0a\x09modelClass := subMaplessData at: 'modelClass'.\x0a\x09modelClass ifNil:[^nil].\x0a\x09\x0a\x09modelClass := SmalltalkImage current globals at: modelClass ifAbsent:[ nil ].\x0a\x0a\x09modelClass ifNil:[ ^ MaplessError signal: 'Cannot find ',aSelector asString,'''s class for this metadata'].\x0a\x09\x0a\x09^ modelClass fromReified: subMaplessData",
+source: "subModelAt: aSelector\x0a\x09\x22Answers the reified submmapless (instantiating when necessary).\x22\x0a\x09\x0a\x09| subMaplessData modelClass |\x0a\x0a\x09subMaplessData := self at: aSelector.\x0a\x09subMaplessData ifNil:[^nil].\x0a\x09\x0a\x09modelClass := subMaplessData at: 'modelClass'.\x0a\x09modelClass ifNil:[^nil].\x0a\x09\x0a\x09modelClass := SmalltalkImage current globals at: modelClass ifAbsent:[ nil ].\x0a\x0a\x09modelClass ifNil:[ ^ MaplessError signal: 'Cannot find ',aSelector asString,'''s class for this metadata'].\x0a\x09\x0a\x09^ modelClass fromReified: subMaplessData",
 referencedClasses: ["SmalltalkImage", "MaplessError"],
 //>>excludeEnd("ide");
 messageSends: ["at:", "ifNil:", "at:ifAbsent:", "globals", "current", "signal:", ",", "asString", "fromReified:"]
@@ -1765,7 +1864,17 @@ return $recv($recv(aReifiedJSON)._at_("modelClass")).__tild_eq($recv(self._class
 if($core.assert($1)){
 $recv($MaplessError())._signal_("This JSON does not fit in this ".__comma(self._asString()));
 };
-self["@data"]=aReifiedJSON;
+self._basicDeleteAll();
+$recv(aReifiedJSON)._keysAndValuesDo_((function(k,v){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$recv(console)._log_and_(k,v);
+return self._at_put_(k,v);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({k:k,v:v},$ctx1,4)});
+//>>excludeEnd("ctx");
+}));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"syncWith:",{aReifiedJSON:aReifiedJSON},$globals.Mapless)});
@@ -1773,10 +1882,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aReifiedJSON"],
-source: "syncWith: aReifiedJSON\x0a\x09\x22Sync the current values in this model \x0a\x09with the ones coming in aReifiedJSON.\x22\x0a\x0a\x09aReifiedJSON ifNil:[ ^ nil ].\x0a\x0a\x09((aReifiedJSON at: 'modelClass') isNil or:[\x0a\x09(aReifiedJSON at: 'modelClass') ~= self class name ]) ifTrue:[\x0a\x09\x09MaplessError signal: 'This JSON does not fit in this ', self asString ].\x0a\x0a\x09data := aReifiedJSON",
+source: "syncWith: aReifiedJSON\x0a\x09\x22Sync the current values in this model \x0a\x09with the ones coming in aReifiedJSON.\x22\x0a\x0a\x09aReifiedJSON ifNil:[ ^ nil ].\x0a\x0a\x09((aReifiedJSON at: 'modelClass') isNil or:[\x0a\x09(aReifiedJSON at: 'modelClass') ~= self class name ]) ifTrue:[\x0a\x09\x09MaplessError signal: 'This JSON does not fit in this ', self asString ].\x0a\x0a\x09self basicDeleteAll.\x0a\x0a\x09aReifiedJSON keysAndValuesDo: [ :k :v |\x0a\x09\x09console log: k and: v.\x0a\x09\x09self at: k put: v ].",
 referencedClasses: ["MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["ifNil:", "ifTrue:", "or:", "isNil", "at:", "~=", "name", "class", "signal:", ",", "asString"]
+messageSends: ["ifNil:", "ifTrue:", "or:", "isNil", "at:", "~=", "name", "class", "signal:", ",", "asString", "basicDeleteAll", "keysAndValuesDo:", "log:and:", "at:put:"]
 }),
 $globals.Mapless);
 
@@ -2378,7 +2487,7 @@ catch(e) {if(e===$early)return e[0]; throw e}
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["someJSONStringOrNil"],
-source: "fromJSONString: someJSONStringOrNil\x0a\x09\x22Answers a new instance of this mapless and returns it\x0a\x09in the state dictated by someJSONStringOrNil.\x0a\x09Returns nil when thigns do not fit.\x0a\x09If it's a collection it will instantiate many and return them\x22\x0a\x0a\x09| json modelClass |\x0a\x09someJSONStringOrNil ifNil:[ ^nil ].\x0a\x09\x0a\x09json := self reify: someJSONStringOrNil.\x0a\x09json ifNil:[ ^nil ].\x0a\x09\x0a\x09json class = Array ifTrue:[ ^ self fromManyJSON: json].\x0a\x09\x0a\x09modelClass := json at: 'modelClass' ifAbsent:[ ^nil ].\x0a\x09\x0a\x09modelClass := Smalltalk globals at: modelClass ifAbsent:[  ].\x0a\x09\x0a\x09^ modelClass notNil\x0a\x09\x09ifTrue:[ modelClass new syncWith: json ]\x0a\x09\x09ifFalse:[ self error: 'The class \x22', modelClass,'\x22 was not found' ]",
+source: "fromJSONString: someJSONStringOrNil\x0a\x09\x22Answers a new instance of this mapless and returns it\x0a\x09in the state dictated by someJSONStringOrNil.\x0a\x09Returns nil when thigns do not fit.\x0a\x09If it's a collection it will instantiate many and return them\x22\x0a\x0a\x09| json modelClass |\x0a\x09someJSONStringOrNil ifNil:[ ^nil ].\x0a\x09\x0a\x09json := self reify: someJSONStringOrNil.\x0a\x09json ifNil:[ ^nil ].\x0a\x09\x0a\x09json class = Array ifTrue:[ ^ self fromManyJSON: json].\x0a\x09\x0a\x09modelClass := json at: 'modelClass' ifAbsent:[ ^nil ].\x0a\x09\x0a\x09modelClass := Smalltalk globals at: modelClass ifAbsent:[  ].\x0a\x0a\x09^ modelClass notNil\x0a\x09\x09ifTrue:[ modelClass new syncWith: json ]\x0a\x09\x09ifFalse:[ self error: 'The class \x22', modelClass,'\x22 was not found' ]",
 referencedClasses: ["Array", "Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "reify:", "ifTrue:", "=", "class", "fromManyJSON:", "at:ifAbsent:", "globals", "ifTrue:ifFalse:", "notNil", "syncWith:", "new", "error:", ","]
@@ -2514,7 +2623,7 @@ return $core.withContext(function($ctx1) {
 var $2,$1,$receiver;
 $2=self["@idAttribute"];
 if(($receiver = $2) == null || $receiver.isNil){
-self["@idAttribute"]="_id";
+self["@idAttribute"]="id";
 $1=self["@idAttribute"];
 } else {
 $1=$2;
@@ -2526,7 +2635,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "idAttribute\x0a\x09\x22Answers the attribute name for the id used by the server side.\x0a\x09Uses '_id' as default because we're assuming that MongoDB is \x0a\x09a reasonable default and that's what it uses as id.\x22\x0a\x09\x0a\x09^ idAttribute ifNil: [ idAttribute := '_id' ]",
+source: "idAttribute\x0a\x09\x22Answers the attribute name for the id used by the server side.\x0a\x09Uses 'id' as default.\x22\x0a\x09\x0a\x09^ idAttribute ifNil: [ idAttribute := 'id' ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:"]
@@ -3075,5 +3184,87 @@ $globals.MaplessModel);
 
 
 $core.addClass('MaplessError', $globals.Error, [], 'MiniMapless');
+
+$core.addMethod(
+$core.method({
+selector: "basicAt:ifAbsent:",
+protocol: '*MiniMapless',
+fn: function (aString,aBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+if(!self[aString]) {
+		return aBlock.call() } 
+	else { return self[aString] };
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"basicAt:ifAbsent:",{aString:aString,aBlock:aBlock},$globals.Object)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "aBlock"],
+source: "basicAt: aString ifAbsent: aBlock\x0a\x09<if(!self[aString]) {\x0a\x09\x09return aBlock.call() } \x0a\x09else { return self[aString] }>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Object);
+
+$core.addMethod(
+$core.method({
+selector: "basicDeleteAll",
+protocol: '*MiniMapless',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(self._jsObjectKeys())._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._basicDelete_(each);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"basicDeleteAll",{},$globals.Object)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "basicDeleteAll\x0a\x09\x22Destructively removes all the references hold in the \x0a\x09JavaScript object that supports this Amber instance.\x22\x0a\x0a\x09self jsObjectKeys do: [ :each |\x0a\x09\x09self basicDelete: each ].",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["do:", "jsObjectKeys", "basicDelete:"]
+}),
+$globals.Object);
+
+$core.addMethod(
+$core.method({
+selector: "jsObjectKeys",
+protocol: '*MiniMapless',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return Object.keys(self);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"jsObjectKeys",{},$globals.Object)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "jsObjectKeys\x0a\x09<return Object.keys(self)>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Object);
 
 });

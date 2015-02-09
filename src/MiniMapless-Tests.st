@@ -192,7 +192,36 @@ testSaveComposedMany
 
 testSaveComposedOne
 
-	| createdOne composedOne loadedOne part |
+	| createdOne composedOne loadedOne loadedPart |
+	
+	createdOne := Thing new.
+	composedOne := Stuff new.
+	
+	createdOne remember: 'something'.
+	
+	composedOne localSave.
+	createdOne 
+		hasOneOf: composedOne;
+		localSave.
+	createdOne asJSONString.
+
+	loadedOne := Mapless localFindCid: createdOne cid.
+	console log:  loadedOne.
+	loadedPart := Mapless localFindCid: composedOne cid.
+	
+	self assert: loadedOne remember = 'something'.
+	self assert: loadedOne hasOneOf = loadedPart.
+	self assert: loadedOne hasOneOf class = loadedPart class.
+
+	console log: loadedOne hasOneOf.
+	console log: loadedPart cid.
+	
+	self assert: loadedOne hasOneOf cid = loadedPart cid.
+!
+
+testSaveComposedOneKK
+
+	| createdOne composedOne loadedOne loadedPart |
 	
 	createdOne := Thing new.
 	composedOne := Stuff new.
@@ -206,22 +235,19 @@ testSaveComposedOne
 		hasOneOf: composedOne;
 		localSave.
 
-	self shouldnt: [
-		self assert: (window localStorage getItem: createdOne cid) notNil.
-		loadedOne := Mapless localFindCid: createdOne cid.
-		part := Mapless localFindCid: composedOne cid.
-		self assert: loadedOne remember = 'something'.
-		self assert: loadedOne hasOneOf class = composedOne class.
-		self assert: loadedOne hasOneOf class = part class.
-		self assert: loadedOne hasOneOf cid = part cid.
-		
-		loadedOne localDelete.
-		composedOne localDelete.
-		self assert: (window localStorage getItem: createdOne cid) isNil.
-		self assert: (window localStorage getItem: composedOne cid) isNil.
-		self assert: (Mapless localFindCid: createdOne cid) isNil.
-		self assert: (Mapless localFindCid: composedOne cid) isNil.
-		] raise: Error
+	self assert: (window localStorage getItem: createdOne cid) notNil.
+	loadedOne := Mapless localFindCid: createdOne cid.
+	console log:  loadedOne.
+	loadedPart := Mapless localFindCid: composedOne cid.
+	
+	self assert: loadedOne remember = 'something'.
+	self assert: loadedOne hasOneOf = loadedPart.
+	self assert: loadedOne hasOneOf class = loadedPart class.
+
+	console log: loadedOne hasOneOf.
+	console log: loadedPart cid.
+	
+	self assert: loadedOne hasOneOf cid = loadedPart cid.
 ! !
 
 TestCase subclass: #MaplessRemoteTest
