@@ -1,3 +1,10 @@
+February 10, 2015 - Release 0.11.0
+===================================
+
+* Mapless is using now an alternative implementation that removes the need for data and simplifies the DNU and other methods.
+* Mapless class>>idAttribute default's value is not '_id' anymore, for two reasons (a) being agnostic instead of MongoDB biased due influence of the Mapless project multiple repositories in flow's backend and (b) because any selector starting with one underscore is actually not interpreted by Amber as attribute but as method so we encourage your backend to use an id attribute of any name you want but not one starting with one underscore.
+
+
 January 29, 2015 - Release 0.10.12
 ===================================
 

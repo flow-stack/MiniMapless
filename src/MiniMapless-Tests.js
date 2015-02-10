@@ -932,15 +932,130 @@ selector: "testSaveComposedOne",
 protocol: 'tests',
 fn: function (){
 var self=this;
-var createdOne,composedOne,loadedOne,part;
+var createdOne,composedOne,loadedOne,loadedPart;
 function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
 function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
-function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $3,$4,$2,$1,$5,$6,$9,$10,$8,$7,$11,$12,$13,$16,$15,$17,$14,$20,$19,$18,$22,$23,$21,$26,$27,$25,$24,$30,$31,$29,$28,$34,$33,$32;
+var $1,$2,$3,$4,$5,$7,$6,$10,$9,$8,$11,$12,$13,$14,$16,$15;
+createdOne=$recv($Thing())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=1;
+//>>excludeEnd("ctx");
+composedOne=$recv($Stuff())._new();
+$recv(createdOne)._remember_("something");
+$recv(composedOne)._localSave();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["localSave"]=1;
+//>>excludeEnd("ctx");
+$1=createdOne;
+$recv($1)._hasOneOf_(composedOne);
+$2=$recv($1)._localSave();
+$recv(createdOne)._asJSONString();
+$3=$recv(createdOne)._cid();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["cid"]=1;
+//>>excludeEnd("ctx");
+loadedOne=$recv($Mapless())._localFindCid_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["localFindCid:"]=1;
+//>>excludeEnd("ctx");
+$recv(console)._log_(loadedOne);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["log:"]=1;
+//>>excludeEnd("ctx");
+$4=$recv(composedOne)._cid();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["cid"]=2;
+//>>excludeEnd("ctx");
+loadedPart=$recv($Mapless())._localFindCid_($4);
+$5=$recv($recv(loadedOne)._remember()).__eq("something");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=1;
+//>>excludeEnd("ctx");
+self._assert_($5);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+$7=$recv(loadedOne)._hasOneOf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["hasOneOf"]=1;
+//>>excludeEnd("ctx");
+$6=$recv($7).__eq(loadedPart);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=2;
+//>>excludeEnd("ctx");
+self._assert_($6);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+$10=$recv(loadedOne)._hasOneOf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["hasOneOf"]=2;
+//>>excludeEnd("ctx");
+$9=$recv($10)._class();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["class"]=1;
+//>>excludeEnd("ctx");
+$8=$recv($9).__eq($recv(loadedPart)._class());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=3;
+//>>excludeEnd("ctx");
+self._assert_($8);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=3;
+//>>excludeEnd("ctx");
+$11=console;
+$12=$recv(loadedOne)._hasOneOf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["hasOneOf"]=3;
+//>>excludeEnd("ctx");
+$recv($11)._log_($12);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["log:"]=2;
+//>>excludeEnd("ctx");
+$13=console;
+$14=$recv(loadedPart)._cid();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["cid"]=3;
+//>>excludeEnd("ctx");
+$recv($13)._log_($14);
+$16=$recv($recv(loadedOne)._hasOneOf())._cid();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["cid"]=4;
+//>>excludeEnd("ctx");
+$15=$recv($16).__eq($recv(loadedPart)._cid());
+self._assert_($15);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testSaveComposedOne",{createdOne:createdOne,composedOne:composedOne,loadedOne:loadedOne,loadedPart:loadedPart},$globals.MaplessLocalTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testSaveComposedOne\x0a\x0a\x09| createdOne composedOne loadedOne loadedPart |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09composedOne := Stuff new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09composedOne localSave.\x0a\x09createdOne \x0a\x09\x09hasOneOf: composedOne;\x0a\x09\x09localSave.\x0a\x09createdOne asJSONString.\x0a\x0a\x09loadedOne := Mapless localFindCid: createdOne cid.\x0a\x09console log:  loadedOne.\x0a\x09loadedPart := Mapless localFindCid: composedOne cid.\x0a\x09\x0a\x09self assert: loadedOne remember = 'something'.\x0a\x09self assert: loadedOne hasOneOf = loadedPart.\x0a\x09self assert: loadedOne hasOneOf class = loadedPart class.\x0a\x0a\x09console log: loadedOne hasOneOf.\x0a\x09console log: loadedPart cid.\x0a\x09\x0a\x09self assert: loadedOne hasOneOf cid = loadedPart cid.\x09\x09\x09",
+referencedClasses: ["Thing", "Stuff", "Mapless"],
+//>>excludeEnd("ide");
+messageSends: ["new", "remember:", "localSave", "hasOneOf:", "asJSONString", "localFindCid:", "cid", "log:", "assert:", "=", "remember", "hasOneOf", "class"]
+}),
+$globals.MaplessLocalTest);
+
+$core.addMethod(
+$core.method({
+selector: "testSaveComposedOneKK",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var createdOne,composedOne,loadedOne,loadedPart;
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
+function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $3,$4,$2,$1,$5,$6,$9,$10,$8,$7,$11,$12,$13,$15,$14,$18,$17,$16,$19,$20,$21,$22,$24,$23;
 createdOne=$recv($Thing())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
@@ -971,173 +1086,102 @@ $ctx1.sendIdx["localSave"]=1;
 $5=createdOne;
 $recv($5)._hasOneOf_(composedOne);
 $6=$recv($5)._localSave();
-self._shouldnt_raise_((function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
 $9=$recv(window)._localStorage();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localStorage"]=2;
-//>>excludeEnd("ctx");
 $10=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["cid"]=2;
+$ctx1.sendIdx["cid"]=2;
 //>>excludeEnd("ctx");
 $8=$recv($9)._getItem_($10);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["getItem:"]=2;
-//>>excludeEnd("ctx");
 $7=$recv($8)._notNil();
 self._assert_($7);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["assert:"]=1;
+$ctx1.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
 $11=$recv(createdOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["cid"]=3;
+$ctx1.sendIdx["cid"]=3;
 //>>excludeEnd("ctx");
 loadedOne=$recv($Mapless())._localFindCid_($11);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindCid:"]=1;
+$ctx1.sendIdx["localFindCid:"]=1;
 //>>excludeEnd("ctx");
-loadedOne;
+$recv(console)._log_(loadedOne);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["log:"]=1;
+//>>excludeEnd("ctx");
 $12=$recv(composedOne)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["cid"]=4;
+$ctx1.sendIdx["cid"]=4;
 //>>excludeEnd("ctx");
-part=$recv($Mapless())._localFindCid_($12);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindCid:"]=2;
-//>>excludeEnd("ctx");
-part;
+loadedPart=$recv($Mapless())._localFindCid_($12);
 $13=$recv($recv(loadedOne)._remember()).__eq("something");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["="]=1;
+$ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
 self._assert_($13);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["assert:"]=2;
+$ctx1.sendIdx["assert:"]=2;
 //>>excludeEnd("ctx");
-$16=$recv(loadedOne)._hasOneOf();
+$15=$recv(loadedOne)._hasOneOf();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["hasOneOf"]=1;
+$ctx1.sendIdx["hasOneOf"]=1;
 //>>excludeEnd("ctx");
-$15=$recv($16)._class();
+$14=$recv($15).__eq(loadedPart);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["class"]=1;
-//>>excludeEnd("ctx");
-$17=$recv(composedOne)._class();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["class"]=2;
-//>>excludeEnd("ctx");
-$14=$recv($15).__eq($17);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["="]=2;
+$ctx1.sendIdx["="]=2;
 //>>excludeEnd("ctx");
 self._assert_($14);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["assert:"]=3;
+$ctx1.sendIdx["assert:"]=3;
 //>>excludeEnd("ctx");
+$18=$recv(loadedOne)._hasOneOf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["hasOneOf"]=2;
+//>>excludeEnd("ctx");
+$17=$recv($18)._class();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["class"]=1;
+//>>excludeEnd("ctx");
+$16=$recv($17).__eq($recv(loadedPart)._class());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=3;
+//>>excludeEnd("ctx");
+self._assert_($16);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=4;
+//>>excludeEnd("ctx");
+$19=console;
 $20=$recv(loadedOne)._hasOneOf();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["hasOneOf"]=2;
+$ctx1.sendIdx["hasOneOf"]=3;
 //>>excludeEnd("ctx");
-$19=$recv($20)._class();
+$recv($19)._log_($20);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["class"]=3;
+$ctx1.sendIdx["log:"]=2;
 //>>excludeEnd("ctx");
-$18=$recv($19).__eq($recv(part)._class());
+$21=console;
+$22=$recv(loadedPart)._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["="]=3;
+$ctx1.sendIdx["cid"]=5;
 //>>excludeEnd("ctx");
-self._assert_($18);
+$recv($21)._log_($22);
+$24=$recv($recv(loadedOne)._hasOneOf())._cid();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["assert:"]=4;
+$ctx1.sendIdx["cid"]=6;
 //>>excludeEnd("ctx");
-$22=$recv($recv(loadedOne)._hasOneOf())._cid();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["cid"]=5;
-//>>excludeEnd("ctx");
-$23=$recv(part)._cid();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["cid"]=6;
-//>>excludeEnd("ctx");
-$21=$recv($22).__eq($23);
-self._assert_($21);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["assert:"]=5;
-//>>excludeEnd("ctx");
-$recv(loadedOne)._localDelete();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localDelete"]=1;
-//>>excludeEnd("ctx");
-$recv(composedOne)._localDelete();
-$26=$recv(window)._localStorage();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localStorage"]=3;
-//>>excludeEnd("ctx");
-$27=$recv(createdOne)._cid();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["cid"]=7;
-//>>excludeEnd("ctx");
-$25=$recv($26)._getItem_($27);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["getItem:"]=3;
-//>>excludeEnd("ctx");
-$24=$recv($25)._isNil();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["isNil"]=1;
-//>>excludeEnd("ctx");
-self._assert_($24);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["assert:"]=6;
-//>>excludeEnd("ctx");
-$30=$recv(window)._localStorage();
-$31=$recv(composedOne)._cid();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["cid"]=8;
-//>>excludeEnd("ctx");
-$29=$recv($30)._getItem_($31);
-$28=$recv($29)._isNil();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["isNil"]=2;
-//>>excludeEnd("ctx");
-self._assert_($28);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["assert:"]=7;
-//>>excludeEnd("ctx");
-$34=$recv(createdOne)._cid();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["cid"]=9;
-//>>excludeEnd("ctx");
-$33=$recv($Mapless())._localFindCid_($34);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["localFindCid:"]=3;
-//>>excludeEnd("ctx");
-$32=$recv($33)._isNil();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["isNil"]=3;
-//>>excludeEnd("ctx");
-self._assert_($32);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["assert:"]=8;
-//>>excludeEnd("ctx");
-return self._assert_($recv($recv($Mapless())._localFindCid_($recv(composedOne)._cid()))._isNil());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
-//>>excludeEnd("ctx");
-}),$Error());
+$23=$recv($24).__eq($recv(loadedPart)._cid());
+self._assert_($23);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSaveComposedOne",{createdOne:createdOne,composedOne:composedOne,loadedOne:loadedOne,part:part},$globals.MaplessLocalTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSaveComposedOneKK",{createdOne:createdOne,composedOne:composedOne,loadedOne:loadedOne,loadedPart:loadedPart},$globals.MaplessLocalTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testSaveComposedOne\x0a\x0a\x09| createdOne composedOne loadedOne part |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09composedOne := Stuff new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne cid) notNil.\x0a\x09\x0a\x09composedOne localSave.\x0a\x09createdOne \x0a\x09\x09hasOneOf: composedOne;\x0a\x09\x09localSave.\x0a\x0a\x09self shouldnt: [\x0a\x09\x09self assert: (window localStorage getItem: createdOne cid) notNil.\x0a\x09\x09loadedOne := Mapless localFindCid: createdOne cid.\x0a\x09\x09part := Mapless localFindCid: composedOne cid.\x0a\x09\x09self assert: loadedOne remember = 'something'.\x0a\x09\x09self assert: loadedOne hasOneOf class = composedOne class.\x0a\x09\x09self assert: loadedOne hasOneOf class = part class.\x0a\x09\x09self assert: loadedOne hasOneOf cid = part cid.\x0a\x09\x09\x0a\x09\x09loadedOne localDelete.\x0a\x09\x09composedOne localDelete.\x0a\x09\x09self assert: (window localStorage getItem: createdOne cid) isNil.\x0a\x09\x09self assert: (window localStorage getItem: composedOne cid) isNil.\x0a\x09\x09self assert: (Mapless localFindCid: createdOne cid) isNil.\x0a\x09\x09self assert: (Mapless localFindCid: composedOne cid) isNil.\x0a\x09\x09] raise: Error",
-referencedClasses: ["Thing", "Stuff", "Mapless", "Error"],
+source: "testSaveComposedOneKK\x0a\x0a\x09| createdOne composedOne loadedOne loadedPart |\x0a\x09\x0a\x09createdOne := Thing new.\x0a\x09composedOne := Stuff new.\x0a\x09\x0a\x09createdOne remember: 'something'.\x0a\x09\x0a\x09self deny: (window localStorage getItem: createdOne cid) notNil.\x0a\x09\x0a\x09composedOne localSave.\x0a\x09createdOne \x0a\x09\x09hasOneOf: composedOne;\x0a\x09\x09localSave.\x0a\x0a\x09self assert: (window localStorage getItem: createdOne cid) notNil.\x0a\x09loadedOne := Mapless localFindCid: createdOne cid.\x0a\x09console log:  loadedOne.\x0a\x09loadedPart := Mapless localFindCid: composedOne cid.\x0a\x09\x0a\x09self assert: loadedOne remember = 'something'.\x0a\x09self assert: loadedOne hasOneOf = loadedPart.\x0a\x09self assert: loadedOne hasOneOf class = loadedPart class.\x0a\x0a\x09console log: loadedOne hasOneOf.\x0a\x09console log: loadedPart cid.\x0a\x09\x0a\x09self assert: loadedOne hasOneOf cid = loadedPart cid.\x09\x09\x09",
+referencedClasses: ["Thing", "Stuff", "Mapless"],
 //>>excludeEnd("ide");
-messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "cid", "localSave", "hasOneOf:", "shouldnt:raise:", "assert:", "localFindCid:", "=", "remember", "class", "hasOneOf", "localDelete", "isNil"]
+messageSends: ["new", "remember:", "deny:", "notNil", "getItem:", "localStorage", "cid", "localSave", "hasOneOf:", "assert:", "localFindCid:", "log:", "=", "remember", "hasOneOf", "class"]
 }),
 $globals.MaplessLocalTest);
 
@@ -2059,103 +2103,134 @@ selector: "testComposedMaplessAsJSON",
 protocol: 'tests',
 fn: function (){
 var self=this;
-var thing;
-function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+var thing,stuff,loaded;
 function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
-function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$4,$5,$3,$6,$9,$8,$7,$12,$11,$10,$15,$14,$13,$18,$17,$16,$20,$19;
-$1=$recv($Thing())._new();
+var $1,$2,$5,$4,$7,$6,$3,$10,$9,$12,$11,$8,$15,$14,$17,$16,$13,$20,$19,$18,$22,$21;
+stuff=$recv($Stuff())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$2=$1;
-$4=$recv($Stuff())._new();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["new"]=2;
-//>>excludeEnd("ctx");
-$recv($4)._what_((42));
-$recv($4)._with_($recv($Thing())._new());
-$5=$recv($4)._yourself();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["yourself"]=1;
-//>>excludeEnd("ctx");
-$3=$5;
-$recv($2)._stuff_($3);
+$1=$recv($Thing())._new();
+$recv($1)._what_((42));
 $recv($1)._why_((1776));
-$6=$recv($1)._yourself();
-thing=$6;
-$9=$recv(thing)._asJSON();
+$recv($1)._stuff_(stuff);
+$2=$recv($1)._yourself();
+thing=$2;
+$recv(stuff)._localSave();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["localSave"]=1;
+//>>excludeEnd("ctx");
+$recv(thing)._localSave();
+loaded=$recv($Thing())._localFindCid_($recv(thing)._cid());
+$5=$recv(loaded)._asJSON();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJSON"]=1;
 //>>excludeEnd("ctx");
-$8=$recv($9)._at_("why");
+$4=$recv($5)._at_("what");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=1;
 //>>excludeEnd("ctx");
-$7=$recv($8).__eq((1776));
-self._assert_($7);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["assert:"]=1;
-//>>excludeEnd("ctx");
-$12=$recv(thing)._asJSON();
+$7=$recv(thing)._asJSON();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJSON"]=2;
 //>>excludeEnd("ctx");
-$11=$recv($12)._at_("stuff");
+$6=$recv($7)._at_("what");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=2;
 //>>excludeEnd("ctx");
-$10=$recv($11)._notNil();
-self._assert_($10);
+$3=$recv($4).__eq($6);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["assert:"]=2;
+$ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
-$15=$recv(thing)._asJSON();
+self._assert_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+$10=$recv(loaded)._asJSON();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJSON"]=3;
 //>>excludeEnd("ctx");
-$14=$recv($15)._at_("stuff");
+$9=$recv($10)._at_("why");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=3;
 //>>excludeEnd("ctx");
-$13=$recv($14)._isKindOf_($Mapless());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["isKindOf:"]=1;
-//>>excludeEnd("ctx");
-self._deny_($13);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["deny:"]=1;
-//>>excludeEnd("ctx");
-$18=$recv(thing)._asJSON();
+$12=$recv(loaded)._asJSON();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJSON"]=4;
 //>>excludeEnd("ctx");
-$17=$recv($18)._at_("stuff");
+$11=$recv($12)._at_("why");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=4;
 //>>excludeEnd("ctx");
-$16=$recv($17)._includesKey_("with");
-self._assert_($16);
-$20=$recv($recv($recv(thing)._asJSON())._at_("stuff"))._at_("with");
+$8=$recv($9).__eq($11);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=2;
+//>>excludeEnd("ctx");
+self._assert_($8);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+$15=$recv(loaded)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=5;
+//>>excludeEnd("ctx");
+$14=$recv($15)._at_("what");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=5;
 //>>excludeEnd("ctx");
-$19=$recv($20)._isKindOf_($Mapless());
-self._deny_($19);
+$17=$recv(thing)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=6;
+//>>excludeEnd("ctx");
+$16=$recv($17)._at_("what");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:"]=6;
+//>>excludeEnd("ctx");
+$13=$recv($14).__eq($16);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=3;
+//>>excludeEnd("ctx");
+self._assert_($13);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=3;
+//>>excludeEnd("ctx");
+$20=$recv(loaded)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=7;
+//>>excludeEnd("ctx");
+$19=$recv($20)._at_("why");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:"]=7;
+//>>excludeEnd("ctx");
+$18=$recv($19).__eq($recv($recv(thing)._asJSON())._at_("why"));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=4;
+//>>excludeEnd("ctx");
+self._assert_($18);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=4;
+//>>excludeEnd("ctx");
+$22=$recv(loaded)._asJSONString();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSONString"]=1;
+//>>excludeEnd("ctx");
+$21=$recv($22).__eq($recv(thing)._asJSONString());
+self._assert_($21);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComposedMaplessAsJSON",{thing:thing},$globals.MaplessSharedTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComposedMaplessAsJSON",{thing:thing,stuff:stuff,loaded:loaded},$globals.MaplessSharedTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testComposedMaplessAsJSON\x0a\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new\x0a\x09\x09\x09\x09stuff: (Stuff new \x0a\x09\x09\x09\x09\x09\x09\x09what: 42;\x0a\x09\x09\x09\x09\x09\x09\x09with: Thing new;\x0a\x09\x09\x09\x09\x09\x09\x09yourself);\x0a\x09\x09\x09\x09why: 1776;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x0a\x09self assert: (thing asJSON at: #why) = 1776.\x0a\x09self assert: (thing asJSON at: #stuff) notNil.\x0a\x09self deny: ((thing asJSON at: #stuff) isKindOf: Mapless).\x0a\x09self assert: ((thing asJSON at: #stuff) includesKey: #with).\x0a\x09self deny: (((thing asJSON at: #stuff) at: #with) isKindOf: Mapless).",
-referencedClasses: ["Thing", "Stuff", "Mapless"],
+source: "testComposedMaplessAsJSON\x0a\x0a\x09| thing stuff loaded |\x0a\x09\x0a\x09stuff := Stuff new.\x0a\x09thing := Thing new\x0a\x09\x09\x09\x09what: 42;\x0a\x09\x09\x09\x09why: 1776;\x0a\x09\x09\x09\x09stuff: stuff;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x0a\x09stuff localSave.\x0a\x09thing localSave.\x0a\x0a\x09loaded := Thing localFindCid: thing cid.\x0a\x09\x0a\x09self assert: (loaded asJSON at: #what) = (thing asJSON at: #what).\x0a\x09self assert: (loaded asJSON at: #why) = (loaded asJSON at: #why).\x0a\x09self assert: (loaded asJSON at: #what) = (thing asJSON at: #what).\x0a\x09self assert: (loaded asJSON at: #why) = (thing asJSON at: #why).\x0a\x09self assert: loaded asJSONString = thing asJSONString.\x0a\x09",
+referencedClasses: ["Stuff", "Thing"],
 //>>excludeEnd("ide");
-messageSends: ["stuff:", "new", "what:", "with:", "yourself", "why:", "assert:", "=", "at:", "asJSON", "notNil", "deny:", "isKindOf:", "includesKey:"]
+messageSends: ["new", "what:", "why:", "stuff:", "yourself", "localSave", "localFindCid:", "cid", "assert:", "=", "at:", "asJSON", "asJSONString"]
 }),
 $globals.MaplessSharedTest);
 
@@ -2257,6 +2332,104 @@ source: "testHasID\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new.\x0a\x09\x
 referencedClasses: ["Thing"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:", "isNil", "id", "notNil", "cid", "deny:", "hasId", "id:"]
+}),
+$globals.MaplessSharedTest);
+
+$core.addMethod(
+$core.method({
+selector: "testIsJavaScriptObject",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var thing;
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $ProtoObject(){return $globals.ProtoObject||(typeof ProtoObject=="undefined"?nil:ProtoObject)}
+function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
+function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2,$3,$5,$6,$4,$7,$9,$10,$8,$11;
+thing=$recv($Thing())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=1;
+//>>excludeEnd("ctx");
+$1=$recv(thing)._isJavaScriptObject_("");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=1;
+//>>excludeEnd("ctx");
+self._deny_($1);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=1;
+//>>excludeEnd("ctx");
+$2=$recv(thing)._isJavaScriptObject_((42));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=2;
+//>>excludeEnd("ctx");
+self._deny_($2);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=2;
+//>>excludeEnd("ctx");
+$3=$recv(thing)._isJavaScriptObject_((33.33));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=3;
+//>>excludeEnd("ctx");
+self._deny_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=3;
+//>>excludeEnd("ctx");
+$5=thing;
+$6=$recv($Array())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=2;
+//>>excludeEnd("ctx");
+$4=$recv($5)._isJavaScriptObject_($6);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=4;
+//>>excludeEnd("ctx");
+self._deny_($4);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=4;
+//>>excludeEnd("ctx");
+$7=$recv(thing)._isJavaScriptObject_($globals.HashedCollection._newFromPairs_([]));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=5;
+//>>excludeEnd("ctx");
+self._deny_($7);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=5;
+//>>excludeEnd("ctx");
+$9=thing;
+$10=$recv($ProtoObject())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=3;
+//>>excludeEnd("ctx");
+$8=$recv($9)._isJavaScriptObject_($10);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=6;
+//>>excludeEnd("ctx");
+self._deny_($8);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=6;
+//>>excludeEnd("ctx");
+$11=$recv(thing)._isJavaScriptObject_($recv($Stuff())._new());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=7;
+//>>excludeEnd("ctx");
+self._deny_($11);
+self._assert_($recv(thing)._isJavaScriptObject_($recv($JSON())._parse_("{}")));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testIsJavaScriptObject",{thing:thing},$globals.MaplessSharedTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testIsJavaScriptObject\x0a\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new.\x0a\x09\x0a\x09self deny: (thing isJavaScriptObject: '').\x0a\x09self deny: (thing isJavaScriptObject: 42).\x0a\x09self deny: (thing isJavaScriptObject: 33.33).\x0a\x09self deny: (thing isJavaScriptObject: Array new).\x0a\x09self deny: (thing isJavaScriptObject: #{}).\x0a\x09self deny: (thing isJavaScriptObject: ProtoObject new).\x0a\x09self deny: (thing isJavaScriptObject: Stuff new).\x0a\x0a\x09self assert: (thing isJavaScriptObject: (JSON parse: '{}')).",
+referencedClasses: ["Thing", "Array", "ProtoObject", "Stuff", "JSON"],
+//>>excludeEnd("ide");
+messageSends: ["new", "deny:", "isJavaScriptObject:", "assert:", "parse:"]
 }),
 $globals.MaplessSharedTest);
 
@@ -2682,8 +2855,9 @@ function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$5,$4,$3;
+var $1,$2,$5,$4,$3,$6;
 $1=$recv($Thing())._new();
+$recv($1)._cid_("c72d65d9-e8c1-47e5-ffb9-8661b786d657");
 $recv($1)._what_((42));
 $recv($1)._why_((1776));
 $2=$recv($1)._yourself();
@@ -2704,7 +2878,15 @@ self._assert_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-self._assert_($recv($recv($recv(thing)._asJSON())._at_("why")).__eq((1776)));
+$6=$recv($recv($recv(thing)._asJSON())._at_("why")).__eq((1776));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=2;
+//>>excludeEnd("ctx");
+self._assert_($6);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+self._assert_($recv($recv(thing)._asJSONString()).__eq("{\x22modelClass\x22:\x22Thing\x22,\x22cid\x22:\x22c72d65d9-e8c1-47e5-ffb9-8661b786d657\x22,\x22v\x22:1,\x22createdOn\x22:{},\x22what\x22:42,\x22why\x22:1776}"));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testSimpleMaplessAsJSON",{thing:thing},$globals.MaplessSharedTest)});
@@ -2712,10 +2894,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testSimpleMaplessAsJSON\x0a\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new\x0a\x09\x09\x09\x09what: 42;\x0a\x09\x09\x09\x09why: 1776;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x0a\x09self assert: (thing asJSON at: #what) = 42.\x0a\x09self assert: (thing asJSON at: #why) = 1776.",
+source: "testSimpleMaplessAsJSON\x0a\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new\x0a\x09\x09\x09\x09cid: 'c72d65d9-e8c1-47e5-ffb9-8661b786d657';\x0a\x09\x09\x09\x09what: 42;\x0a\x09\x09\x09\x09why: 1776;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x0a\x09self assert: (thing asJSON at: #what) = 42.\x0a\x09self assert: (thing asJSON at: #why) = 1776.\x0a\x09\x0a\x09self assert: thing asJSONString = '{\x22modelClass\x22:\x22Thing\x22,\x22cid\x22:\x22c72d65d9-e8c1-47e5-ffb9-8661b786d657\x22,\x22v\x22:1,\x22createdOn\x22:{},\x22what\x22:42,\x22why\x22:1776}' ",
 referencedClasses: ["Thing"],
 //>>excludeEnd("ide");
-messageSends: ["what:", "new", "why:", "yourself", "assert:", "=", "at:", "asJSON"]
+messageSends: ["cid:", "new", "what:", "why:", "yourself", "assert:", "=", "at:", "asJSON", "asJSONString"]
 }),
 $globals.MaplessSharedTest);
 

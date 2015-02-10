@@ -1,6 +1,6 @@
 Smalltalk createPackage: 'MiniMapless'!
 Object subclass: #Mapless
-	instanceVariableNames: 'data'
+	instanceVariableNames: ''
 	package: 'MiniMapless'!
 !Mapless commentStamp!
 MaplessModel is the same kind of aggregate you'll found in Mapless in Pharo but here in the frontend.
@@ -13,12 +13,12 @@ http://sebastianconcept.github.io/Mapless!
 
 at: aKey
 
-	^ data at: aKey
+	^ self basicAt: aKey
 !
 
 at: aKey put: anObject
 
-	data at: aKey put: anObject.
+	self basicAt: aKey put: anObject.
 
 	^ anObject
 !
@@ -36,12 +36,14 @@ dateAndTimeAt: aSelector
 
 id
 
-	^ self data at: self class idAttribute
+	^ self 
+		basicAt: self class idAttribute
+		ifAbsent: [ nil ]
 !
 
 id: aString
 
-	^ self data 
+	^ self 
 		at: self class idAttribute 
 		put: aString
 !
@@ -56,7 +58,7 @@ subModelAt: aSelector
 	
 	| subMaplessData modelClass |
 
-	subMaplessData := data at: aSelector.
+	subMaplessData := self at: aSelector.
 	subMaplessData ifNil:[^nil].
 	
 	modelClass := subMaplessData at: 'modelClass'.
@@ -87,7 +89,7 @@ asJSON
 	
 	dic := HashedCollection new.
 	
-	data addObjectVariablesTo: dic.		
+	self jsObjectKeys do: [ :key | dic at: key put: (self basicAt: key) ].
 		
 	^ dic collect: [ :e | e asJSON ]
 !
@@ -99,7 +101,7 @@ asJSONString
 
 at: aKey ifAbsent: aBlock
 
-	^ data at: aKey ifAbsent: aBlock
+	^ self basicAt: aKey ifAbsent: aBlock
 !
 
 create
@@ -120,7 +122,7 @@ createThen: aBlock
 createThen: aBlock onError: aFallbackBlock
 	"Creates this mapless using the remote API"
 
-	self onAboutToCreate.
+	self onBeforeCreate.
 
 	jQuery ajax: #{
 		'url' -> self path.
@@ -147,7 +149,7 @@ delete
 deleteThen: aBlock
 	"Delete this mapless using the remote API"
 
-	self onAboutToDelete.
+	self onBeforeDelete.
 
 	jQuery ajax: #{ 
 		'url' -> self uri.
@@ -169,57 +171,49 @@ doesNotUnderstand: aMessage
 	key := aMessage selector asSymbol.
 
 	(self isUnary: key) ifTrue: [
-		(data class == HashedCollection)
-			ifTrue:[part := data at: key asString ifAbsent:[nil]]
-			ifFalse:[part := data at: key asString].
-		part ifNil:[^nil].
-		isUndefined := self isJavaScriptUndefined: part.
-		isUndefined ifTrue:[^nil].
-
+		part := self at: key asString ifAbsent: [ ^ nil ].
+	
 		"Is accessing an array of (sub)Mapless?"
-		(self isSubMaplessArrayFor: key on: part) ifTrue:[
-			^ data 
+		(self isSubMaplessArrayFor: key on: part) ifTrue: [
+			^ self 
 				at: key
 				put: (self getSubMaplessAt: key from: part) ].
-
+	
 		isObject := self isJavaScriptObject: part.
-		"console log: 'is object'.
-		console log: part."
-		
-		"is part an empty js object? (would be nil for JSON eyes)"
-		"isObject ifTrue:[	
-			obj := self newJSObject.
-			obj := JSObjectProxy on: obj.
-			(obj keys: part) isEmpty ifTrue:[
-				data at: key asString put: nil.
-				^nil]]."
 
-		subModel := self get: 'modelClass' from: part.
-		"If there is no modelClass in it, then is a direct value in the property"
-		subModel ifNil:[ ^part].
+		isObject 
+			ifFalse: [ ^ part ] "Is 'normal' object, so we just return its access"
+			ifTrue: [
+				"Is a JavaScript object so we might have to reify a (sub)Mapless."
+				subModel := self get: 'modelClass' from: part.
 
-		subModel := Smalltalk globals at: subModel.
-		subModel ifNil:[part inspect. self error: 'this should have a ',subModel,' modelClass no?'].
-		subModel := subModel fromReified: part.
-		data at: key asString put: subModel.
-		^ subModel].
+				"If there is no modelClass in it, then is a direct value in the property"
+				subModel ifNil: [ ^ part ].
+
+				"Now we know is a (sub)Mapless needing reification"
+				subModel := Smalltalk globals at: subModel.
+				subModel ifNil: [ console warn: part. self error: 'Check console warn, this should have a ',subModel asString,' modelClass no?' ].
+				subModel := subModel fromReified: part.
+				self at: key asString put: subModel.
+				^ subModel ] ].
  
 	^ ((self isKeyword: key) and: [
 	(key asString occurrencesOf: ':') = 1])
-		ifTrue: [key := key allButLast.
-				data at: key asString put: aMessage arguments first]
-		ifFalse: [super doesNotUnderstand: aMessage]
+		ifTrue: [ key := key allButLast.
+				self at: key asString put: aMessage arguments first ]
+		ifFalse: [ super doesNotUnderstand: aMessage ]
 !
 
 fresh
 	"Re-read this mapless' state."
-	self freshThen:[ :res | nil ]
+
+	self freshThen: [ :res | nil ]
 !
 
 freshThen: aBlock
 	"Re-read this mapless' state from the remote API."
 
-	self onAboutToFresh.
+	self onBeforeFresh.
 
 	jQuery ajax: #{ 
 		'url' -> self uri.
@@ -276,14 +270,6 @@ localSave
 	self class localSave: self
 !
 
-newData
-	<return new Object>
-!
-
-newJSObject
-	<return Object>
-!
-
 save
 	"Saves this mapless (upserts it)"
 	^ self saveThen: [ :res | nil ]
@@ -302,7 +288,7 @@ saveThen: aBlock onError: aFallbackBlock
 	"Saves this mapless using the remote API, then evaluates aBlock.
 	If there is an error, evaluates aFallbackBlock."
 
-	self onAboutToSave.
+	self onBeforeSave.
 	
 	jQuery ajax: #{ 
 		'url' -> self path.
@@ -337,7 +323,10 @@ syncWith: aReifiedJSON
 	(aReifiedJSON at: 'modelClass') ~= self class name ]) ifTrue:[
 		MaplessError signal: 'This JSON does not fit in this ', self asString ].
 
-	data := aReifiedJSON
+	self basicDeleteAll.
+
+	aReifiedJSON keysAndValuesDo: [ :k :v |
+		self at: k put: v ].
 !
 
 update
@@ -348,7 +337,7 @@ update
 updateThen: aBlock
 	"Updates this mapless using the remote API"
 
-	self onAboutToUpdate.
+	self onBeforeUpdate.
 
 	jQuery ajax: #{ 
 		'url' -> self uri.
@@ -369,25 +358,50 @@ initialize
 
 	super initialize.
 
-	data := self newData.
+	"data := self newData."
 	self modelClass: self class name.
 ! !
 
 !Mapless methodsFor: 'reactions'!
 
 onAboutToCreate
+	
+	#deprecated.
+	console log: self class name,'>>onAboutToCreate is deprecated. Use onBeforeCreate instead'.
+	
+	self onBeforeCreate
 !
 
 onAboutToDelete
+
+	#deprecated.
+	console log: self class name,'>>onAboutToDelete is deprecated. Use onBeforeDelete instead'.
+	
+	self onBeforeDelete
 !
 
 onAboutToFresh
+
+	#deprecated.
+	console log: self class name,'>>onAboutToFresh is deprecated. Use onBeforeFresh instead'.
+	
+	self onBeforeFresh
 !
 
 onAboutToSave
+
+	#deprecated.
+	console log: self class name,'>>onAboutToSave is deprecated. Use onBeforeSave instead'.
+	
+	self onBeforeSave
 !
 
 onAboutToUpdate
+
+	#deprecated.
+	console log: self class name,'>>onAboutToUpdate is deprecated. Use onBeforeUpdate instead'.
+	
+	self onBeforeUpdate
 !
 
 onAfterCreate: aResponse 
@@ -458,6 +472,21 @@ onAfterUpdate: aResponse
 		^ MaplessError signal: 'Could not update ', self asString,':  ', aResponse responseText ].
 
 	self localSave
+!
+
+onBeforeCreate
+!
+
+onBeforeDelete
+!
+
+onBeforeFresh
+!
+
+onBeforeSave
+!
+
+onBeforeUpdate
 ! !
 
 !Mapless methodsFor: 'testing'!
@@ -478,8 +507,8 @@ hasId
 !
 
 isJavaScriptObject: anObject
-	"Answers true if aPart is a javascript object (as opposed to javascript 'other types')"
-	<return typeof anObject=='object'>
+	"Answers true if anObject is a JavaScript object (as opposed to Amber instances or any other JavaScript type)"
+	<return ( (typeof anObject == 'object') && (anObject['__proto__']==undefined) || (anObject['__proto__']['klass'] == undefined))>
 !
 
 isJavaScriptUndefined: anObject
@@ -498,8 +527,7 @@ isSubMaplessArrayFor: aKey on: someObjects
 	^ (self isUnary: aKey) and:[
 	someObjects class = Array and:[
 	someObjects anySatisfy:[ :e |
-		(e at: 'modelClass') notNil or:[
-		(e data at: 'modelClass') notNil ] ] ] ]
+		(e at: 'modelClass') notNil ] ] ]
 !
 
 isUnary: aSelector
@@ -519,10 +547,9 @@ basePath
 
 idAttribute
 	"Answers the attribute name for the id used by the server side.
-	Uses '_id' as default because we're assuming that MongoDB is 
-	a reasonable default and that's what it uses as id."
+	Uses 'id' as default."
 	
-	^ idAttribute ifNil: [ idAttribute := '_id' ]
+	^ idAttribute ifNil: [ idAttribute := 'id' ]
 !
 
 idAttribute: aString
@@ -693,7 +720,7 @@ fromJSONString: someJSONStringOrNil
 	modelClass := json at: 'modelClass' ifAbsent:[ ^nil ].
 	
 	modelClass := Smalltalk globals at: modelClass ifAbsent:[  ].
-	
+
 	^ modelClass notNil
 		ifTrue:[ modelClass new syncWith: json ]
 		ifFalse:[ self error: 'The class "', modelClass,'" was not found' ]
@@ -848,4 +875,24 @@ onAboutToUpdate
 Error subclass: #MaplessError
 	instanceVariableNames: ''
 	package: 'MiniMapless'!
+
+!Object methodsFor: '*MiniMapless'!
+
+basicAt: aString ifAbsent: aBlock
+	<if(!!self[aString]) {
+		return aBlock.call() } 
+	else { return self[aString] }>
+!
+
+basicDeleteAll
+	"Destructively removes all the references hold in the 
+	JavaScript object that supports this Amber instance."
+
+	self jsObjectKeys do: [ :each |
+		self basicDelete: each ].
+!
+
+jsObjectKeys
+	<return Object.keys(self)>
+! !
 
