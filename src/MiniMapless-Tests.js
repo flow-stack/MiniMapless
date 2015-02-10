@@ -2103,103 +2103,134 @@ selector: "testComposedMaplessAsJSON",
 protocol: 'tests',
 fn: function (){
 var self=this;
-var thing;
-function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+var thing,stuff,loaded;
 function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
-function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Mapless)}
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$4,$5,$3,$6,$9,$8,$7,$12,$11,$10,$15,$14,$13,$18,$17,$16,$20,$19;
-$1=$recv($Thing())._new();
+var $1,$2,$5,$4,$7,$6,$3,$10,$9,$12,$11,$8,$15,$14,$17,$16,$13,$20,$19,$18,$22,$21;
+stuff=$recv($Stuff())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$2=$1;
-$4=$recv($Stuff())._new();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["new"]=2;
-//>>excludeEnd("ctx");
-$recv($4)._what_((42));
-$recv($4)._with_($recv($Thing())._new());
-$5=$recv($4)._yourself();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["yourself"]=1;
-//>>excludeEnd("ctx");
-$3=$5;
-$recv($2)._stuff_($3);
+$1=$recv($Thing())._new();
+$recv($1)._what_((42));
 $recv($1)._why_((1776));
-$6=$recv($1)._yourself();
-thing=$6;
-$9=$recv(thing)._asJSON();
+$recv($1)._stuff_(stuff);
+$2=$recv($1)._yourself();
+thing=$2;
+$recv(stuff)._localSave();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["localSave"]=1;
+//>>excludeEnd("ctx");
+$recv(thing)._localSave();
+loaded=$recv($Thing())._localFindCid_($recv(thing)._cid());
+$5=$recv(loaded)._asJSON();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJSON"]=1;
 //>>excludeEnd("ctx");
-$8=$recv($9)._at_("why");
+$4=$recv($5)._at_("what");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=1;
 //>>excludeEnd("ctx");
-$7=$recv($8).__eq((1776));
-self._assert_($7);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["assert:"]=1;
-//>>excludeEnd("ctx");
-$12=$recv(thing)._asJSON();
+$7=$recv(thing)._asJSON();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJSON"]=2;
 //>>excludeEnd("ctx");
-$11=$recv($12)._at_("stuff");
+$6=$recv($7)._at_("what");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=2;
 //>>excludeEnd("ctx");
-$10=$recv($11)._notNil();
-self._assert_($10);
+$3=$recv($4).__eq($6);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["assert:"]=2;
+$ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
-$15=$recv(thing)._asJSON();
+self._assert_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+$10=$recv(loaded)._asJSON();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJSON"]=3;
 //>>excludeEnd("ctx");
-$14=$recv($15)._at_("stuff");
+$9=$recv($10)._at_("why");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=3;
 //>>excludeEnd("ctx");
-$13=$recv($14)._isKindOf_($Mapless());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["isKindOf:"]=1;
-//>>excludeEnd("ctx");
-self._deny_($13);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["deny:"]=1;
-//>>excludeEnd("ctx");
-$18=$recv(thing)._asJSON();
+$12=$recv(loaded)._asJSON();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJSON"]=4;
 //>>excludeEnd("ctx");
-$17=$recv($18)._at_("stuff");
+$11=$recv($12)._at_("why");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=4;
 //>>excludeEnd("ctx");
-$16=$recv($17)._includesKey_("with");
-self._assert_($16);
-$20=$recv($recv($recv(thing)._asJSON())._at_("stuff"))._at_("with");
+$8=$recv($9).__eq($11);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=2;
+//>>excludeEnd("ctx");
+self._assert_($8);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+$15=$recv(loaded)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=5;
+//>>excludeEnd("ctx");
+$14=$recv($15)._at_("what");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=5;
 //>>excludeEnd("ctx");
-$19=$recv($20)._isKindOf_($Mapless());
-self._deny_($19);
+$17=$recv(thing)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=6;
+//>>excludeEnd("ctx");
+$16=$recv($17)._at_("what");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:"]=6;
+//>>excludeEnd("ctx");
+$13=$recv($14).__eq($16);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=3;
+//>>excludeEnd("ctx");
+self._assert_($13);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=3;
+//>>excludeEnd("ctx");
+$20=$recv(loaded)._asJSON();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSON"]=7;
+//>>excludeEnd("ctx");
+$19=$recv($20)._at_("why");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:"]=7;
+//>>excludeEnd("ctx");
+$18=$recv($19).__eq($recv($recv(thing)._asJSON())._at_("why"));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=4;
+//>>excludeEnd("ctx");
+self._assert_($18);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=4;
+//>>excludeEnd("ctx");
+$22=$recv(loaded)._asJSONString();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asJSONString"]=1;
+//>>excludeEnd("ctx");
+$21=$recv($22).__eq($recv(thing)._asJSONString());
+self._assert_($21);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComposedMaplessAsJSON",{thing:thing},$globals.MaplessSharedTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComposedMaplessAsJSON",{thing:thing,stuff:stuff,loaded:loaded},$globals.MaplessSharedTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testComposedMaplessAsJSON\x0a\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new\x0a\x09\x09\x09\x09stuff: (Stuff new \x0a\x09\x09\x09\x09\x09\x09\x09what: 42;\x0a\x09\x09\x09\x09\x09\x09\x09with: Thing new;\x0a\x09\x09\x09\x09\x09\x09\x09yourself);\x0a\x09\x09\x09\x09why: 1776;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x0a\x09self assert: (thing asJSON at: #why) = 1776.\x0a\x09self assert: (thing asJSON at: #stuff) notNil.\x0a\x09self deny: ((thing asJSON at: #stuff) isKindOf: Mapless).\x0a\x09self assert: ((thing asJSON at: #stuff) includesKey: #with).\x0a\x09self deny: (((thing asJSON at: #stuff) at: #with) isKindOf: Mapless).",
-referencedClasses: ["Thing", "Stuff", "Mapless"],
+source: "testComposedMaplessAsJSON\x0a\x0a\x09| thing stuff loaded |\x0a\x09\x0a\x09stuff := Stuff new.\x0a\x09thing := Thing new\x0a\x09\x09\x09\x09what: 42;\x0a\x09\x09\x09\x09why: 1776;\x0a\x09\x09\x09\x09stuff: stuff;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x0a\x09stuff localSave.\x0a\x09thing localSave.\x0a\x0a\x09loaded := Thing localFindCid: thing cid.\x0a\x09\x0a\x09self assert: (loaded asJSON at: #what) = (thing asJSON at: #what).\x0a\x09self assert: (loaded asJSON at: #why) = (loaded asJSON at: #why).\x0a\x09self assert: (loaded asJSON at: #what) = (thing asJSON at: #what).\x0a\x09self assert: (loaded asJSON at: #why) = (thing asJSON at: #why).\x0a\x09self assert: loaded asJSONString = thing asJSONString.\x0a\x09",
+referencedClasses: ["Stuff", "Thing"],
 //>>excludeEnd("ide");
-messageSends: ["stuff:", "new", "what:", "with:", "yourself", "why:", "assert:", "=", "at:", "asJSON", "notNil", "deny:", "isKindOf:", "includesKey:"]
+messageSends: ["new", "what:", "why:", "stuff:", "yourself", "localSave", "localFindCid:", "cid", "assert:", "=", "at:", "asJSON", "asJSONString"]
 }),
 $globals.MaplessSharedTest);
 
@@ -2301,6 +2332,104 @@ source: "testHasID\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new.\x0a\x09\x
 referencedClasses: ["Thing"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:", "isNil", "id", "notNil", "cid", "deny:", "hasId", "id:"]
+}),
+$globals.MaplessSharedTest);
+
+$core.addMethod(
+$core.method({
+selector: "testIsJavaScriptObject",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var thing;
+function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $ProtoObject(){return $globals.ProtoObject||(typeof ProtoObject=="undefined"?nil:ProtoObject)}
+function $Stuff(){return $globals.Stuff||(typeof Stuff=="undefined"?nil:Stuff)}
+function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2,$3,$5,$6,$4,$7,$9,$10,$8,$11;
+thing=$recv($Thing())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=1;
+//>>excludeEnd("ctx");
+$1=$recv(thing)._isJavaScriptObject_("");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=1;
+//>>excludeEnd("ctx");
+self._deny_($1);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=1;
+//>>excludeEnd("ctx");
+$2=$recv(thing)._isJavaScriptObject_((42));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=2;
+//>>excludeEnd("ctx");
+self._deny_($2);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=2;
+//>>excludeEnd("ctx");
+$3=$recv(thing)._isJavaScriptObject_((33.33));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=3;
+//>>excludeEnd("ctx");
+self._deny_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=3;
+//>>excludeEnd("ctx");
+$5=thing;
+$6=$recv($Array())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=2;
+//>>excludeEnd("ctx");
+$4=$recv($5)._isJavaScriptObject_($6);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=4;
+//>>excludeEnd("ctx");
+self._deny_($4);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=4;
+//>>excludeEnd("ctx");
+$7=$recv(thing)._isJavaScriptObject_($globals.HashedCollection._newFromPairs_([]));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=5;
+//>>excludeEnd("ctx");
+self._deny_($7);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=5;
+//>>excludeEnd("ctx");
+$9=thing;
+$10=$recv($ProtoObject())._new();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["new"]=3;
+//>>excludeEnd("ctx");
+$8=$recv($9)._isJavaScriptObject_($10);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=6;
+//>>excludeEnd("ctx");
+self._deny_($8);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=6;
+//>>excludeEnd("ctx");
+$11=$recv(thing)._isJavaScriptObject_($recv($Stuff())._new());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isJavaScriptObject:"]=7;
+//>>excludeEnd("ctx");
+self._deny_($11);
+self._assert_($recv(thing)._isJavaScriptObject_($recv($JSON())._parse_("{}")));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testIsJavaScriptObject",{thing:thing},$globals.MaplessSharedTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testIsJavaScriptObject\x0a\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new.\x0a\x09\x0a\x09self deny: (thing isJavaScriptObject: '').\x0a\x09self deny: (thing isJavaScriptObject: 42).\x0a\x09self deny: (thing isJavaScriptObject: 33.33).\x0a\x09self deny: (thing isJavaScriptObject: Array new).\x0a\x09self deny: (thing isJavaScriptObject: #{}).\x0a\x09self deny: (thing isJavaScriptObject: ProtoObject new).\x0a\x09self deny: (thing isJavaScriptObject: Stuff new).\x0a\x0a\x09self assert: (thing isJavaScriptObject: (JSON parse: '{}')).",
+referencedClasses: ["Thing", "Array", "ProtoObject", "Stuff", "JSON"],
+//>>excludeEnd("ide");
+messageSends: ["new", "deny:", "isJavaScriptObject:", "assert:", "parse:"]
 }),
 $globals.MaplessSharedTest);
 
@@ -2726,8 +2855,9 @@ function $Thing(){return $globals.Thing||(typeof Thing=="undefined"?nil:Thing)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$5,$4,$3;
+var $1,$2,$5,$4,$3,$6;
 $1=$recv($Thing())._new();
+$recv($1)._cid_("c72d65d9-e8c1-47e5-ffb9-8661b786d657");
 $recv($1)._what_((42));
 $recv($1)._why_((1776));
 $2=$recv($1)._yourself();
@@ -2748,7 +2878,15 @@ self._assert_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-self._assert_($recv($recv($recv(thing)._asJSON())._at_("why")).__eq((1776)));
+$6=$recv($recv($recv(thing)._asJSON())._at_("why")).__eq((1776));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=2;
+//>>excludeEnd("ctx");
+self._assert_($6);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+self._assert_($recv($recv(thing)._asJSONString()).__eq("{\x22modelClass\x22:\x22Thing\x22,\x22cid\x22:\x22c72d65d9-e8c1-47e5-ffb9-8661b786d657\x22,\x22v\x22:1,\x22createdOn\x22:{},\x22what\x22:42,\x22why\x22:1776}"));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testSimpleMaplessAsJSON",{thing:thing},$globals.MaplessSharedTest)});
@@ -2756,10 +2894,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testSimpleMaplessAsJSON\x0a\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new\x0a\x09\x09\x09\x09what: 42;\x0a\x09\x09\x09\x09why: 1776;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x0a\x09self assert: (thing asJSON at: #what) = 42.\x0a\x09self assert: (thing asJSON at: #why) = 1776.",
+source: "testSimpleMaplessAsJSON\x0a\x0a\x09| thing |\x0a\x09\x0a\x09thing := Thing new\x0a\x09\x09\x09\x09cid: 'c72d65d9-e8c1-47e5-ffb9-8661b786d657';\x0a\x09\x09\x09\x09what: 42;\x0a\x09\x09\x09\x09why: 1776;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x0a\x09self assert: (thing asJSON at: #what) = 42.\x0a\x09self assert: (thing asJSON at: #why) = 1776.\x0a\x09\x0a\x09self assert: thing asJSONString = '{\x22modelClass\x22:\x22Thing\x22,\x22cid\x22:\x22c72d65d9-e8c1-47e5-ffb9-8661b786d657\x22,\x22v\x22:1,\x22createdOn\x22:{},\x22what\x22:42,\x22why\x22:1776}' ",
 referencedClasses: ["Thing"],
 //>>excludeEnd("ide");
-messageSends: ["what:", "new", "why:", "yourself", "assert:", "=", "at:", "asJSON"]
+messageSends: ["cid:", "new", "what:", "why:", "yourself", "assert:", "=", "at:", "asJSON", "asJSONString"]
 }),
 $globals.MaplessSharedTest);
 

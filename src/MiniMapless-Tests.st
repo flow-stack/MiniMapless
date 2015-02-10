@@ -464,21 +464,25 @@ TestCase subclass: #MaplessSharedTest
 
 testComposedMaplessAsJSON
 
-	| thing |
+	| thing stuff loaded |
 	
+	stuff := Stuff new.
 	thing := Thing new
-				stuff: (Stuff new 
-							what: 42;
-							with: Thing new;
-							yourself);
+				what: 42;
 				why: 1776;
+				stuff: stuff;
 				yourself.
 	
-	self assert: (thing asJSON at: #why) = 1776.
-	self assert: (thing asJSON at: #stuff) notNil.
-	self deny: ((thing asJSON at: #stuff) isKindOf: Mapless).
-	self assert: ((thing asJSON at: #stuff) includesKey: #with).
-	self deny: (((thing asJSON at: #stuff) at: #with) isKindOf: Mapless).
+	stuff localSave.
+	thing localSave.
+
+	loaded := Thing localFindCid: thing cid.
+	
+	self assert: (loaded asJSON at: #what) = (thing asJSON at: #what).
+	self assert: (loaded asJSON at: #why) = (loaded asJSON at: #why).
+	self assert: (loaded asJSON at: #what) = (thing asJSON at: #what).
+	self assert: (loaded asJSON at: #why) = (thing asJSON at: #why).
+	self assert: loaded asJSONString = thing asJSONString.
 !
 
 testDictionaryAsJSON
@@ -508,6 +512,23 @@ testHasID
 	thing id: '123456789'.
 	
 	self assert: thing hasId
+!
+
+testIsJavaScriptObject
+
+	| thing |
+	
+	thing := Thing new.
+	
+	self deny: (thing isJavaScriptObject: '').
+	self deny: (thing isJavaScriptObject: 42).
+	self deny: (thing isJavaScriptObject: 33.33).
+	self deny: (thing isJavaScriptObject: Array new).
+	self deny: (thing isJavaScriptObject: #{}).
+	self deny: (thing isJavaScriptObject: ProtoObject new).
+	self deny: (thing isJavaScriptObject: Stuff new).
+
+	self assert: (thing isJavaScriptObject: (JSON parse: '{}')).
 !
 
 testOrderedCollectionAsJSON
@@ -591,12 +612,15 @@ testSimpleMaplessAsJSON
 	| thing |
 	
 	thing := Thing new
+				cid: 'c72d65d9-e8c1-47e5-ffb9-8661b786d657';
 				what: 42;
 				why: 1776;
 				yourself.
 	
 	self assert: (thing asJSON at: #what) = 42.
 	self assert: (thing asJSON at: #why) = 1776.
+	
+	self assert: thing asJSONString = '{"modelClass":"Thing","cid":"c72d65d9-e8c1-47e5-ffb9-8661b786d657","v":1,"createdOn":{},"what":42,"why":1776}'
 !
 
 testURI

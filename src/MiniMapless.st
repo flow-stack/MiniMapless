@@ -515,7 +515,7 @@ hasId
 !
 
 isJavaScriptObject: anObject
-	"Answers true if aPart is a javascript object (as opposed to javascript 'other types')"
+	"Answers true if anObject is a JavaScript object (as opposed to Amber instances or any other JavaScript type)"
 	<return ( (typeof anObject == 'object') && (anObject['__proto__']==undefined) || (anObject['__proto__']['klass'] == undefined))>
 !
 

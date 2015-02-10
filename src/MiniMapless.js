@@ -911,7 +911,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "isJavaScriptObject: anObject\x0a\x09\x22Answers true if aPart is a javascript object (as opposed to javascript 'other types')\x22\x0a\x09<return ( (typeof anObject == 'object') && (anObject['__proto__']==undefined) || (anObject['__proto__']['klass'] == undefined))>",
+source: "isJavaScriptObject: anObject\x0a\x09\x22Answers true if anObject is a JavaScript object (as opposed to Amber instances or any other JavaScript type)\x22\x0a\x09<return ( (typeof anObject == 'object') && (anObject['__proto__']==undefined) || (anObject['__proto__']['klass'] == undefined))>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
