@@ -172,24 +172,30 @@ doesNotUnderstand: aMessage
 
 	(self isUnary: key) ifTrue: [
 		part := self at: key asString ifAbsent: [ ^ nil ].
-
+	
 		"Is accessing an array of (sub)Mapless?"
 		(self isSubMaplessArrayFor: key on: part) ifTrue: [
 			^ self 
 				at: key
 				put: (self getSubMaplessAt: key from: part) ].
-
+	
 		isObject := self isJavaScriptObject: part.
 
-		subModel := self get: 'modelClass' from: part.
-		"If there is no modelClass in it, then is a direct value in the property"
-		subModel ifNil: [ ^ part ].
+		isObject 
+			ifFalse: [ ^ part ] "Is 'normal' object, so we just return its access"
+			ifTrue: [
+				"Is a JavaScript object so we might have to reify a (sub)Mapless."
+				subModel := self get: 'modelClass' from: part.
 
-		subModel := Smalltalk globals at: subModel.
-		subModel ifNil: [ part inspect. self error: 'this should have a ',subModel,' modelClass no?' ].
-		subModel := subModel fromReified: part.
-		self at: key asString put: subModel.
-		^ subModel].
+				"If there is no modelClass in it, then is a direct value in the property"
+				subModel ifNil: [ ^ part ].
+
+				subModel := Smalltalk globals at: subModel.
+
+				subModel ifNil: [ part inspect. self error: 'this should have a ',subModel,' modelClass no?' ].
+				subModel := subModel fromReified: part.
+				self at: key asString put: subModel.
+				^ subModel ] ].
  
 	^ ((self isKeyword: key) and: [
 	(key asString occurrencesOf: ':') = 1])
@@ -328,7 +334,6 @@ syncWith: aReifiedJSON
 	self basicDeleteAll.
 
 	aReifiedJSON keysAndValuesDo: [ :k :v |
-		console log: k and: v.
 		self at: k put: v ].
 !
 
@@ -511,7 +516,7 @@ hasId
 
 isJavaScriptObject: anObject
 	"Answers true if aPart is a javascript object (as opposed to javascript 'other types')"
-	<return typeof anObject=='object'>
+	<return ( (typeof anObject == 'object') && (anObject['__proto__']==undefined) || (anObject['__proto__']['klass'] == undefined))>
 !
 
 isJavaScriptUndefined: anObject

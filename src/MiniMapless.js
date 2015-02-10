@@ -464,7 +464,7 @@ function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$14,$13,$12,$11,$receiver;
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$16,$15,$14,$13,$receiver;
 var $early={};
 try {
 key=$recv($recv(aMessage)._selector())._asSymbol();
@@ -489,61 +489,67 @@ return $4;
 };
 isObject=self._isJavaScriptObject_(part);
 isObject;
+$5=isObject;
+if($core.assert($5)){
 subModel=self._get_from_("modelClass",part);
-subModel;
-$5=subModel;
-if(($receiver = $5) == null || $receiver.isNil){
-$6=part;
-return $6;
-} else {
-$5;
-};
-subModel=$recv($recv($Smalltalk())._globals())._at_(subModel);
 subModel;
 $7=subModel;
 if(($receiver = $7) == null || $receiver.isNil){
-$recv(part)._inspect();
-$8=$recv("this should have a ".__comma(subModel)).__comma(" modelClass no?");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=1;
-//>>excludeEnd("ctx");
-self._error_($8);
+$8=part;
+return $8;
 } else {
 $7;
 };
+subModel=$recv($recv($Smalltalk())._globals())._at_(subModel);
+subModel;
+$9=subModel;
+if(($receiver = $9) == null || $receiver.isNil){
+$recv(part)._inspect();
+$10=$recv("this should have a ".__comma(subModel)).__comma(" modelClass no?");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+self._error_($10);
+} else {
+$9;
+};
 subModel=$recv(subModel)._fromReified_(part);
 subModel;
-$9=$recv(key)._asString();
+$11=$recv(key)._asString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asString"]=2;
 //>>excludeEnd("ctx");
-self._at_put_($9,subModel);
+self._at_put_($11,subModel);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=2;
 //>>excludeEnd("ctx");
-$10=subModel;
-return $10;
+$12=subModel;
+return $12;
+} else {
+$6=part;
+return $6;
 };
-$12=$recv(self._isKeyword_(key))._and_((function(){
+};
+$14=$recv(self._isKeyword_(key))._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$14=$recv(key)._asString();
+$16=$recv(key)._asString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["asString"]=3;
 //>>excludeEnd("ctx");
-$13=$recv($14)._occurrencesOf_(":");
-return $recv($13).__eq((1));
+$15=$recv($16)._occurrencesOf_(":");
+return $recv($15).__eq((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)});
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,8)});
 //>>excludeEnd("ctx");
 }));
-if($core.assert($12)){
+if($core.assert($14)){
 key=$recv(key)._allButLast();
 key;
-$11=self._at_put_($recv(key)._asString(),$recv($recv(aMessage)._arguments())._first());
+$13=self._at_put_($recv(key)._asString(),$recv($recv(aMessage)._arguments())._first());
 } else {
-$11=(
+$13=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
@@ -552,7 +558,7 @@ $globals.Mapless.superclass.fn.prototype._doesNotUnderstand_.apply($recv(self), 
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 };
-return $11;
+return $13;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -561,10 +567,10 @@ catch(e) {if(e===$early)return e[0]; throw e}
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09\x22The idea behind this DNU is to use the selector as setters or getter \x0a\x09delegating to data (aJsonObject)\x22\x0a\x09\x0a\x09| key part subModel isUndefined isObject obj keys |\x0a\x0a\x09key := aMessage selector asSymbol.\x0a\x0a\x09(self isUnary: key) ifTrue: [\x0a\x09\x09part := self at: key asString ifAbsent: [ ^ nil ].\x0a\x0a\x09\x09\x22Is accessing an array of (sub)Mapless?\x22\x0a\x09\x09(self isSubMaplessArrayFor: key on: part) ifTrue: [\x0a\x09\x09\x09^ self \x0a\x09\x09\x09\x09at: key\x0a\x09\x09\x09\x09put: (self getSubMaplessAt: key from: part) ].\x0a\x0a\x09\x09isObject := self isJavaScriptObject: part.\x0a\x0a\x09\x09subModel := self get: 'modelClass' from: part.\x0a\x09\x09\x22If there is no modelClass in it, then is a direct value in the property\x22\x0a\x09\x09subModel ifNil: [ ^ part ].\x0a\x0a\x09\x09subModel := Smalltalk globals at: subModel.\x0a\x09\x09subModel ifNil: [ part inspect. self error: 'this should have a ',subModel,' modelClass no?' ].\x0a\x09\x09subModel := subModel fromReified: part.\x0a\x09\x09self at: key asString put: subModel.\x0a\x09\x09^ subModel].\x0a \x0a\x09^ ((self isKeyword: key) and: [\x0a\x09(key asString occurrencesOf: ':') = 1])\x0a\x09\x09ifTrue: [ key := key allButLast.\x0a\x09\x09\x09\x09self at: key asString put: aMessage arguments first ]\x0a\x09\x09ifFalse: [ super doesNotUnderstand: aMessage ]",
+source: "doesNotUnderstand: aMessage\x0a\x09\x22The idea behind this DNU is to use the selector as setters or getter \x0a\x09delegating to data (aJsonObject)\x22\x0a\x09\x0a\x09| key part subModel isUndefined isObject obj keys |\x0a\x0a\x09key := aMessage selector asSymbol.\x0a\x0a\x09(self isUnary: key) ifTrue: [\x0a\x09\x09part := self at: key asString ifAbsent: [ ^ nil ].\x0a\x09\x0a\x09\x09\x22Is accessing an array of (sub)Mapless?\x22\x0a\x09\x09(self isSubMaplessArrayFor: key on: part) ifTrue: [\x0a\x09\x09\x09^ self \x0a\x09\x09\x09\x09at: key\x0a\x09\x09\x09\x09put: (self getSubMaplessAt: key from: part) ].\x0a\x09\x0a\x09\x09isObject := self isJavaScriptObject: part.\x0a\x0a\x09\x09isObject \x0a\x09\x09\x09ifFalse: [ ^ part ] \x22Is 'normal' object, so we just return its access\x22\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x22Is a JavaScript object so we might have to reify a (sub)Mapless.\x22\x0a\x09\x09\x09\x09subModel := self get: 'modelClass' from: part.\x0a\x0a\x09\x09\x09\x09\x22If there is no modelClass in it, then is a direct value in the property\x22\x0a\x09\x09\x09\x09subModel ifNil: [ ^ part ].\x0a\x0a\x09\x09\x09\x09subModel := Smalltalk globals at: subModel.\x0a\x0a\x09\x09\x09\x09subModel ifNil: [ part inspect. self error: 'this should have a ',subModel,' modelClass no?' ].\x0a\x09\x09\x09\x09subModel := subModel fromReified: part.\x0a\x09\x09\x09\x09self at: key asString put: subModel.\x0a\x09\x09\x09\x09^ subModel ] ].\x0a \x0a\x09^ ((self isKeyword: key) and: [\x0a\x09(key asString occurrencesOf: ':') = 1])\x0a\x09\x09ifTrue: [ key := key allButLast.\x0a\x09\x09\x09\x09self at: key asString put: aMessage arguments first ]\x0a\x09\x09ifFalse: [ super doesNotUnderstand: aMessage ]",
 referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
-messageSends: ["asSymbol", "selector", "ifTrue:", "isUnary:", "at:ifAbsent:", "asString", "isSubMaplessArrayFor:on:", "at:put:", "getSubMaplessAt:from:", "isJavaScriptObject:", "get:from:", "ifNil:", "at:", "globals", "inspect", "error:", ",", "fromReified:", "ifTrue:ifFalse:", "and:", "isKeyword:", "=", "occurrencesOf:", "allButLast", "first", "arguments", "doesNotUnderstand:"]
+messageSends: ["asSymbol", "selector", "ifTrue:", "isUnary:", "at:ifAbsent:", "asString", "isSubMaplessArrayFor:on:", "at:put:", "getSubMaplessAt:from:", "isJavaScriptObject:", "ifFalse:ifTrue:", "get:from:", "ifNil:", "at:", "globals", "inspect", "error:", ",", "fromReified:", "ifTrue:ifFalse:", "and:", "isKeyword:", "=", "occurrencesOf:", "allButLast", "first", "arguments", "doesNotUnderstand:"]
 }),
 $globals.Mapless);
 
@@ -897,7 +903,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return typeof anObject=='object';
+return ( (typeof anObject == 'object') && (anObject['__proto__']==undefined) || (anObject['__proto__']['klass'] == undefined));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"isJavaScriptObject:",{anObject:anObject},$globals.Mapless)});
@@ -905,7 +911,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "isJavaScriptObject: anObject\x0a\x09\x22Answers true if aPart is a javascript object (as opposed to javascript 'other types')\x22\x0a\x09<return typeof anObject=='object'>",
+source: "isJavaScriptObject: anObject\x0a\x09\x22Answers true if aPart is a javascript object (as opposed to javascript 'other types')\x22\x0a\x09<return ( (typeof anObject == 'object') && (anObject['__proto__']==undefined) || (anObject['__proto__']['klass'] == undefined))>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -1869,7 +1875,6 @@ $recv(aReifiedJSON)._keysAndValuesDo_((function(k,v){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$recv(console)._log_and_(k,v);
 return self._at_put_(k,v);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({k:k,v:v},$ctx1,4)});
@@ -1882,10 +1887,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aReifiedJSON"],
-source: "syncWith: aReifiedJSON\x0a\x09\x22Sync the current values in this model \x0a\x09with the ones coming in aReifiedJSON.\x22\x0a\x0a\x09aReifiedJSON ifNil:[ ^ nil ].\x0a\x0a\x09((aReifiedJSON at: 'modelClass') isNil or:[\x0a\x09(aReifiedJSON at: 'modelClass') ~= self class name ]) ifTrue:[\x0a\x09\x09MaplessError signal: 'This JSON does not fit in this ', self asString ].\x0a\x0a\x09self basicDeleteAll.\x0a\x0a\x09aReifiedJSON keysAndValuesDo: [ :k :v |\x0a\x09\x09console log: k and: v.\x0a\x09\x09self at: k put: v ].",
+source: "syncWith: aReifiedJSON\x0a\x09\x22Sync the current values in this model \x0a\x09with the ones coming in aReifiedJSON.\x22\x0a\x0a\x09aReifiedJSON ifNil:[ ^ nil ].\x0a\x0a\x09((aReifiedJSON at: 'modelClass') isNil or:[\x0a\x09(aReifiedJSON at: 'modelClass') ~= self class name ]) ifTrue:[\x0a\x09\x09MaplessError signal: 'This JSON does not fit in this ', self asString ].\x0a\x0a\x09self basicDeleteAll.\x0a\x0a\x09aReifiedJSON keysAndValuesDo: [ :k :v |\x0a\x09\x09self at: k put: v ].",
 referencedClasses: ["MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["ifNil:", "ifTrue:", "or:", "isNil", "at:", "~=", "name", "class", "signal:", ",", "asString", "basicDeleteAll", "keysAndValuesDo:", "log:and:", "at:put:"]
+messageSends: ["ifNil:", "ifTrue:", "or:", "isNil", "at:", "~=", "name", "class", "signal:", ",", "asString", "basicDeleteAll", "keysAndValuesDo:", "at:put:"]
 }),
 $globals.Mapless);
 
