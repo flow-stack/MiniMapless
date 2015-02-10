@@ -1,7 +1,7 @@
 {
   "name": "minimapless",
   "description": "Mapless in the frontend!",
-  "version": "0.11.1",
+  "version": "0.11.0",
   "main": "src/Minimapless.js",
   "ignore": [
     "**/.*",
