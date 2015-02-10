@@ -1,3 +1,9 @@
+February 10, 2015 - Release 0.11.0
+===================================
+
+* Mapless is using now an alternative implementation that removes the need for data and simplifies the DNU and other methods.
+
+
 January 29, 2015 - Release 0.10.12
 ===================================
 

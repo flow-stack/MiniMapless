@@ -4,7 +4,7 @@ $core.addPackage('MiniMapless');
 $core.packages["MiniMapless"].innerEval = function (expr) { return eval(expr); };
 $core.packages["MiniMapless"].transport = {"type":"amd","amdNamespace":"minimapless"};
 
-$core.addClass('Mapless', $globals.Object, ['data'], 'MiniMapless');
+$core.addClass('Mapless', $globals.Object, [], 'MiniMapless');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.Mapless.comment="MaplessModel is the same kind of aggregate you'll found in Mapless in Pharo but here in the frontend.\x0aThe concrete subclasses' instances of these aggregates are very friendly to be sent and received to and from the backend.\x0a\x0aFor more on Mapless visit:\x0ahttp://sebastianconcept.github.io/Mapless";
 //>>excludeEnd("ide");
@@ -313,7 +313,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-self._onAboutToCreate();
+self._onBeforeCreate();
 $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._path(),"type","POST","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",self._asJSONString(),"complete",(function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -339,10 +339,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "aFallbackBlock"],
-source: "createThen: aBlock onError: aFallbackBlock\x0a\x09\x22Creates this mapless using the remote API\x22\x0a\x0a\x09self onAboutToCreate.\x0a\x0a\x09jQuery ajax: #{\x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'POST'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res |\x0a\x09\x09\x09res status = 201\x0a\x09\x09\x09\x09ifTrue:[ \x0a\x09\x09\x09\x09\x09self onAfterCreate: res.\x0a\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09\x09\x09\x09ifFalse:[ aFallbackBlock value: res ] ]\x0a\x09}.",
+source: "createThen: aBlock onError: aFallbackBlock\x0a\x09\x22Creates this mapless using the remote API\x22\x0a\x0a\x09self onBeforeCreate.\x0a\x0a\x09jQuery ajax: #{\x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'POST'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res |\x0a\x09\x09\x09res status = 201\x0a\x09\x09\x09\x09ifTrue:[ \x0a\x09\x09\x09\x09\x09self onAfterCreate: res.\x0a\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09\x09\x09\x09ifFalse:[ aFallbackBlock value: res ] ]\x0a\x09}.",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["onAboutToCreate", "ajax:", "path", "asJSONString", "ifTrue:ifFalse:", "=", "status", "onAfterCreate:", "value:"]
+messageSends: ["onBeforeCreate", "ajax:", "path", "asJSONString", "ifTrue:ifFalse:", "=", "status", "onAfterCreate:", "value:"]
 }),
 $globals.Mapless);
 
@@ -428,7 +428,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-self._onAboutToDelete();
+self._onBeforeDelete();
 $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri(),"type","DELETE","cache",false,"data",self._asJSONString(),"complete",(function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -446,10 +446,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "deleteThen: aBlock\x0a\x09\x22Delete this mapless using the remote API\x22\x0a\x0a\x09self onAboutToDelete.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'DELETE'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09\x09\x09\x09self onAfterDelete: res.\x0a\x09\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09}",
+source: "deleteThen: aBlock\x0a\x09\x22Delete this mapless using the remote API\x22\x0a\x0a\x09self onBeforeDelete.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'DELETE'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09\x09\x09\x09self onAfterDelete: res.\x0a\x09\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09}",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["onAboutToDelete", "ajax:", "uri", "asJSONString", "onAfterDelete:", "value:"]
+messageSends: ["onBeforeDelete", "ajax:", "uri", "asJSONString", "onAfterDelete:", "value:"]
 }),
 $globals.Mapless);
 
@@ -464,7 +464,7 @@ function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$16,$15,$14,$13,$receiver;
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$12,$11,$10,$13,$14,$18,$17,$16,$15,$receiver;
 var $early={};
 try {
 key=$recv($recv(aMessage)._selector())._asSymbol();
@@ -504,8 +504,13 @@ subModel=$recv($recv($Smalltalk())._globals())._at_(subModel);
 subModel;
 $9=subModel;
 if(($receiver = $9) == null || $receiver.isNil){
-$recv(part)._inspect();
-$10=$recv("this should have a ".__comma(subModel)).__comma(" modelClass no?");
+$recv(console)._warn_(part);
+$12=$recv(subModel)._asString();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asString"]=2;
+//>>excludeEnd("ctx");
+$11="Check console warn, this should have a ".__comma($12);
+$10=$recv($11).__comma(" modelClass no?");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
@@ -515,41 +520,41 @@ $9;
 };
 subModel=$recv(subModel)._fromReified_(part);
 subModel;
-$11=$recv(key)._asString();
+$13=$recv(key)._asString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["asString"]=2;
+$ctx1.sendIdx["asString"]=3;
 //>>excludeEnd("ctx");
-self._at_put_($11,subModel);
+self._at_put_($13,subModel);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=2;
 //>>excludeEnd("ctx");
-$12=subModel;
-return $12;
+$14=subModel;
+return $14;
 } else {
 $6=part;
 return $6;
 };
 };
-$14=$recv(self._isKeyword_(key))._and_((function(){
+$16=$recv(self._isKeyword_(key))._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$16=$recv(key)._asString();
+$18=$recv(key)._asString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["asString"]=3;
+$ctx2.sendIdx["asString"]=4;
 //>>excludeEnd("ctx");
-$15=$recv($16)._occurrencesOf_(":");
-return $recv($15).__eq((1));
+$17=$recv($18)._occurrencesOf_(":");
+return $recv($17).__eq((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,8)});
 //>>excludeEnd("ctx");
 }));
-if($core.assert($14)){
+if($core.assert($16)){
 key=$recv(key)._allButLast();
 key;
-$13=self._at_put_($recv(key)._asString(),$recv($recv(aMessage)._arguments())._first());
+$15=self._at_put_($recv(key)._asString(),$recv($recv(aMessage)._arguments())._first());
 } else {
-$13=(
+$15=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
@@ -558,7 +563,7 @@ $globals.Mapless.superclass.fn.prototype._doesNotUnderstand_.apply($recv(self), 
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 };
-return $13;
+return $15;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -567,10 +572,10 @@ catch(e) {if(e===$early)return e[0]; throw e}
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09\x22The idea behind this DNU is to use the selector as setters or getter \x0a\x09delegating to data (aJsonObject)\x22\x0a\x09\x0a\x09| key part subModel isUndefined isObject obj keys |\x0a\x0a\x09key := aMessage selector asSymbol.\x0a\x0a\x09(self isUnary: key) ifTrue: [\x0a\x09\x09part := self at: key asString ifAbsent: [ ^ nil ].\x0a\x09\x0a\x09\x09\x22Is accessing an array of (sub)Mapless?\x22\x0a\x09\x09(self isSubMaplessArrayFor: key on: part) ifTrue: [\x0a\x09\x09\x09^ self \x0a\x09\x09\x09\x09at: key\x0a\x09\x09\x09\x09put: (self getSubMaplessAt: key from: part) ].\x0a\x09\x0a\x09\x09isObject := self isJavaScriptObject: part.\x0a\x0a\x09\x09isObject \x0a\x09\x09\x09ifFalse: [ ^ part ] \x22Is 'normal' object, so we just return its access\x22\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x22Is a JavaScript object so we might have to reify a (sub)Mapless.\x22\x0a\x09\x09\x09\x09subModel := self get: 'modelClass' from: part.\x0a\x0a\x09\x09\x09\x09\x22If there is no modelClass in it, then is a direct value in the property\x22\x0a\x09\x09\x09\x09subModel ifNil: [ ^ part ].\x0a\x0a\x09\x09\x09\x09subModel := Smalltalk globals at: subModel.\x0a\x0a\x09\x09\x09\x09subModel ifNil: [ part inspect. self error: 'this should have a ',subModel,' modelClass no?' ].\x0a\x09\x09\x09\x09subModel := subModel fromReified: part.\x0a\x09\x09\x09\x09self at: key asString put: subModel.\x0a\x09\x09\x09\x09^ subModel ] ].\x0a \x0a\x09^ ((self isKeyword: key) and: [\x0a\x09(key asString occurrencesOf: ':') = 1])\x0a\x09\x09ifTrue: [ key := key allButLast.\x0a\x09\x09\x09\x09self at: key asString put: aMessage arguments first ]\x0a\x09\x09ifFalse: [ super doesNotUnderstand: aMessage ]",
+source: "doesNotUnderstand: aMessage\x0a\x09\x22The idea behind this DNU is to use the selector as setters or getter \x0a\x09delegating to data (aJsonObject)\x22\x0a\x09\x0a\x09| key part subModel isUndefined isObject obj keys |\x0a\x0a\x09key := aMessage selector asSymbol.\x0a\x0a\x09(self isUnary: key) ifTrue: [\x0a\x09\x09part := self at: key asString ifAbsent: [ ^ nil ].\x0a\x09\x0a\x09\x09\x22Is accessing an array of (sub)Mapless?\x22\x0a\x09\x09(self isSubMaplessArrayFor: key on: part) ifTrue: [\x0a\x09\x09\x09^ self \x0a\x09\x09\x09\x09at: key\x0a\x09\x09\x09\x09put: (self getSubMaplessAt: key from: part) ].\x0a\x09\x0a\x09\x09isObject := self isJavaScriptObject: part.\x0a\x0a\x09\x09isObject \x0a\x09\x09\x09ifFalse: [ ^ part ] \x22Is 'normal' object, so we just return its access\x22\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x22Is a JavaScript object so we might have to reify a (sub)Mapless.\x22\x0a\x09\x09\x09\x09subModel := self get: 'modelClass' from: part.\x0a\x0a\x09\x09\x09\x09\x22If there is no modelClass in it, then is a direct value in the property\x22\x0a\x09\x09\x09\x09subModel ifNil: [ ^ part ].\x0a\x0a\x09\x09\x09\x09\x22Now we know is a (sub)Mapless needing reification\x22\x0a\x09\x09\x09\x09subModel := Smalltalk globals at: subModel.\x0a\x09\x09\x09\x09subModel ifNil: [ console warn: part. self error: 'Check console warn, this should have a ',subModel asString,' modelClass no?' ].\x0a\x09\x09\x09\x09subModel := subModel fromReified: part.\x0a\x09\x09\x09\x09self at: key asString put: subModel.\x0a\x09\x09\x09\x09^ subModel ] ].\x0a \x0a\x09^ ((self isKeyword: key) and: [\x0a\x09(key asString occurrencesOf: ':') = 1])\x0a\x09\x09ifTrue: [ key := key allButLast.\x0a\x09\x09\x09\x09self at: key asString put: aMessage arguments first ]\x0a\x09\x09ifFalse: [ super doesNotUnderstand: aMessage ]",
 referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
-messageSends: ["asSymbol", "selector", "ifTrue:", "isUnary:", "at:ifAbsent:", "asString", "isSubMaplessArrayFor:on:", "at:put:", "getSubMaplessAt:from:", "isJavaScriptObject:", "ifFalse:ifTrue:", "get:from:", "ifNil:", "at:", "globals", "inspect", "error:", ",", "fromReified:", "ifTrue:ifFalse:", "and:", "isKeyword:", "=", "occurrencesOf:", "allButLast", "first", "arguments", "doesNotUnderstand:"]
+messageSends: ["asSymbol", "selector", "ifTrue:", "isUnary:", "at:ifAbsent:", "asString", "isSubMaplessArrayFor:on:", "at:put:", "getSubMaplessAt:from:", "isJavaScriptObject:", "ifFalse:ifTrue:", "get:from:", "ifNil:", "at:", "globals", "warn:", "error:", ",", "fromReified:", "ifTrue:ifFalse:", "and:", "isKeyword:", "=", "occurrencesOf:", "allButLast", "first", "arguments", "doesNotUnderstand:"]
 }),
 $globals.Mapless);
 
@@ -610,7 +615,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-self._onAboutToFresh();
+self._onBeforeFresh();
 $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri(),"type","GET","cache",false,"complete",(function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -628,10 +633,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "freshThen: aBlock\x0a\x09\x22Re-read this mapless' state from the remote API.\x22\x0a\x0a\x09self onAboutToFresh.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'GET'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09\x09\x09\x09self onAfterFresh: res.\x0a\x09\x09\x09\x09\x09\x09aBlock value: self ]\x0a\x09}",
+source: "freshThen: aBlock\x0a\x09\x22Re-read this mapless' state from the remote API.\x22\x0a\x0a\x09self onBeforeFresh.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'GET'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09\x09\x09\x09self onAfterFresh: res.\x0a\x09\x09\x09\x09\x09\x09aBlock value: self ]\x0a\x09}",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["onAboutToFresh", "ajax:", "uri", "onAfterFresh:", "value:"]
+messageSends: ["onBeforeFresh", "ajax:", "uri", "onAfterFresh:", "value:"]
 }),
 $globals.Mapless);
 
@@ -1115,54 +1120,6 @@ source: "localSave\x0a\x0a\x09self class localSave: self",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["localSave:", "class"]
-}),
-$globals.Mapless);
-
-$core.addMethod(
-$core.method({
-selector: "newData",
-protocol: 'actions',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return new Object;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"newData",{},$globals.Mapless)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "newData\x0a\x09<return new Object>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Mapless);
-
-$core.addMethod(
-$core.method({
-selector: "newJSObject",
-protocol: 'actions',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return Object;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"newJSObject",{},$globals.Mapless)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "newJSObject\x0a\x09<return Object>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
 }),
 $globals.Mapless);
 
@@ -1719,7 +1676,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-self._onAboutToSave();
+self._onBeforeSave();
 $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._path(),"type","PUT","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",self._asJSONString(),"complete",(function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -1745,10 +1702,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "aFallbackBlock"],
-source: "saveThen: aBlock onError: aFallbackBlock\x0a\x09\x22Saves this mapless using the remote API, then evaluates aBlock.\x0a\x09If there is an error, evaluates aFallbackBlock.\x22\x0a\x0a\x09self onAboutToSave.\x0a\x09\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09res status = 200 \x0a\x09\x09\x09\x09ifTrue:[ \x0a\x09\x09\x09\x09\x09self onAfterSave: res.\x0a\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09\x09\x09\x09ifFalse:[ aFallbackBlock value: res ] ]\x0a\x09}",
+source: "saveThen: aBlock onError: aFallbackBlock\x0a\x09\x22Saves this mapless using the remote API, then evaluates aBlock.\x0a\x09If there is an error, evaluates aFallbackBlock.\x22\x0a\x0a\x09self onBeforeSave.\x0a\x09\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09res status = 200 \x0a\x09\x09\x09\x09ifTrue:[ \x0a\x09\x09\x09\x09\x09self onAfterSave: res.\x0a\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09\x09\x09\x09ifFalse:[ aFallbackBlock value: res ] ]\x0a\x09}",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["onAboutToSave", "ajax:", "path", "asJSONString", "ifTrue:ifFalse:", "=", "status", "onAfterSave:", "value:"]
+messageSends: ["onBeforeSave", "ajax:", "path", "asJSONString", "ifTrue:ifFalse:", "=", "status", "onAfterSave:", "value:"]
 }),
 $globals.Mapless);
 
@@ -1930,7 +1887,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-self._onAboutToUpdate();
+self._onBeforeUpdate();
 $recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri(),"type","PUT","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",self._asJSONString(),"complete",(function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -1948,10 +1905,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "updateThen: aBlock\x0a\x09\x22Updates this mapless using the remote API\x22\x0a\x0a\x09self onAboutToUpdate.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09self onAfterUpdate: res.\x0a\x09\x09\x09aBlock value: res ]\x0a\x09}",
+source: "updateThen: aBlock\x0a\x09\x22Updates this mapless using the remote API\x22\x0a\x0a\x09self onBeforeUpdate.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09self onAfterUpdate: res.\x0a\x09\x09\x09aBlock value: res ]\x0a\x09}",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["onAboutToUpdate", "ajax:", "uri", "asJSONString", "onAfterUpdate:", "value:"]
+messageSends: ["onBeforeUpdate", "ajax:", "uri", "asJSONString", "onAfterUpdate:", "value:"]
 }),
 $globals.Mapless);
 

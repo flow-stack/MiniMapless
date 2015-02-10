@@ -1,6 +1,6 @@
 Smalltalk createPackage: 'MiniMapless'!
 Object subclass: #Mapless
-	instanceVariableNames: 'data'
+	instanceVariableNames: ''
 	package: 'MiniMapless'!
 !Mapless commentStamp!
 MaplessModel is the same kind of aggregate you'll found in Mapless in Pharo but here in the frontend.
@@ -122,7 +122,7 @@ createThen: aBlock
 createThen: aBlock onError: aFallbackBlock
 	"Creates this mapless using the remote API"
 
-	self onAboutToCreate.
+	self onBeforeCreate.
 
 	jQuery ajax: #{
 		'url' -> self path.
@@ -149,7 +149,7 @@ delete
 deleteThen: aBlock
 	"Delete this mapless using the remote API"
 
-	self onAboutToDelete.
+	self onBeforeDelete.
 
 	jQuery ajax: #{ 
 		'url' -> self uri.
@@ -190,9 +190,9 @@ doesNotUnderstand: aMessage
 				"If there is no modelClass in it, then is a direct value in the property"
 				subModel ifNil: [ ^ part ].
 
+				"Now we know is a (sub)Mapless needing reification"
 				subModel := Smalltalk globals at: subModel.
-
-				subModel ifNil: [ part inspect. self error: 'this should have a ',subModel,' modelClass no?' ].
+				subModel ifNil: [ console warn: part. self error: 'Check console warn, this should have a ',subModel asString,' modelClass no?' ].
 				subModel := subModel fromReified: part.
 				self at: key asString put: subModel.
 				^ subModel ] ].
@@ -213,7 +213,7 @@ fresh
 freshThen: aBlock
 	"Re-read this mapless' state from the remote API."
 
-	self onAboutToFresh.
+	self onBeforeFresh.
 
 	jQuery ajax: #{ 
 		'url' -> self uri.
@@ -270,14 +270,6 @@ localSave
 	self class localSave: self
 !
 
-newData
-	<return new Object>
-!
-
-newJSObject
-	<return Object>
-!
-
 save
 	"Saves this mapless (upserts it)"
 	^ self saveThen: [ :res | nil ]
@@ -296,7 +288,7 @@ saveThen: aBlock onError: aFallbackBlock
 	"Saves this mapless using the remote API, then evaluates aBlock.
 	If there is an error, evaluates aFallbackBlock."
 
-	self onAboutToSave.
+	self onBeforeSave.
 	
 	jQuery ajax: #{ 
 		'url' -> self path.
@@ -345,7 +337,7 @@ update
 updateThen: aBlock
 	"Updates this mapless using the remote API"
 
-	self onAboutToUpdate.
+	self onBeforeUpdate.
 
 	jQuery ajax: #{ 
 		'url' -> self uri.
