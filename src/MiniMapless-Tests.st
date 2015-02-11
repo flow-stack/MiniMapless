@@ -643,7 +643,7 @@ MaplessModel subclass: #Stuff
 things
 
 	^ super things ifNil:[ 
-		self data at: 'things' put: Array new.
+		self at: 'things' put: Array new.
 		self things ]
 ! !
 

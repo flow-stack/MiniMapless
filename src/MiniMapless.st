@@ -23,12 +23,6 @@ at: aKey put: anObject
 	^ anObject
 !
 
-data
-	"Answers the raw content of this mapless.
-	Warning: NOT meant to be overriden by subclasses."
-	^ data
-!
-
 dateAndTimeAt: aSelector
 
 	^ Date fromString: (self at: aSelector)
@@ -51,24 +45,6 @@ id: aString
 path 
 
 	^ self class path
-!
-
-subModelAt: aSelector
-	"Answers the reified submmapless (instantiating when necessary)."
-	
-	| subMaplessData modelClass |
-
-	subMaplessData := self at: aSelector.
-	subMaplessData ifNil:[^nil].
-	
-	modelClass := subMaplessData at: 'modelClass'.
-	modelClass ifNil:[^nil].
-	
-	modelClass := SmalltalkImage current globals at: modelClass ifAbsent:[ nil ].
-
-	modelClass ifNil:[ ^ MaplessError signal: 'Cannot find ',aSelector asString,'''s class for this metadata'].
-	
-	^ modelClass fromReified: subMaplessData
 !
 
 uri 
@@ -163,10 +139,10 @@ deleteThen: aBlock
 !
 
 doesNotUnderstand: aMessage
-	"The idea behind this DNU is to use the selector as setters or getter 
-	delegating to data (aJsonObject)"
+	"The idea behind this DNU is to use the selector as setter or getter 
+	dynamically setting and getting things on this mapless in a prototypical style."
 	
-	| key part subModel isUndefined isObject obj keys |
+	| key part subModel isUndefined isObject |
 
 	key := aMessage selector asSymbol.
 
@@ -231,7 +207,7 @@ get: anAttribute from: aPart
 !
 
 getSubMaplessAt: aKey from: someObjects
-	"Returns the submapless on aKey for this mapless based on someObjects."
+	"Returns the submapless found among someObjects that are at aKey in this mapless."
 	
 	"Are they already mapless?"
 	(someObjects anySatisfy:[ :e | 
@@ -241,11 +217,6 @@ getSubMaplessAt: aKey from: someObjects
 		
 	"So they are probably reified JSON.."
 	
-	"Do they have @data?"
-	(someObjects anySatisfy:[ :e | 
-		(e at: 'data') notNil ]) ifTrue:[
-			^ someObjects collect:[ :each | Mapless fromReified: each data ] ].
-
 	"Do they have modelClass directly in it?"
 	(someObjects anySatisfy:[ :e | 
 		(e at: 'modelClass') notNil ]) ifTrue:[
@@ -306,6 +277,24 @@ saveThen: aBlock onError: aFallbackBlock
 	}
 !
 
+subModelAt: aSelector
+	"Answers the reified submmapless (instantiating when necessary)."
+	
+	| subMapless modelClass |
+
+	subMapless := self at: aSelector.
+	subMapless ifNil: [ ^ nil ].
+	
+	modelClass := subMapless at: 'modelClass'.
+	modelClass ifNil: [ ^ nil ].
+	
+	modelClass := SmalltalkImage current globals at: modelClass ifAbsent: [ nil ].
+
+	modelClass ifNil: [ ^ MaplessError signal: 'Cannot find ',aSelector asString,'''s class for this metadata'].
+	
+	^ modelClass fromReified: subMapless
+!
+
 syncFromJSON: someJSONString
 	"Sync the current values in this model 
 	with the ones coming in someJSONString."
@@ -358,7 +347,6 @@ initialize
 
 	super initialize.
 
-	"data := self newData."
 	self modelClass: self class name.
 ! !
 
@@ -415,7 +403,7 @@ onAfterCreate: aResponse
 		^ MaplessError signal: 'Could not create ', self asString,':  ', aResponse responseText ].
 	
 	"After saves we expect the id that our backend has defined for this object"
-	self data at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).
+	self at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).
 
 	self localSave
 !
@@ -456,7 +444,7 @@ onAfterSave: aResponse
 		^ MaplessError signal: 'Could not save ', self asString,':  ', aResponse responseText ].
 
 	"After saves we expect the id that our backend has defined for this object"
-	self data at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).
+	self at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).
 
 	self localSave
 !

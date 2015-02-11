@@ -2968,7 +2968,7 @@ $ctx1.supercall = false;
 $ctx1.sendIdx["things"]=1;
 //>>excludeEnd("ctx");
 if(($receiver = $2) == null || $receiver.isNil){
-$recv(self._data())._at_put_("things",$recv($Array())._new());
+self._at_put_("things",$recv($Array())._new());
 $1=self._things();
 } else {
 $1=$2;
@@ -2980,10 +2980,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "things\x0a\x0a\x09^ super things ifNil:[ \x0a\x09\x09self data at: 'things' put: Array new.\x0a\x09\x09self things ]",
+source: "things\x0a\x0a\x09^ super things ifNil:[ \x0a\x09\x09self at: 'things' put: Array new.\x0a\x09\x09self things ]",
 referencedClasses: ["Array"],
 //>>excludeEnd("ide");
-messageSends: ["ifNil:", "things", "at:put:", "data", "new"]
+messageSends: ["ifNil:", "things", "at:put:", "new"]
 }),
 $globals.Stuff);
 

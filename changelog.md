@@ -1,3 +1,10 @@
+February 10, 2015 - Release 0.11.1
+===================================
+
+* Code clean about data code and comments.
+* Fixes #onAfterSave: that was still using data
+
+
 February 10, 2015 - Release 0.11.0
 ===================================
 

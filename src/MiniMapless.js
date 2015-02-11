@@ -348,26 +348,6 @@ $globals.Mapless);
 
 $core.addMethod(
 $core.method({
-selector: "data",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@data"];
-return $1;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "data\x0a\x09\x22Answers the raw content of this mapless.\x0a\x09Warning: NOT meant to be overriden by subclasses.\x22\x0a\x09^ data",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Mapless);
-
-$core.addMethod(
-$core.method({
 selector: "dateAndTimeAt:",
 protocol: 'accessing',
 fn: function (aSelector){
@@ -459,7 +439,7 @@ selector: "doesNotUnderstand:",
 protocol: 'actions',
 fn: function (aMessage){
 var self=this;
-var key,part,subModel,isUndefined,isObject,obj,keys;
+var key,part,subModel,isUndefined,isObject;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
@@ -567,12 +547,12 @@ return $15;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage,key:key,part:part,subModel:subModel,isUndefined:isUndefined,isObject:isObject,obj:obj,keys:keys},$globals.Mapless)});
+}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage,key:key,part:part,subModel:subModel,isUndefined:isUndefined,isObject:isObject},$globals.Mapless)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09\x22The idea behind this DNU is to use the selector as setters or getter \x0a\x09delegating to data (aJsonObject)\x22\x0a\x09\x0a\x09| key part subModel isUndefined isObject obj keys |\x0a\x0a\x09key := aMessage selector asSymbol.\x0a\x0a\x09(self isUnary: key) ifTrue: [\x0a\x09\x09part := self at: key asString ifAbsent: [ ^ nil ].\x0a\x09\x0a\x09\x09\x22Is accessing an array of (sub)Mapless?\x22\x0a\x09\x09(self isSubMaplessArrayFor: key on: part) ifTrue: [\x0a\x09\x09\x09^ self \x0a\x09\x09\x09\x09at: key\x0a\x09\x09\x09\x09put: (self getSubMaplessAt: key from: part) ].\x0a\x09\x0a\x09\x09isObject := self isJavaScriptObject: part.\x0a\x0a\x09\x09isObject \x0a\x09\x09\x09ifFalse: [ ^ part ] \x22Is 'normal' object, so we just return its access\x22\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x22Is a JavaScript object so we might have to reify a (sub)Mapless.\x22\x0a\x09\x09\x09\x09subModel := self get: 'modelClass' from: part.\x0a\x0a\x09\x09\x09\x09\x22If there is no modelClass in it, then is a direct value in the property\x22\x0a\x09\x09\x09\x09subModel ifNil: [ ^ part ].\x0a\x0a\x09\x09\x09\x09\x22Now we know is a (sub)Mapless needing reification\x22\x0a\x09\x09\x09\x09subModel := Smalltalk globals at: subModel.\x0a\x09\x09\x09\x09subModel ifNil: [ console warn: part. self error: 'Check console warn, this should have a ',subModel asString,' modelClass no?' ].\x0a\x09\x09\x09\x09subModel := subModel fromReified: part.\x0a\x09\x09\x09\x09self at: key asString put: subModel.\x0a\x09\x09\x09\x09^ subModel ] ].\x0a \x0a\x09^ ((self isKeyword: key) and: [\x0a\x09(key asString occurrencesOf: ':') = 1])\x0a\x09\x09ifTrue: [ key := key allButLast.\x0a\x09\x09\x09\x09self at: key asString put: aMessage arguments first ]\x0a\x09\x09ifFalse: [ super doesNotUnderstand: aMessage ]",
+source: "doesNotUnderstand: aMessage\x0a\x09\x22The idea behind this DNU is to use the selector as setter or getter \x0a\x09dynamically setting and getting things on this mapless in a prototypical style.\x22\x0a\x09\x0a\x09| key part subModel isUndefined isObject |\x0a\x0a\x09key := aMessage selector asSymbol.\x0a\x0a\x09(self isUnary: key) ifTrue: [\x0a\x09\x09part := self at: key asString ifAbsent: [ ^ nil ].\x0a\x09\x0a\x09\x09\x22Is accessing an array of (sub)Mapless?\x22\x0a\x09\x09(self isSubMaplessArrayFor: key on: part) ifTrue: [\x0a\x09\x09\x09^ self \x0a\x09\x09\x09\x09at: key\x0a\x09\x09\x09\x09put: (self getSubMaplessAt: key from: part) ].\x0a\x09\x0a\x09\x09isObject := self isJavaScriptObject: part.\x0a\x0a\x09\x09isObject \x0a\x09\x09\x09ifFalse: [ ^ part ] \x22Is 'normal' object, so we just return its access\x22\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x22Is a JavaScript object so we might have to reify a (sub)Mapless.\x22\x0a\x09\x09\x09\x09subModel := self get: 'modelClass' from: part.\x0a\x0a\x09\x09\x09\x09\x22If there is no modelClass in it, then is a direct value in the property\x22\x0a\x09\x09\x09\x09subModel ifNil: [ ^ part ].\x0a\x0a\x09\x09\x09\x09\x22Now we know is a (sub)Mapless needing reification\x22\x0a\x09\x09\x09\x09subModel := Smalltalk globals at: subModel.\x0a\x09\x09\x09\x09subModel ifNil: [ console warn: part. self error: 'Check console warn, this should have a ',subModel asString,' modelClass no?' ].\x0a\x09\x09\x09\x09subModel := subModel fromReified: part.\x0a\x09\x09\x09\x09self at: key asString put: subModel.\x0a\x09\x09\x09\x09^ subModel ] ].\x0a \x0a\x09^ ((self isKeyword: key) and: [\x0a\x09(key asString occurrencesOf: ':') = 1])\x0a\x09\x09ifTrue: [ key := key allButLast.\x0a\x09\x09\x09\x09self at: key asString put: aMessage arguments first ]\x0a\x09\x09ifFalse: [ super doesNotUnderstand: aMessage ]",
 referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["asSymbol", "selector", "ifTrue:", "isUnary:", "at:ifAbsent:", "asString", "isSubMaplessArrayFor:on:", "at:put:", "getSubMaplessAt:from:", "isJavaScriptObject:", "ifFalse:ifTrue:", "get:from:", "ifNil:", "at:", "globals", "warn:", "error:", ",", "fromReified:", "ifTrue:ifFalse:", "and:", "isKeyword:", "=", "occurrencesOf:", "allButLast", "first", "arguments", "doesNotUnderstand:"]
@@ -675,7 +655,7 @@ function $Mapless(){return $globals.Mapless||(typeof Mapless=="undefined"?nil:Ma
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $4,$3,$2,$1,$6,$5,$7,$8,$9;
+var $4,$3,$2,$1,$5,$6;
 $1=$recv(someObjects)._anySatisfy_((function(e){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -720,59 +700,22 @@ $5=$recv(someObjects)._anySatisfy_((function(e){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$6=$recv(e)._at_("data");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["at:"]=1;
-//>>excludeEnd("ctx");
-return $recv($6)._notNil();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["notNil"]=1;
-//>>excludeEnd("ctx");
+return $recv($recv(e)._at_("modelClass"))._notNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,5)});
 //>>excludeEnd("ctx");
 }));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["anySatisfy:"]=2;
-//>>excludeEnd("ctx");
 if($core.assert($5)){
-$7=$recv(someObjects)._collect_((function(each){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv($Mapless())._fromReified_($recv(each)._data());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["fromReified:"]=1;
-//>>excludeEnd("ctx");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,7)});
-//>>excludeEnd("ctx");
-}));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["collect:"]=1;
-//>>excludeEnd("ctx");
-return $7;
-};
-$8=$recv(someObjects)._anySatisfy_((function(e){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv($recv(e)._at_("modelClass"))._notNil();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,8)});
-//>>excludeEnd("ctx");
-}));
-if($core.assert($8)){
-$9=$recv(someObjects)._collect_((function(each){
+$6=$recv(someObjects)._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return $recv($Mapless())._fromReified_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,10)});
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,7)});
 //>>excludeEnd("ctx");
 }));
-return $9;
+return $6;
 };
 self._error_("Unknown case :(");
 return self;
@@ -782,10 +725,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aKey", "someObjects"],
-source: "getSubMaplessAt: aKey from: someObjects\x0a\x09\x22Returns the submapless on aKey for this mapless based on someObjects.\x22\x0a\x09\x0a\x09\x22Are they already mapless?\x22\x0a\x09(someObjects anySatisfy:[ :e | \x0a\x09\x09(self isJavaScriptUndefined: e class) not and:[\x0a\x09\x09e class ~= JSObjectProxy and:[\x0a\x09\x09e isKindOf: Mapless ] ] ]) ifTrue:[ ^ someObjects ].\x0a\x09\x09\x0a\x09\x22So they are probably reified JSON..\x22\x0a\x09\x0a\x09\x22Do they have @data?\x22\x0a\x09(someObjects anySatisfy:[ :e | \x0a\x09\x09(e at: 'data') notNil ]) ifTrue:[\x0a\x09\x09\x09^ someObjects collect:[ :each | Mapless fromReified: each data ] ].\x0a\x0a\x09\x22Do they have modelClass directly in it?\x22\x0a\x09(someObjects anySatisfy:[ :e | \x0a\x09\x09(e at: 'modelClass') notNil ]) ifTrue:[\x0a\x09\x09\x09^ someObjects collect:[ :each | Mapless fromReified: each ] ].\x0a\x09\x0a\x09self error: 'Unknown case :('",
+source: "getSubMaplessAt: aKey from: someObjects\x0a\x09\x22Returns the submapless found among someObjects that are at aKey in this mapless.\x22\x0a\x09\x0a\x09\x22Are they already mapless?\x22\x0a\x09(someObjects anySatisfy:[ :e | \x0a\x09\x09(self isJavaScriptUndefined: e class) not and:[\x0a\x09\x09e class ~= JSObjectProxy and:[\x0a\x09\x09e isKindOf: Mapless ] ] ]) ifTrue:[ ^ someObjects ].\x0a\x09\x09\x0a\x09\x22So they are probably reified JSON..\x22\x0a\x09\x0a\x09\x22Do they have modelClass directly in it?\x22\x0a\x09(someObjects anySatisfy:[ :e | \x0a\x09\x09(e at: 'modelClass') notNil ]) ifTrue:[\x0a\x09\x09\x09^ someObjects collect:[ :each | Mapless fromReified: each ] ].\x0a\x09\x0a\x09self error: 'Unknown case :('",
 referencedClasses: ["JSObjectProxy", "Mapless"],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:", "anySatisfy:", "and:", "not", "isJavaScriptUndefined:", "class", "~=", "isKindOf:", "notNil", "at:", "collect:", "fromReified:", "data", "error:"]
+messageSends: ["ifTrue:", "anySatisfy:", "and:", "not", "isJavaScriptUndefined:", "class", "~=", "isKindOf:", "notNil", "at:", "collect:", "fromReified:", "error:"]
 }),
 $globals.Mapless);
 
@@ -892,7 +835,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "initialize\x0a\x0a\x09super initialize.\x0a\x0a\x09\x22data := self newData.\x22\x0a\x09self modelClass: self class name.",
+source: "initialize\x0a\x0a\x09super initialize.\x0a\x0a\x09self modelClass: self class name.",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initialize", "modelClass:", "name", "class"]
@@ -1263,7 +1206,7 @@ function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="un
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$4,$3,$2,$5,$7,$6;
+var $1,$4,$3,$2,$6,$5;
 $1=$recv($recv(aResponse)._status()).__tild_eq((201));
 if($core.assert($1)){
 self._localDelete();
@@ -1278,16 +1221,15 @@ $ctx1.sendIdx[","]=1;
 $2=$recv($MaplessError())._signal_($3);
 return $2;
 };
-$5=self._data();
-$7=self._class();
+$6=self._class();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=1;
 //>>excludeEnd("ctx");
-$6=$recv($7)._idAttribute();
+$5=$recv($6)._idAttribute();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["idAttribute"]=1;
 //>>excludeEnd("ctx");
-$recv($5)._at_put_($6,$recv($recv(aResponse)._responseJSON())._at_($recv(self._class())._idAttribute()));
+self._at_put_($5,$recv($recv(aResponse)._responseJSON())._at_($recv(self._class())._idAttribute()));
 self._localSave();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1296,10 +1238,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aResponse"],
-source: "onAfterCreate: aResponse \x0a\x09\x22This mapless got created.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved, then we make sure this mapless is not in local either\x0a\x09and raise the exception.\x22\x0a\x09\x09\x0a\x09aResponse status ~= 201 ifTrue:[\x0a\x09\x09self localDelete.\x0a\x09\x09^ MaplessError signal: 'Could not create ', self asString,':  ', aResponse responseText ].\x0a\x09\x0a\x09\x22After saves we expect the id that our backend has defined for this object\x22\x0a\x09self data at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).\x0a\x0a\x09self localSave",
+source: "onAfterCreate: aResponse \x0a\x09\x22This mapless got created.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved, then we make sure this mapless is not in local either\x0a\x09and raise the exception.\x22\x0a\x09\x09\x0a\x09aResponse status ~= 201 ifTrue:[\x0a\x09\x09self localDelete.\x0a\x09\x09^ MaplessError signal: 'Could not create ', self asString,':  ', aResponse responseText ].\x0a\x09\x0a\x09\x22After saves we expect the id that our backend has defined for this object\x22\x0a\x09self at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).\x0a\x0a\x09self localSave",
 referencedClasses: ["MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:", "~=", "status", "localDelete", "signal:", ",", "asString", "responseText", "at:put:", "data", "idAttribute", "class", "at:", "responseJSON", "localSave"]
+messageSends: ["ifTrue:", "~=", "status", "localDelete", "signal:", ",", "asString", "responseText", "at:put:", "idAttribute", "class", "at:", "responseJSON", "localSave"]
 }),
 $globals.Mapless);
 
@@ -1396,7 +1338,7 @@ function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="un
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$4,$3,$2,$5,$7,$6;
+var $1,$4,$3,$2,$6,$5;
 $1=$recv($recv(aResponse)._status()).__tild_eq((200));
 if($core.assert($1)){
 self._localFresh();
@@ -1411,16 +1353,15 @@ $ctx1.sendIdx[","]=1;
 $2=$recv($MaplessError())._signal_($3);
 return $2;
 };
-$5=self._data();
-$7=self._class();
+$6=self._class();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=1;
 //>>excludeEnd("ctx");
-$6=$recv($7)._idAttribute();
+$5=$recv($6)._idAttribute();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["idAttribute"]=1;
 //>>excludeEnd("ctx");
-$recv($5)._at_put_($6,$recv($recv(aResponse)._responseJSON())._at_($recv(self._class())._idAttribute()));
+self._at_put_($5,$recv($recv(aResponse)._responseJSON())._at_($recv(self._class())._idAttribute()));
 self._localSave();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1429,10 +1370,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aResponse"],
-source: "onAfterSave: aResponse\x0a\x09\x22This mapless got saved.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved, then we restore this mapless state from local\x0a\x09and raise the exception.\x22\x0a\x09\x0a\x09aResponse status ~= 200 ifTrue:[\x0a\x09\x09self localFresh.\x0a\x09\x09^ MaplessError signal: 'Could not save ', self asString,':  ', aResponse responseText ].\x0a\x0a\x09\x22After saves we expect the id that our backend has defined for this object\x22\x0a\x09self data at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).\x0a\x0a\x09self localSave",
+source: "onAfterSave: aResponse\x0a\x09\x22This mapless got saved.\x0a\x09To keep things consistent, if the server was okay, then we locally save too but if\x0a\x09the API said it wasn't saved, then we restore this mapless state from local\x0a\x09and raise the exception.\x22\x0a\x09\x0a\x09aResponse status ~= 200 ifTrue:[\x0a\x09\x09self localFresh.\x0a\x09\x09^ MaplessError signal: 'Could not save ', self asString,':  ', aResponse responseText ].\x0a\x0a\x09\x22After saves we expect the id that our backend has defined for this object\x22\x0a\x09self at: self class idAttribute put: (aResponse responseJSON at: self class idAttribute).\x0a\x0a\x09self localSave",
 referencedClasses: ["MaplessError"],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:", "~=", "status", "localFresh", "signal:", ",", "asString", "responseText", "at:put:", "data", "idAttribute", "class", "at:", "responseJSON", "localSave"]
+messageSends: ["ifTrue:", "~=", "status", "localFresh", "signal:", ",", "asString", "responseText", "at:put:", "idAttribute", "class", "at:", "responseJSON", "localSave"]
 }),
 $globals.Mapless);
 
@@ -1712,27 +1653,27 @@ $globals.Mapless);
 $core.addMethod(
 $core.method({
 selector: "subModelAt:",
-protocol: 'accessing',
+protocol: 'actions',
 fn: function (aSelector){
 var self=this;
-var subMaplessData,modelClass;
+var subMapless,modelClass;
 function $SmalltalkImage(){return $globals.SmalltalkImage||(typeof SmalltalkImage=="undefined"?nil:SmalltalkImage)}
 function $MaplessError(){return $globals.MaplessError||(typeof MaplessError=="undefined"?nil:MaplessError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$4,$6,$receiver;
-subMaplessData=self._at_(aSelector);
+subMapless=self._at_(aSelector);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=1;
 //>>excludeEnd("ctx");
-$1=subMaplessData;
+$1=subMapless;
 if(($receiver = $1) == null || $receiver.isNil){
 return nil;
 } else {
 $1;
 };
-modelClass=$recv(subMaplessData)._at_("modelClass");
+modelClass=$recv(subMapless)._at_("modelClass");
 $2=modelClass;
 if(($receiver = $2) == null || $receiver.isNil){
 return nil;
@@ -1754,15 +1695,15 @@ return $4;
 } else {
 $3;
 };
-$6=$recv(modelClass)._fromReified_(subMaplessData);
+$6=$recv(modelClass)._fromReified_(subMapless);
 return $6;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"subModelAt:",{aSelector:aSelector,subMaplessData:subMaplessData,modelClass:modelClass},$globals.Mapless)});
+}, function($ctx1) {$ctx1.fill(self,"subModelAt:",{aSelector:aSelector,subMapless:subMapless,modelClass:modelClass},$globals.Mapless)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aSelector"],
-source: "subModelAt: aSelector\x0a\x09\x22Answers the reified submmapless (instantiating when necessary).\x22\x0a\x09\x0a\x09| subMaplessData modelClass |\x0a\x0a\x09subMaplessData := self at: aSelector.\x0a\x09subMaplessData ifNil:[^nil].\x0a\x09\x0a\x09modelClass := subMaplessData at: 'modelClass'.\x0a\x09modelClass ifNil:[^nil].\x0a\x09\x0a\x09modelClass := SmalltalkImage current globals at: modelClass ifAbsent:[ nil ].\x0a\x0a\x09modelClass ifNil:[ ^ MaplessError signal: 'Cannot find ',aSelector asString,'''s class for this metadata'].\x0a\x09\x0a\x09^ modelClass fromReified: subMaplessData",
+source: "subModelAt: aSelector\x0a\x09\x22Answers the reified submmapless (instantiating when necessary).\x22\x0a\x09\x0a\x09| subMapless modelClass |\x0a\x0a\x09subMapless := self at: aSelector.\x0a\x09subMapless ifNil: [ ^ nil ].\x0a\x09\x0a\x09modelClass := subMapless at: 'modelClass'.\x0a\x09modelClass ifNil: [ ^ nil ].\x0a\x09\x0a\x09modelClass := SmalltalkImage current globals at: modelClass ifAbsent: [ nil ].\x0a\x0a\x09modelClass ifNil: [ ^ MaplessError signal: 'Cannot find ',aSelector asString,'''s class for this metadata'].\x0a\x09\x0a\x09^ modelClass fromReified: subMapless",
 referencedClasses: ["SmalltalkImage", "MaplessError"],
 //>>excludeEnd("ide");
 messageSends: ["at:", "ifNil:", "at:ifAbsent:", "globals", "current", "signal:", ",", "asString", "fromReified:"]
