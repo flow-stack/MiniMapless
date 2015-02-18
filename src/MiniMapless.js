@@ -309,12 +309,13 @@ selector: "createThen:onError:",
 protocol: 'actions',
 fn: function (aBlock,aFallbackBlock){
 var self=this;
+function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuery)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 self._onBeforeCreate();
-$recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._path(),"type","POST","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",self._asJSONString(),"complete",(function(res){
+$recv($recv($JQuery())._current())._ajax_($globals.HashedCollection._newFromPairs_(["url",self._path(),"type","POST","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",self._asJSONString(),"complete",(function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -339,10 +340,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "aFallbackBlock"],
-source: "createThen: aBlock onError: aFallbackBlock\x0a\x09\x22Creates this mapless using the remote API\x22\x0a\x0a\x09self onBeforeCreate.\x0a\x0a\x09jQuery ajax: #{\x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'POST'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res |\x0a\x09\x09\x09res status = 201\x0a\x09\x09\x09\x09ifTrue:[ \x0a\x09\x09\x09\x09\x09self onAfterCreate: res.\x0a\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09\x09\x09\x09ifFalse:[ aFallbackBlock value: res ] ]\x0a\x09}.",
-referencedClasses: [],
+source: "createThen: aBlock onError: aFallbackBlock\x0a\x09\x22Creates this mapless using the remote API\x22\x0a\x0a\x09self onBeforeCreate.\x0a\x0a\x09JQuery current ajax: #{\x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'POST'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res |\x0a\x09\x09\x09res status = 201\x0a\x09\x09\x09\x09ifTrue:[ \x0a\x09\x09\x09\x09\x09self onAfterCreate: res.\x0a\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09\x09\x09\x09ifFalse:[ aFallbackBlock value: res ] ]\x0a\x09}.",
+referencedClasses: ["JQuery"],
 //>>excludeEnd("ide");
-messageSends: ["onBeforeCreate", "ajax:", "path", "asJSONString", "ifTrue:ifFalse:", "=", "status", "onAfterCreate:", "value:"]
+messageSends: ["onBeforeCreate", "ajax:", "current", "path", "asJSONString", "ifTrue:ifFalse:", "=", "status", "onAfterCreate:", "value:"]
 }),
 $globals.Mapless);
 
@@ -405,11 +406,12 @@ selector: "deleteThen:",
 protocol: 'actions',
 fn: function (aBlock){
 var self=this;
+function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuery)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._onBeforeDelete();
-$recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri(),"type","DELETE","cache",false,"data",self._asJSONString(),"complete",(function(res){
+$recv($recv($JQuery())._current())._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri(),"type","DELETE","cache",false,"data",self._asJSONString(),"complete",(function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -426,10 +428,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "deleteThen: aBlock\x0a\x09\x22Delete this mapless using the remote API\x22\x0a\x0a\x09self onBeforeDelete.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'DELETE'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09\x09\x09\x09self onAfterDelete: res.\x0a\x09\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09}",
-referencedClasses: [],
+source: "deleteThen: aBlock\x0a\x09\x22Delete this mapless using the remote API\x22\x0a\x0a\x09self onBeforeDelete.\x0a\x0a\x09JQuery current ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'DELETE'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09\x09\x09\x09self onAfterDelete: res.\x0a\x09\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09}",
+referencedClasses: ["JQuery"],
 //>>excludeEnd("ide");
-messageSends: ["onBeforeDelete", "ajax:", "uri", "asJSONString", "onAfterDelete:", "value:"]
+messageSends: ["onBeforeDelete", "ajax:", "current", "uri", "asJSONString", "onAfterDelete:", "value:"]
 }),
 $globals.Mapless);
 
@@ -592,11 +594,12 @@ selector: "freshThen:",
 protocol: 'actions',
 fn: function (aBlock){
 var self=this;
+function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuery)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._onBeforeFresh();
-$recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri(),"type","GET","cache",false,"complete",(function(res){
+$recv($recv($JQuery())._current())._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri(),"type","GET","cache",false,"complete",(function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -613,10 +616,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "freshThen: aBlock\x0a\x09\x22Re-read this mapless' state from the remote API.\x22\x0a\x0a\x09self onBeforeFresh.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'GET'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09\x09\x09\x09self onAfterFresh: res.\x0a\x09\x09\x09\x09\x09\x09aBlock value: self ]\x0a\x09}",
-referencedClasses: [],
+source: "freshThen: aBlock\x0a\x09\x22Re-read this mapless' state from the remote API.\x22\x0a\x0a\x09self onBeforeFresh.\x0a\x0a\x09JQuery current ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'GET'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09\x09\x09\x09self onAfterFresh: res.\x0a\x09\x09\x09\x09\x09\x09aBlock value: self ]\x0a\x09}",
+referencedClasses: ["JQuery"],
 //>>excludeEnd("ide");
-messageSends: ["onBeforeFresh", "ajax:", "uri", "onAfterFresh:", "value:"]
+messageSends: ["onBeforeFresh", "ajax:", "current", "uri", "onAfterFresh:", "value:"]
 }),
 $globals.Mapless);
 
@@ -1428,7 +1431,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "onBeforeCreate\x0a\x09",
+source: "onBeforeCreate",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -1613,12 +1616,13 @@ selector: "saveThen:onError:",
 protocol: 'actions',
 fn: function (aBlock,aFallbackBlock){
 var self=this;
+function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuery)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 self._onBeforeSave();
-$recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._path(),"type","PUT","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",self._asJSONString(),"complete",(function(res){
+$recv($recv($JQuery())._current())._ajax_($globals.HashedCollection._newFromPairs_(["url",self._path(),"type","PUT","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",self._asJSONString(),"complete",(function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1643,10 +1647,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "aFallbackBlock"],
-source: "saveThen: aBlock onError: aFallbackBlock\x0a\x09\x22Saves this mapless using the remote API, then evaluates aBlock.\x0a\x09If there is an error, evaluates aFallbackBlock.\x22\x0a\x0a\x09self onBeforeSave.\x0a\x09\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09res status = 200 \x0a\x09\x09\x09\x09ifTrue:[ \x0a\x09\x09\x09\x09\x09self onAfterSave: res.\x0a\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09\x09\x09\x09ifFalse:[ aFallbackBlock value: res ] ]\x0a\x09}",
-referencedClasses: [],
+source: "saveThen: aBlock onError: aFallbackBlock\x0a\x09\x22Saves this mapless using the remote API, then evaluates aBlock.\x0a\x09If there is an error, evaluates aFallbackBlock.\x22\x0a\x0a\x09self onBeforeSave.\x0a\x09\x0a\x09JQuery current ajax: #{ \x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09res status = 200 \x0a\x09\x09\x09\x09ifTrue:[ \x0a\x09\x09\x09\x09\x09self onAfterSave: res.\x0a\x09\x09\x09\x09\x09aBlock value: res ]\x0a\x09\x09\x09\x09ifFalse:[ aFallbackBlock value: res ] ]\x0a\x09}",
+referencedClasses: ["JQuery"],
 //>>excludeEnd("ide");
-messageSends: ["onBeforeSave", "ajax:", "path", "asJSONString", "ifTrue:ifFalse:", "=", "status", "onAfterSave:", "value:"]
+messageSends: ["onBeforeSave", "ajax:", "current", "path", "asJSONString", "ifTrue:ifFalse:", "=", "status", "onAfterSave:", "value:"]
 }),
 $globals.Mapless);
 
@@ -1825,11 +1829,12 @@ selector: "updateThen:",
 protocol: 'actions',
 fn: function (aBlock){
 var self=this;
+function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuery)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._onBeforeUpdate();
-$recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri(),"type","PUT","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",self._asJSONString(),"complete",(function(res){
+$recv($recv($JQuery())._current())._ajax_($globals.HashedCollection._newFromPairs_(["url",self._uri(),"type","PUT","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",self._asJSONString(),"complete",(function(res){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1846,10 +1851,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "updateThen: aBlock\x0a\x09\x22Updates this mapless using the remote API\x22\x0a\x0a\x09self onBeforeUpdate.\x0a\x0a\x09jQuery ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09self onAfterUpdate: res.\x0a\x09\x09\x09aBlock value: res ]\x0a\x09}",
-referencedClasses: [],
+source: "updateThen: aBlock\x0a\x09\x22Updates this mapless using the remote API\x22\x0a\x0a\x09self onBeforeUpdate.\x0a\x0a\x09JQuery current ajax: #{ \x0a\x09\x09'url' -> self uri.\x0a\x09\x09'type' -> 'PUT'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> self asJSONString.\x0a\x09\x09'complete' -> [ :res | \x0a\x09\x09\x09self onAfterUpdate: res.\x0a\x09\x09\x09aBlock value: res ]\x0a\x09}",
+referencedClasses: ["JQuery"],
 //>>excludeEnd("ide");
-messageSends: ["onBeforeUpdate", "ajax:", "uri", "asJSONString", "onAfterUpdate:", "value:"]
+messageSends: ["onBeforeUpdate", "ajax:", "current", "uri", "asJSONString", "onAfterUpdate:", "value:"]
 }),
 $globals.Mapless);
 
@@ -1973,11 +1978,12 @@ selector: "find:then:ifNone:onError:",
 protocol: 'actions',
 fn: function (someConditionsInJSON,aBlock,noneBlock,aFallbackBlock){
 var self=this;
+function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuery)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
-$recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",$recv(self._path()).__comma("/query"),"type","POST","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",$recv(someConditionsInJSON)._asJSONString(),"complete",(function(res){
+$recv($recv($JQuery())._current())._ajax_($globals.HashedCollection._newFromPairs_(["url",$recv(self._path()).__comma("/query"),"type","POST","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",$recv(someConditionsInJSON)._asJSONString(),"complete",(function(res){
 var found;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -2017,10 +2023,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["someConditionsInJSON", "aBlock", "noneBlock", "aFallbackBlock"],
-source: "find: someConditionsInJSON then: aBlock ifNone: noneBlock onError: aFallbackBlock\x0a\x09\x22Find one mapless in the remote API using someConditionsInJSON as filtering conditions.\x0a\x09And either evaluates aBlock using the result found or noneBlock if there are no matches\x22\x0a\x0a\x09jQuery ajax: #{\x0a\x09\x09'url' -> (self path,'/query').\x0a\x09\x09'type' -> 'POST'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> someConditionsInJSON asJSONString.\x0a\x09\x09'complete' -> [:res| |found| \x0a\x09\x09\x09\x09\x09\x09res status = 200\x0a\x09\x09\x09\x09\x09\x09\x09ifFalse: [ aFallbackBlock value: res ]\x0a\x09\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09found := self fromResponse: res.\x0a\x09\x09\x09\x09\x09\x09\x09\x09( found isNil or: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09found isEmpty ] )\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09ifTrue: [ noneBlock value ]\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09ifFalse: [ aBlock value: found ] ] ]\x0a\x09\x09}",
-referencedClasses: [],
+source: "find: someConditionsInJSON then: aBlock ifNone: noneBlock onError: aFallbackBlock\x0a\x09\x22Find one mapless in the remote API using someConditionsInJSON as filtering conditions.\x0a\x09And either evaluates aBlock using the result found or noneBlock if there are no matches\x22\x0a\x0a\x09JQuery current ajax: #{\x0a\x09\x09'url' -> (self path,'/query').\x0a\x09\x09'type' -> 'POST'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> someConditionsInJSON asJSONString.\x0a\x09\x09'complete' -> [:res| |found| \x0a\x09\x09\x09\x09\x09\x09res status = 200\x0a\x09\x09\x09\x09\x09\x09\x09ifFalse: [ aFallbackBlock value: res ]\x0a\x09\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09found := self fromResponse: res.\x0a\x09\x09\x09\x09\x09\x09\x09\x09( found isNil or: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09found isEmpty ] )\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09ifTrue: [ noneBlock value ]\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09ifFalse: [ aBlock value: found ] ] ]\x0a\x09\x09}",
+referencedClasses: ["JQuery"],
 //>>excludeEnd("ide");
-messageSends: ["ajax:", ",", "path", "asJSONString", "ifFalse:ifTrue:", "=", "status", "value:", "fromResponse:", "ifTrue:ifFalse:", "or:", "isNil", "isEmpty", "value"]
+messageSends: ["ajax:", "current", ",", "path", "asJSONString", "ifFalse:ifTrue:", "=", "status", "value:", "fromResponse:", "ifTrue:ifFalse:", "or:", "isNil", "isEmpty", "value"]
 }),
 $globals.Mapless.klass);
 
@@ -2080,11 +2086,12 @@ selector: "findAllThen:ifEmpty:onError:",
 protocol: 'actions',
 fn: function (aBlock,emptyBlock,aFallbackBlock){
 var self=this;
+function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuery)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
-$recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",self._path(),"type","GET","cache",false,"contentType","application/json; charset=utf-8","complete",(function(res){
+$recv($recv($JQuery())._current())._ajax_($globals.HashedCollection._newFromPairs_(["url",self._path(),"type","GET","cache",false,"contentType","application/json; charset=utf-8","complete",(function(res){
 var found;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -2124,10 +2131,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock", "emptyBlock", "aFallbackBlock"],
-source: "findAllThen: aBlock ifEmpty: emptyBlock onError: aFallbackBlock\x0a\x09\x22Find all mapless in the remote API using this mapless' path.\x0a\x09And either evaluates aBlock using the result found or emptyBlock if there are no matches\x22\x0a\x09\x0a\x09jQuery ajax: #{\x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'GET'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'complete' -> [:res| |found| \x0a\x09\x09\x09\x09\x09\x09res status = 200\x0a\x09\x09\x09\x09\x09\x09\x09ifFalse: [ aFallbackBlock value: res ]\x0a\x09\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09found := self fromResponse: res.\x0a\x09\x09\x09\x09\x09\x09\x09\x09( found isNil or: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09found isEmpty ] )\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09ifTrue: [ emptyBlock value ]\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09ifFalse: [ aBlock value: found ] ] ]\x0a\x09\x09}",
-referencedClasses: [],
+source: "findAllThen: aBlock ifEmpty: emptyBlock onError: aFallbackBlock\x0a\x09\x22Find all mapless in the remote API using this mapless' path.\x0a\x09And either evaluates aBlock using the result found or emptyBlock if there are no matches\x22\x0a\x09\x0a\x09JQuery current ajax: #{\x0a\x09\x09'url' -> self path.\x0a\x09\x09'type' -> 'GET'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'complete' -> [:res| |found| \x0a\x09\x09\x09\x09\x09\x09res status = 200\x0a\x09\x09\x09\x09\x09\x09\x09ifFalse: [ aFallbackBlock value: res ]\x0a\x09\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09found := self fromResponse: res.\x0a\x09\x09\x09\x09\x09\x09\x09\x09( found isNil or: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09found isEmpty ] )\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09ifTrue: [ emptyBlock value ]\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09ifFalse: [ aBlock value: found ] ] ]\x0a\x09\x09}",
+referencedClasses: ["JQuery"],
 //>>excludeEnd("ide");
-messageSends: ["ajax:", "path", "ifFalse:ifTrue:", "=", "status", "value:", "fromResponse:", "ifTrue:ifFalse:", "or:", "isNil", "isEmpty", "value"]
+messageSends: ["ajax:", "current", "path", "ifFalse:ifTrue:", "=", "status", "value:", "fromResponse:", "ifTrue:ifFalse:", "or:", "isNil", "isEmpty", "value"]
 }),
 $globals.Mapless.klass);
 
@@ -2261,11 +2268,12 @@ selector: "findOne:then:ifNone:onError:",
 protocol: 'actions',
 fn: function (someConditionsInJSON,aBlock,noneBlock,aFallbackBlock){
 var self=this;
+function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuery)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
-$recv(jQuery)._ajax_($globals.HashedCollection._newFromPairs_(["url",$recv(self._path()).__comma("/queryOne"),"type","POST","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",$recv(someConditionsInJSON)._asJSONString(),"complete",(function(res){
+$recv($recv($JQuery())._current())._ajax_($globals.HashedCollection._newFromPairs_(["url",$recv(self._path()).__comma("/queryOne"),"type","POST","cache",false,"contentType","application/json; charset=utf-8","dataType","json","data",$recv(someConditionsInJSON)._asJSONString(),"complete",(function(res){
 var found;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -2297,10 +2305,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["someConditionsInJSON", "aBlock", "noneBlock", "aFallbackBlock"],
-source: "findOne: someConditionsInJSON then: aBlock ifNone: noneBlock onError: aFallbackBlock\x0a\x09\x22Find one mapless in the remote API using someConditionsInJSON as filtering conditions.\x0a\x09And either evaluates aBlock using the result found or noneBlock if there are no matches\x22\x0a\x0a\x09jQuery ajax: #{\x0a\x09\x09'url' -> (self path,'/queryOne').\x0a\x09\x09'type' -> 'POST'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> someConditionsInJSON asJSONString.\x0a\x09\x09'complete' -> [ :res | |found| \x0a\x09\x09\x09\x09\x09\x09res status = 200\x0a\x09\x09\x09\x09\x09\x09\x09ifFalse: [ aFallbackBlock value: res ]\x0a\x09\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09found := self fromResponse: res.\x0a\x09\x09\x09\x09\x09\x09\x09\x09found isNil\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09ifTrue: [ noneBlock value ]\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09ifFalse: [ aBlock value: found ] ] ]\x0a\x09}",
-referencedClasses: [],
+source: "findOne: someConditionsInJSON then: aBlock ifNone: noneBlock onError: aFallbackBlock\x0a\x09\x22Find one mapless in the remote API using someConditionsInJSON as filtering conditions.\x0a\x09And either evaluates aBlock using the result found or noneBlock if there are no matches\x22\x0a\x0a\x09JQuery current ajax: #{\x0a\x09\x09'url' -> (self path,'/queryOne').\x0a\x09\x09'type' -> 'POST'.\x0a\x09\x09'cache' -> false.\x0a\x09\x09'contentType'-> 'application/json; charset=utf-8'.\x0a\x09\x09'dataType'-> 'json'.\x0a\x09\x09'data' -> someConditionsInJSON asJSONString.\x0a\x09\x09'complete' -> [ :res | |found| \x0a\x09\x09\x09\x09\x09\x09res status = 200\x0a\x09\x09\x09\x09\x09\x09\x09ifFalse: [ aFallbackBlock value: res ]\x0a\x09\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09found := self fromResponse: res.\x0a\x09\x09\x09\x09\x09\x09\x09\x09found isNil\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09ifTrue: [ noneBlock value ]\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09ifFalse: [ aBlock value: found ] ] ]\x0a\x09}",
+referencedClasses: ["JQuery"],
 //>>excludeEnd("ide");
-messageSends: ["ajax:", ",", "path", "asJSONString", "ifFalse:ifTrue:", "=", "status", "value:", "fromResponse:", "ifTrue:ifFalse:", "isNil", "value"]
+messageSends: ["ajax:", "current", ",", "path", "asJSONString", "ifFalse:ifTrue:", "=", "status", "value:", "fromResponse:", "ifTrue:ifFalse:", "isNil", "value"]
 }),
 $globals.Mapless.klass);
 

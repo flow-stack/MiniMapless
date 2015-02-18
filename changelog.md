@@ -1,3 +1,9 @@
+February 18, 2015 - Release 0.11.2
+===================================
+
+* Upgrades to Amber 0.14.10
+* Removes spurious code
+
 February 10, 2015 - Release 0.11.1
 ===================================
 

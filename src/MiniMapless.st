@@ -1,4 +1,5 @@
 Smalltalk createPackage: 'MiniMapless'!
+(Smalltalk packageAt: 'MiniMapless') imports: {}!
 Object subclass: #Mapless
 	instanceVariableNames: ''
 	package: 'MiniMapless'!
@@ -100,7 +101,7 @@ createThen: aBlock onError: aFallbackBlock
 
 	self onBeforeCreate.
 
-	jQuery ajax: #{
+	JQuery current ajax: #{
 		'url' -> self path.
 		'type' -> 'POST'.
 		'cache' -> false.
@@ -127,7 +128,7 @@ deleteThen: aBlock
 
 	self onBeforeDelete.
 
-	jQuery ajax: #{ 
+	JQuery current ajax: #{ 
 		'url' -> self uri.
 		'type' -> 'DELETE'.
 		'cache' -> false.
@@ -191,7 +192,7 @@ freshThen: aBlock
 
 	self onBeforeFresh.
 
-	jQuery ajax: #{ 
+	JQuery current ajax: #{ 
 		'url' -> self uri.
 		'type' -> 'GET'.
 		'cache' -> false.
@@ -261,7 +262,7 @@ saveThen: aBlock onError: aFallbackBlock
 
 	self onBeforeSave.
 	
-	jQuery ajax: #{ 
+	JQuery current ajax: #{ 
 		'url' -> self path.
 		'type' -> 'PUT'.
 		'cache' -> false.
@@ -328,7 +329,7 @@ updateThen: aBlock
 
 	self onBeforeUpdate.
 
-	jQuery ajax: #{ 
+	JQuery current ajax: #{ 
 		'url' -> self uri.
 		'type' -> 'PUT'.
 		'cache' -> false.
@@ -584,7 +585,7 @@ find: someConditionsInJSON then: aBlock ifNone: noneBlock onError: aFallbackBloc
 	"Find one mapless in the remote API using someConditionsInJSON as filtering conditions.
 	And either evaluates aBlock using the result found or noneBlock if there are no matches"
 
-	jQuery ajax: #{
+	JQuery current ajax: #{
 		'url' -> (self path,'/query').
 		'type' -> 'POST'.
 		'cache' -> false.
@@ -615,7 +616,7 @@ findAllThen: aBlock ifEmpty: emptyBlock onError: aFallbackBlock
 	"Find all mapless in the remote API using this mapless' path.
 	And either evaluates aBlock using the result found or emptyBlock if there are no matches"
 	
-	jQuery ajax: #{
+	JQuery current ajax: #{
 		'url' -> self path.
 		'type' -> 'GET'.
 		'cache' -> false.
@@ -666,7 +667,7 @@ findOne: someConditionsInJSON then: aBlock ifNone: noneBlock onError: aFallbackB
 	"Find one mapless in the remote API using someConditionsInJSON as filtering conditions.
 	And either evaluates aBlock using the result found or noneBlock if there are no matches"
 
-	jQuery ajax: #{
+	JQuery current ajax: #{
 		'url' -> (self path,'/queryOne').
 		'type' -> 'POST'.
 		'cache' -> false.

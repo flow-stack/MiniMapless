@@ -206,46 +206,12 @@ testSaveComposedOne
 	createdOne asJSONString.
 
 	loadedOne := Mapless localFindCid: createdOne cid.
-	console log:  loadedOne.
+
 	loadedPart := Mapless localFindCid: composedOne cid.
 	
 	self assert: loadedOne remember = 'something'.
 	self assert: loadedOne hasOneOf = loadedPart.
 	self assert: loadedOne hasOneOf class = loadedPart class.
-
-	console log: loadedOne hasOneOf.
-	console log: loadedPart cid.
-	
-	self assert: loadedOne hasOneOf cid = loadedPart cid.
-!
-
-testSaveComposedOneKK
-
-	| createdOne composedOne loadedOne loadedPart |
-	
-	createdOne := Thing new.
-	composedOne := Stuff new.
-	
-	createdOne remember: 'something'.
-	
-	self deny: (window localStorage getItem: createdOne cid) notNil.
-	
-	composedOne localSave.
-	createdOne 
-		hasOneOf: composedOne;
-		localSave.
-
-	self assert: (window localStorage getItem: createdOne cid) notNil.
-	loadedOne := Mapless localFindCid: createdOne cid.
-	console log:  loadedOne.
-	loadedPart := Mapless localFindCid: composedOne cid.
-	
-	self assert: loadedOne remember = 'something'.
-	self assert: loadedOne hasOneOf = loadedPart.
-	self assert: loadedOne hasOneOf class = loadedPart class.
-
-	console log: loadedOne hasOneOf.
-	console log: loadedPart cid.
 	
 	self assert: loadedOne hasOneOf cid = loadedPart cid.
 ! !
